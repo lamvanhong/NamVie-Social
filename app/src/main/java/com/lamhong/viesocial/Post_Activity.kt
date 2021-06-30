@@ -142,6 +142,16 @@ class Post_Activity : AppCompatActivity() {
             image_content.setImageURI(imageUir)
         }
     }
+    fun onActivityResult1(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode ==CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE
+            && resultCode==Activity.RESULT_OK && data!=null){
+            val result = CropImage.getActivityResult(data)
+            imageUir=result.uri
+            image_content.setImageURI(imageUir)
+        }
+    }
     private fun uploadImage(){
 
         when{
