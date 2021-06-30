@@ -6,19 +6,27 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.lamhong.viesocial.Fragment.zHome
+import com.lamhong.viesocial.Models.Comment
+import com.lamhong.viesocial.Models.User
+import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_account_setting.*
+import kotlinx.android.synthetic.main.activity_comment.*
 import kotlinx.android.synthetic.main.activity_post_.*
 
 class Post_Activity : AppCompatActivity() {
@@ -43,7 +51,87 @@ class Post_Activity : AppCompatActivity() {
 
 
     }
-
+//    private fun viewComment(){
+//        val commentRef= FirebaseDatabase.getInstance().reference
+//            .child("Comments").child(postID)
+//        commentRef.addValueEventListener(object: ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if(snapshot.exists()){
+//                    commentList!!.clear()
+//                    for(snap in snapshot.children){
+//                        val comment : Comment = snap.getValue(Comment::class.java)!!
+//                        comment.setOwner(snap.child("ownerComment").value.toString())
+//                        commentList!!.add(comment)
+//                    }
+//                    commentAdapter!!.notifyDataSetChanged()
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//            }
+//        })
+//    }
+//    private fun addComment(){
+//        val commentRef= FirebaseDatabase.getInstance().reference
+//            .child("Comments").child(postID)
+//        val commentMap =HashMap<String, Any>()
+//        commentMap["content"]=edit_add_comment.text.toString()
+//        commentMap["ownerComment"]=firebaseUser!!.uid
+//        commentRef.push().setValue(commentMap)
+//
+//        edit_add_comment.text.clear()
+//    }
+//    private fun userInfor(){
+//        val userRef=FirebaseDatabase.getInstance().reference
+//            .child("UserInformation").child(firebaseUser!!.uid)
+//        userRef.addValueEventListener(object: ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if(snapshot.exists()){
+//                    val user = snapshot.getValue(User::class.java)
+//                    //Picasso.get().load(user!!.getAvatar()).into(image_post_incomment)
+//                    Picasso.get().load(user!!.getAvatar()).into(image_avatar_incomment)
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//            }
+//        })
+//    }
+//    private fun imageandOwnerInfor(){
+//        val userref= FirebaseDatabase.getInstance().reference
+//            .child("UserInformation").child(publisher)
+//        userref.addValueEventListener(object: ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if(snapshot.exists()){
+//                    val fname= snapshot.child("fullname").value.toString()
+//                    tv_comment_appbar.text= "Bài viết của "+ fname
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//            }
+//        })
+//
+//    }
+//    private fun getImage(){
+//        val postRef= FirebaseDatabase.getInstance().reference.child("Posts")
+//            .child(postID).child("post_image")
+//
+//        postRef.addValueEventListener(object: ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if(snapshot.exists()){
+//                    val imageContent= snapshot.value.toString()
+//                    Picasso.get().load(imageContent).into(image_post_incomment)
+//                }
+//                else {
+//                    Log.d("hong","nothing")
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//            }
+//        })
+//    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
