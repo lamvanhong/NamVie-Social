@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "654490419994",
+    "project_id": "viesocial-19c6f",
+    "storage_bucket": "viesocial-19c6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654490419994:android:24034e8a42f714965162a3",
+        "android_client_info": {
+          "package_name": "com.lamhong.viesocial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "654490419994-f64si6vv91bv79vc4kb05b9p40s6vism.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA765bo8OzmEasjnhlf6pdZ6Ijq2lY6h8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "654490419994-f64si6vv91bv79vc4kb05b9p40s6vism.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

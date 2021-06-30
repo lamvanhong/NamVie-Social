@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:layout_margin="10dp"
+    android:elevation="1dp"
+    android:layout_height="wrap_content">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:padding="4dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/cty"
+        android:id="@+id/image_avatar_eachComment"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_username_item"
+            android:text="lam hong"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="troi nhieu may cuc"
+            android:textSize="17dp"
+            android:id="@+id/tv_content_item"
+            />
+
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>

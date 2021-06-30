@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/container_above"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_centerVertical="true"
+            android:layout_margin="15dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/duongtu1"
+            android:id="@+id/image_avatar"
+            />
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/container_name"
+            android:layout_toRightOf="@+id/image_avatar"
+
+            android:layout_marginLeft="10dp">
+            <TextView
+
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dương tử"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_shortInfor_user"
+                android:layout_below="@+id/tv_name"
+                android:text="Sống tại Bắc Kinh, Trung Quốc"
+                android:textSize="13sp"
+
+                />
+        </RelativeLayout>
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:layout_width="wrap_content"
+            android:id="@+id/btn_addFriend"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_addfriend"
+            android:text="Thêm bạn bè"
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            android:layout_toRightOf="@+id/container_name"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"/>
+
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#1B000000"
+        android:layout_below="@+id/container_above"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
+        />
+
+
+</RelativeLayout>

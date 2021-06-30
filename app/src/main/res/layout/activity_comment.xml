@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CommentActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appbar_layout_comment"
+        >
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar_comment"
+            android:background="@color/white"
+            android:minHeight="60dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nội dung của Lam Hong"
+                android:id="@+id/tv_comment_appbar"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:id="@+id/image_post_incomment"
+        android:layout_below="@+id/appbar_layout_comment"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cty"
+        android:layout_marginTop="10dp"
+        android:layout_margin="5dp"
+
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycleview_comment"
+        android:layout_below="@+id/image_post_incomment"
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="5dp"
+
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/cty"
+            android:id="@+id/image_avatar_incomment"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_add_comment"
+            android:layout_toRightOf="@+id/image_avatar_incomment"
+            android:layout_marginLeft="20dp"
+            android:hint="Nhập bình luận ..."
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/btn_dangBinhLuan"
+            android:layout_marginTop="10dp"/>
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:text="Đăng"
+            android:id="@+id/btn_dangBinhLuan"
+            />
+
+
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

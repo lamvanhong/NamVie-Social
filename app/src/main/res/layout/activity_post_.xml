@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Post_Activity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appbar_layout_post">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+
+            android:background="@color/white"
+            app:titleMarginStart="150dp"
+            android:layout_height="wrap_content"
+
+            >
+
+            <RelativeLayout
+                android:layout_marginStart="60dp"
+                android:layout_width="230dp"
+                android:background="@drawable/button_taobaiviet"
+                android:layout_height="80dp">
+                <TextView
+                    android:textColor="@color/main1color"
+                    android:textStyle="bold"
+                    android:paddingStart="45dp"
+                    android:layout_width="300dp"
+                    android:layout_height="100dp"
+                    android:text="Tạo bài viết"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="40dp"
+                    android:textSize="25sp"/>
+
+            </RelativeLayout>
+            <Button
+                android:id="@+id/btn_publish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đăng"
+                android:textSize="20sp"/>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/appbar_layout_post"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <ImageView
+            android:id="@+id/image_content"
+            android:layout_width="350dp"
+            android:layout_height="250dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/duongtu1"
+            />
+        <EditText
+            android:id="@+id/edit_content"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/image_content"
+            android:layout_centerHorizontal="true"
+            android:maxLines="10"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
