@@ -21,17 +21,15 @@
                 android:layout_height="wrap_content"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/homebtn"
+                    android:id="@+id/btn_returnHome"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/return_btn"
                     android:layout_alignParentLeft="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="7dp"
                     />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/homebtn"
-                    android:layout_alignParentRight="true"
-                    />
+
                 <EditText
                     android:id="@+id/edittext_search"
                     android:layout_width="match_parent"

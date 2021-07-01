@@ -20,7 +20,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, SignupActivity::class.java))
         }
     }
-    // not remain ding
     fun ImplementLogin(){
         val email = txt_input_email.text.toString()
         val password = txt_input_password.text.toString()

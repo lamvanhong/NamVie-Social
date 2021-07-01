@@ -54,12 +54,14 @@ class UserAdapter(private var _context : Context,private var _user :List<User>,p
 
         holder.btn_add.setOnClickListener {
             if(holder.btn_add.text.toString()=="Thêm bạn bè"){
+
                 fireabaseUser?.uid.let { it1 ->
                     FirebaseDatabase.getInstance().reference
                             .child("Friends").child(it1.toString())
                             .child("friendList").child(user.getUid())
                             .setValue(true).addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
+                                    setNotify(user.getUid())
                                     fireabaseUser?.uid.let { it1 ->
                                         FirebaseDatabase.getInstance().reference
                                                 .child("Friends").child(user.getUid())
@@ -97,7 +99,17 @@ class UserAdapter(private var _context : Context,private var _user :List<User>,p
             }
         }
     }
+    private fun setNotify(userNotifyID : String){
+        val notiRef= FirebaseDatabase.getInstance().reference
+            .child("Notify").child(userNotifyID)
+        val notiMap= HashMap<String, String>()
+        notiMap["userID"]=fireabaseUser!!.uid
+        notiMap["notify"]="Đã gửi lời mời kết bạn"
+        notiMap["postID"]="none"
+        notiMap["type"]="loimoiketban"
 
+        notiRef.push().setValue(notiMap)
+    }
     private fun checkFriendStatus(uid: String, btnAdd: CircularProgressButton) {
         val friendref= fireabaseUser?.uid.let{it->
             FirebaseDatabase.getInstance().reference

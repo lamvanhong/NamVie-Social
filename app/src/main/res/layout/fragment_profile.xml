@@ -51,6 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appbar_layout_profile"
+        android:fillViewport="true"
         android:id="@+id/scrollView"
         >
         <RelativeLayout
@@ -78,7 +79,7 @@
                             android:layout_height="190dp"
                             android:background="@color/white"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/duongtu" />
+                            android:src="@drawable/cty" />
                     </androidx.cardview.widget.CardView>
                     <ImageButton
                         android:id="@+id/btnSetting"
@@ -109,7 +110,7 @@
                 android:id="@+id/avatar"
                 android:layout_width="180dp"
                 android:layout_height="180dp"
-                android:src="@drawable/duongtu1"
+                android:src="@drawable/cty"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="130dp"
 
@@ -264,12 +265,100 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/recycleview_picture_bio"
+                        android:nestedScrollingEnabled="false"
                         android:padding="10dp"
                         />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/below_container"
+                android:id="@+id/container_dadang">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_DaDang"
+                    android:text="Đã Đăng"
+                    android:textStyle="bold"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="sans-serif-medium"
+                    />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/tv_DaDang"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_tatca"
+                        android:textStyle="bold"
+                        android:text="Tất cả"
+                        android:textSize="13dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="sans-serif-medium"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_anhvideo"
+                        android:layout_toRightOf="@+id/tv_tatca"
+                        android:text="ảnh/video"
+                        android:textSize="13dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="sans-serif-medium"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_chiase"
+                        android:layout_toRightOf="@+id/tv_anhvideo"
+                        android:text="chia sẻ"
+                        android:textSize="13dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="sans-serif-medium"
+                        />
+
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
+
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recycleview_post_publish"
+                android:layout_below="@+id/container_dadang"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
+
+                />
+
+            <ImageView
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cty"
+                android:layout_below="@+id/recycleview_post_publish"
+                />
 
         </RelativeLayout>
 

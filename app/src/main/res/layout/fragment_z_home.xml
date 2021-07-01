@@ -20,22 +20,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/homebtn"
-                    android:layout_alignParentLeft="true"
-                    />
+
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="lamvanhong"
-                   android:layout_centerHorizontal="true"
+                   android:text="My Social"
+                   android:layout_alignParentLeft="true"
                    android:layout_marginTop="5dp"
                    android:textStyle="bold"
-                   android:textSize="20dp"
+                   android:textSize="25dp"
+                   android:textColor="#2FBBF0"
                    />
-
+                <ImageView
+                    android:id="@+id/searchbtn"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/search_icon"
+                    android:layout_alignParentRight="true"
+                    />
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
