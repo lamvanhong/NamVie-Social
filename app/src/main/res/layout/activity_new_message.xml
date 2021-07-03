@@ -4,45 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.MessageFragment">
+    tools:context=".NewMessageActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/appbar_layout_message"
-        android:layout_marginBottom="5dp"
-        >
+        android:id="@+id/appbar_layout_new_message"
+        android:layout_marginBottom="5dp">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_message"
             android:layout_width="match_parent"
             android:layout_height="55dp"
+            android:id="@+id/toolbar_new_message"
             android:background="@color/white">
 
-            <RelativeLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp">
+                android:id="@+id/message_new_user"
+                android:text="Tin nhắn mới"
+                android:layout_alignParentLeft="true"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="Tin nhắn"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
 
-            </RelativeLayout>
+
         </androidx.appcompat.widget.Toolbar>
-
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_message_users"
+        android:id="@+id/rv_search_new_user"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/appbar_layout_message"/>
-
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/appbar_layout_new_message"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 </RelativeLayout>

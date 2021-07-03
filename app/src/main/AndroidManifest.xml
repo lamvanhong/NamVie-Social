@@ -13,9 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBook">
-        <activity android:name="com.lamhong.viesocial.ChangeAvatarActivity"></activity>
-        <activity android:name="com.lamhong.viesocial.ProfileEditting" />
-        <activity android:name="com.lamhong.viesocial.FriendListActivity" />
+        <activity android:name="com.lamhong.viesocial.ChatLogActivity"/>
+        <activity android:name="com.lamhong.viesocial.NewMessageActivity" />
         <activity android:name="com.lamhong.viesocial.SharePostActivity" />
         <activity android:name="com.lamhong.viesocial.UserReacted" />
         <activity android:name="com.lamhong.viesocial.CommentActivity" />
@@ -44,6 +43,10 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

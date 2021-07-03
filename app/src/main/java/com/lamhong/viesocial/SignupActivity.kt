@@ -81,6 +81,10 @@ class SignupActivity : AppCompatActivity() {
             task->
 
             if (task.isSuccessful){
+                FirebaseDatabase.getInstance().reference
+                    .child("Friends").child(currentUserID)
+                    .child("friendList").child(currentUserID).setValue(true)
+
                 processDialog.dismiss()
                 Toast.makeText(this, "Đã tạo tài khoản thành công." , Toast.LENGTH_LONG).show()
                 val intent= Intent(this@SignupActivity, MainActivity::class.java)

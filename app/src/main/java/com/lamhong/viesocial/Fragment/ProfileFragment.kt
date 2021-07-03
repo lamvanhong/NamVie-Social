@@ -20,12 +20,9 @@ import com.google.firebase.database.ValueEventListener
 import com.lamhong.viesocial.AccountSettingActivity
 import com.lamhong.viesocial.Adapter.ImageProfileAdapter
 import com.lamhong.viesocial.Adapter.PostAdapter
-import com.lamhong.viesocial.FriendListActivity
 import com.lamhong.viesocial.Models.Post
 import com.lamhong.viesocial.Models.SharePost
-import com.lamhong.viesocial.Models.TimelineContent
 import com.lamhong.viesocial.Models.User
-import com.lamhong.viesocial.ProfileEditting
 import com.lamhong.viesocial.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -48,8 +45,6 @@ class ProfileFragment : Fragment() {
     private lateinit var profileId : String
     private lateinit var firebaseUser : FirebaseUser
 
-    private var checkOwner : Boolean =true
-    private var statusFriend: String =""
     private var postList : List<Post> ?=null
     private var ImageAdapter: ImageProfileAdapter ?=null
 
@@ -59,8 +54,6 @@ class ProfileFragment : Fragment() {
     private var shareList: MutableList<SharePost> = ArrayList()
     private var lstTypeAdapter : List<Int> = ArrayList()
     private var lstIndex : List<Int> = ArrayList()
-
-
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -83,70 +76,50 @@ class ProfileFragment : Fragment() {
 
         //get friendlist
         firebaseUser =FirebaseAuth.getInstance().currentUser
-
         val pref = context?.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
         if(pref != null){
             this.profileId= pref.getString("profileId", "none").toString()
 
         }
         if(profileId==firebaseUser.uid){
-            //view.txtSetting.text="Edit profile"
-            checkOwner=true
-            view.friendContainer.visibility=View.GONE
+            view.txtSetting.text="Edit profile"
         }
         else {
-            checkOwner=false
-            view.profileEdit_container.visibility=View.GONE
             checkFriends()   //check if my wall || friend or not
         }
 
 
-        view.btn_setting.setOnClickListener {
-            startActivity(Intent(context, AccountSettingActivity::class.java))
-        }
-        view.btn_chinhsua.setOnClickListener{
-            startActivity(Intent(context, ProfileEditting::class.java))
-        }
-        view.btnAddfriend.setOnClickListener{
-            when(statusFriend){
-                "friend"->{
-                    firebaseUser?.uid.let{it->
-                        FirebaseDatabase.getInstance().reference
-                            .child("Friends").child(it.toString())
-                            .child("friendList").child(profileId)
-                            .removeValue()
-                    }
-                    FirebaseDatabase.getInstance().reference
-                        .child("Friends").child(profileId)
-                        .child("friendList").child(firebaseUser.uid)
-                        .removeValue()
-                }
-                "nofriend"->{
+        view.btnSetting.setOnClickListener {
+            val tempText= view.txtSetting.text.toString()
+            when (tempText){
+                "Edit profile"-> startActivity(Intent(context, AccountSettingActivity::class.java))
+                "Add friend" ->{
                     firebaseUser?.uid.let{it1->
                         FirebaseDatabase.getInstance().reference
-                            .child("Friends").child(it1.toString())
-                            .child("friendList").child(profileId)
-                            .setValue("pendinginvite")
+                                .child("Friends").child(it1.toString())
+                                .child("friendList").child(profileId)
+                                .setValue(true)
+                    }
+                        FirebaseDatabase.getInstance().reference
+                                .child("Friends").child(profileId)
+                                .child("friendList").child(firebaseUser.uid)
+                                .setValue(true)
+                }
+                "Friend" ->{
+                    firebaseUser?.uid.let{it->
+                        FirebaseDatabase.getInstance().reference
+                                .child("Friends").child(it.toString())
+                                .child("friendList").child(profileId)
+                                .removeValue()
                     }
                     FirebaseDatabase.getInstance().reference
-                        .child("Friends").child(profileId)
-                        .child("friendList").child(firebaseUser.uid)
-                        .setValue("pendingconfirm")
+                            .child("Friends").child(profileId)
+                            .child("friendList").child(firebaseUser.uid)
+                            .removeValue()
                 }
             }
-
-
-        }
-        view.btn_friendList.setOnClickListener{
-            val friendListIntent= Intent(context, FriendListActivity::class.java)
-            friendListIntent.putExtra("userID", profileId)
-            context?.startActivity(friendListIntent)
-
         }
 
-
-
-       // ShowImagePost()
         var recycleView : RecyclerView
         recycleView = view.findViewById(R.id.recycleview_picture_bio)
         val linearLayoutManager: LinearLayoutManager= GridLayoutManager(context, 2)
@@ -154,12 +127,10 @@ class ProfileFragment : Fragment() {
         var recycleview1 : RecyclerView
         recycleview1= view.findViewById(R.id.recycleview_post_publish)
         val linearLayoutManager1 = LinearLayoutManager(context)
-        linearLayoutManager1.stackFromEnd=true
-        linearLayoutManager1.reverseLayout=true
         recycleview1.layoutManager= linearLayoutManager1
 
 
-        ShowImagePost1()
+
       //  recycleView.suppressLayout(false)
        // recycleview1.suppressLayout(false)
         recycleView.setHasFixedSize(true)
@@ -178,54 +149,11 @@ class ProfileFragment : Fragment() {
 
 
         txtSetting
-
+        showImagePost()
         getFriends()
         getPicture()
         getInfor()
         return view;
-
-    }
-    private fun ShowImagePost1(){
-        val postRef= FirebaseDatabase.getInstance().reference.child("Contents")
-        postRef.addValueEventListener(object:  ValueEventListener{
-            override fun onCancelled(error: DatabaseError) {
-            }
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()) {
-                    shareList!!.clear()
-                    (imagePostList as ArrayList<Post>).clear()
-                    (lstIndex as ArrayList).clear()
-                    (lstTypeAdapter as ArrayList).clear()
-                    var ind1 = 0
-                    var ind2 = 0
-                    for (s in snapshot.child("ProfileTimeLine")
-                        .child(firebaseUser.uid).children) {
-                        val tl = s.getValue(TimelineContent::class.java)
-                        tl!!.setPostType(s.child("post_type").value.toString())
-                        if (tl!!.getPostType() == "sharepost") {
-
-                            var sharePost = snapshot.child("Share Posts").child(tl.getId()).getValue<SharePost>(SharePost::class.java)
-                            shareList!!.add(sharePost!!)
-                            (lstTypeAdapter as ArrayList).add(1)
-                            (lstIndex as ArrayList).add(ind1)
-                            ind1 += 1
-                        } else if (tl!!.getPostType() == "post") {
-
-
-                            val post = snapshot.child("Posts").child(tl.getId()).getValue(Post::class.java)
-                            (imagePostList as ArrayList<Post>).add(post!!)
-                            (lstTypeAdapter as ArrayList).add(0)
-                            (lstIndex as ArrayList).add(ind2)
-                            ind2 += 1
-                        }
-                        //  getPostAndShare()
-
-                        postAdapter!!.notifyDataSetChanged()
-                    }
-                }
-
-            }
-        })
 
     }
     private fun showImagePost() {
@@ -265,7 +193,7 @@ class ProfileFragment : Fragment() {
                     for (s in snapshot.children){
                         val post= s.getValue(Post::class.java)
                         post!!.setpost_id(s.child("post_id").value.toString())
-                        if((postList as ArrayList<Post>).size<4)
+                       // if((postList as ArrayList<Post>).size<4)
                         (postList as ArrayList<Post>).add(post!!)
 
                         //Collections.reverse(postList)
@@ -310,12 +238,10 @@ class ProfileFragment : Fragment() {
             friendref.addValueEventListener(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if(snapshot.child(profileId).exists()){
-                        view!!.btnAddfriend.text="Bạn bè"
-                        statusFriend="friend"
+                        view?.txtSetting?.text="Friend"
                     }
                     else{
-                        view!!.btnAddfriend.text="Kết bạn"
-                        statusFriend="nofriend"
+                        view?.txtSetting?.text="Add friend"
                     }
                 }
 

@@ -1,11 +1,21 @@
 package com.lamhong.viesocial.Fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.lamhong.viesocial.Adapter.MessageUsersAdapter
+import com.lamhong.viesocial.Models.User
+import com.lamhong.viesocial.NewMessageActivity
 import com.lamhong.viesocial.R
+import kotlinx.android.synthetic.main.fragment_message.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,14 +38,62 @@ class MessageFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_message, container, false)
+       val view = inflater.inflate(R.layout.fragment_message, container,false)
+        val mToolbar : Toolbar = view.findViewById<Toolbar>(R.id.toolbar_message)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(mToolbar)
+
+        val users = ArrayList<User>()
+
+        val adapter = MessageUsersAdapter(users)
+
+        view.rv_message_users.layoutManager = LinearLayoutManager(activity)
+
+        view.rv_message_users.adapter = adapter
+
+        FirebaseDatabase.getInstance().reference.child("/UserInformation").addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                users.clear()
+                for (ss in snapshot.children) {
+                    val user = ss.getValue(User::class.java)
+                    user!!.setName(ss.child("fullname").value.toString())
+                    if (user != null) {
+                        users.add(user)
+                    }
+                }
+                adapter.notifyDataSetChanged()
+            }
+        })
+
+
+        return view
+    }
+
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item?.itemId) {
+            R.id.new_message -> startActivity(Intent(context, NewMessageActivity::class.java))
+            R.id.search_message -> {
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_menu_message, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     companion object {

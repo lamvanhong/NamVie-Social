@@ -23,7 +23,7 @@ class User {
     fun getName(): String{
         return fullname
     }
-    fun setName(fullname:String){
+    fun setName(fullname : String){
         this.fullname=fullname
     }
     fun getEmail(): String{
