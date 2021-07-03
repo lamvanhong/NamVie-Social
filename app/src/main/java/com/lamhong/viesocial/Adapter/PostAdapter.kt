@@ -30,6 +30,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
     private var firebaseUser : FirebaseUser?=null
 
+
     inner class ViewHolder0(@NonNull itemVIew: View): RecyclerView.ViewHolder(itemVIew){
 
         var postImage :ImageView
@@ -52,7 +53,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
         }
     }
     inner class ViewHolder1(@NonNull itemVIew: View) : RecyclerView.ViewHolder(itemVIew){
-        var postImage: ImageView
+        var postImage: CircleImageView
         var avatar_sharing : CircleImageView
         var avatar_shared: CircleImageView
         var name_sharing : TextView
@@ -61,8 +62,6 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
         var content_shared: TextView
         var numlike: TextView
         var numComment: TextView
-        var tvthich: TextView
-
 
         var btnLike : CircularProgressButton
         var btnComment: CircularProgressButton
@@ -81,7 +80,6 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
             btnLike=itemView.findViewById(R.id.btn_yeuthich)
             btnComment=itemView.findViewById(R.id.btn_binhluan)
             btnShare=itemView.findViewById(R.id.btn_share)
-            tvthich= itemView.findViewById(R.id.tv_thich)
         }
     }
 
@@ -109,7 +107,6 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
     override fun onBindViewHolder(holderc: RecyclerView.ViewHolder, position: Int) {
         firebaseUser= FirebaseAuth.getInstance().currentUser
-        //getPostAndShare()
         when(holderc.getItemViewType()){
             0->{
                 val holder1 : ViewHolder0 = holderc as ViewHolder0
@@ -137,7 +134,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                 }
                 holder1.btnLike.setOnClickListener{
                     if(holder1.btnLike.tag=="Like"){
-                        addNotifyLike(post.getpublisher(), post.getpost_id() , "thichbaiviet")
+                        addNotifyLike(post.getpublisher(), post.getpost_id())
                         FirebaseDatabase.getInstance().reference
                             .child("Likes")
                             .child(post.getpost_id())
@@ -176,118 +173,50 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                 holder1.content_sharing.text=sharePost.getContent()
                 publishInfo(holder1.avatar_sharing, holder1.name_sharing,sharePost.getPublisher())
 
-                getPost(sharePost.getPostID(), holder1.postImage, holder1.avatar_shared,
-                    holder1.content_shared, holder1.name_shared)
-
-
-
-                // like share
-                checkLikes(sharePost.getShareID(), holder1.btnLike , holder1.tvthich)
-                setnumberLike(holder1.numlike, sharePost.getShareID())
-                setComment(holder1.numComment, sharePost.getShareID())
-                holder1.numlike.setOnClickListener{
-                    val intent = Intent(mcontext, UserReacted::class.java)
-                    intent.putExtra("postID", sharePost.getShareID())
-                    mcontext.startActivity(intent)
+                val postShared= getPost(sharePost.getPostID())
+                Picasso.get().load(postShared.getpost_image()).into(holder1.postImage)
+                publishInfo(holder1.avatar_shared, holder1.name_shared,  postShared.getpublisher())
+                //describe import
+                if(postShared.getpostContent().equals("")){
+                    holder1.content_shared.visibility=View.GONE
+                }else{
+                    holder1.content_shared.visibility=View.VISIBLE
+                    holder1.content_shared.text=postShared.getpostContent()
                 }
-
-                holder1.btnLike.setOnClickListener{
-                    if(holder1.btnLike.tag=="Like"){
-                        addNotifyLike(sharePost.getPublisher(), sharePost.getShareID() , "thichbaishare")
-                        FirebaseDatabase.getInstance().reference
-                            .child("Likes")
-                            .child(sharePost.getShareID())
-                            .child(firebaseUser!!.uid)
-                            .setValue(true)
-                    }else
-                    {
-                        FirebaseDatabase.getInstance().reference
-                            .child("Likes")
-                            .child(sharePost.getShareID())
-                            .child(firebaseUser!!.uid)
-                            .removeValue()
-
-                        //  val intent=Intent(mcontext,zHome::class.java)
-                        // mcontext.startActivity(intent)
-
-                    }
-                }
-                holder1.btnShare.setOnClickListener{
-                    val shareIntent = Intent(mcontext, SharePostActivity::class.java)
-                    shareIntent.putExtra("postID", sharePost.getPostID())
-                    mcontext.startActivity(shareIntent)
-                }
-
 
 
             }
         }
 
     }
-    private fun getPost(id: String, postImage: ImageView, avatar_shared: CircleImageView,
-            content_shared: TextView , name_shared : TextView){
-        val postRef= FirebaseDatabase.getInstance().reference.child("Contents").child("Posts").child(id)
-        var post: Post ?=null
-        postRef.addValueEventListener(object: ValueEventListener {
+    private fun getPost(id: String): Post{
+        val postRef= FirebaseDatabase.getInstance().reference.child("Posts").child(id)
+        var post : Post?=null
+        postRef.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(ss: DataSnapshot) {
-                if (ss.exists()) {
-                    post = ss.getValue(Post::class.java) as Post
+                if(ss.exists()){
+                    val post = ss.getValue(Post::class.java)
                     post!!.setpost_image(ss.child("post_image").value.toString())
                     post!!.setpostContent(ss.child("post_content").value.toString())
-                    post!!.setpost_id(ss.child("post_id").value.toString())
-
-                    Picasso.get().load(post!!.getpost_image()).into(postImage)
-                    publishInfo(avatar_shared, name_shared,  post!!.getpublisher())
-                    //describe import
-                    if(post!!.getpostContent().equals("")){
-                        content_shared.visibility=View.GONE
-                    }else{
-                        content_shared.visibility=View.VISIBLE
-                        content_shared.text=post!!.getpostContent()
-                    }
+                    post.setpost_id(ss.child("post_id").value.toString())
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
             }
         })
-
-
+        return post as Post
     }
-    private fun getPostAndShare(){
-//        for(p in postListID){
-//            (mPost as ArrayList).add(getPost(p))
-//        }
-//        for (s in shareListID){
-//            (mShare as ArrayList).add(getPostShared(s))
-//
-//        }
 
-    }
-    private fun getPostShared(id: String): SharePost{
-        val shareRef= FirebaseDatabase.getInstance().reference.child("Share Posts").child(id)
-        var sharePost: SharePost?=null
-        shareRef.addValueEventListener(object: ValueEventListener{
-            override fun onCancelled(error: DatabaseError) {
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    sharePost = snapshot.getValue<SharePost>(SharePost::class.java)
-                }
-            }
-        })
-        return sharePost as SharePost
-    }
     private fun setnumberLike(numlikes: TextView, getpostId: String) {
         val likeRef= FirebaseDatabase.getInstance().reference
             .child("Likes").child(getpostId)
         likeRef.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()) {
-                    numlikes.text = snapshot.childrenCount.toString()
+                    numlikes.text = snapshot.childrenCount.toString() + " Yêu thích"
                 }else{
-                    numlikes.text="0"
+                    numlikes.text="0 Yêu Thích"
                 }
             }
 
@@ -296,7 +225,6 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
             }
         })
     }
-
     private fun setComment(numcomment: TextView, postId: String){
         val commentRef= FirebaseDatabase.getInstance().reference
             .child("Comments").child(postId)
@@ -305,9 +233,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                 if(snapshot.exists()){
                     numcomment.text="(" + snapshot.childrenCount.toString() + ")"
                 }
-                else {
-                    numcomment.text="(" + 0.toString() + ")"
-                }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -350,21 +276,15 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
         return mLstType.size
     }
 
-    private fun addNotifyLike(publisherID: String, postId: String, type : String){
+    private fun addNotifyLike(publisherID: String, postId: String){
         val notiRef= FirebaseDatabase.getInstance().reference
             .child("Notify").child(publisherID)
         val notiMap = HashMap<String, Any>()
         notiMap["userID"]=firebaseUser!!.uid
-        val idpush : String = notiRef.push().key.toString()
-        if (type=="thichbaiviet"){
-           notiMap["notify"]="đã thích bài viết của bạn"
-        } else if (type=="thichbaishare"){
-            notiMap["notify"] ="đã thích bài chia sẻ của bạn"
-        }
+        notiMap["notify"]="đã thích bài viết của bạn"
         notiMap["postID"]=postId
-        notiMap["type"]=type
-        notiMap["notifyID"]=idpush
-        notiRef.child(idpush).setValue(notiMap)
+        notiMap["type"]="thichbaiviet"
+        notiRef.push().setValue(notiMap)
     }
     private fun publishInfo(profileImage: CircleImageView, userName: TextView,   publiser: String) {
         val userRef= FirebaseDatabase.getInstance().reference.child("UserInformation").child(publiser)

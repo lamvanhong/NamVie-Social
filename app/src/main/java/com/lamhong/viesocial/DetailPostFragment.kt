@@ -36,10 +36,6 @@ class DetailPostFragment : Fragment() {
     private var lstType: List<Int> = ArrayList()
     private var shareList: List<SharePost>  = ArrayList()
 
-    private var postListID : List<String> = ArrayList()
-    private var shareListID : List<String> = ArrayList()
-
-
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -73,7 +69,7 @@ class DetailPostFragment : Fragment() {
         postList= ArrayList()
 
         postAdapter= context?.let { PostAdapter(it, postList as ArrayList<Post>,lstIndex as ArrayList
-                , lstType as ArrayList, shareList as ArrayList ) }
+                , lstType as ArrayList, shareList as ArrayList) }
         recycleview.adapter= postAdapter
 
 
@@ -83,7 +79,7 @@ class DetailPostFragment : Fragment() {
     }
 
     private fun retrivePost(){
-        val postRef= FirebaseDatabase.getInstance().reference.child("Contents"). child("Posts")
+        val postRef= FirebaseDatabase.getInstance().reference.child("Posts")
             .child(idPost)
         postRef.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {

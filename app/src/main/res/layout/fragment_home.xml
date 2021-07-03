@@ -22,11 +22,11 @@
                 >
                 <ImageView
                     android:id="@+id/btn_returnHome"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/return_btn"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="7dp"
                     />
 
