@@ -21,6 +21,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_avata_sharing"
+                android:layout_marginLeft="8dp"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/duongtu1"
@@ -31,11 +32,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="user name"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="14dp"
-                android:textColor="@color/colorPrimaryDark"
                 />
             <Space
                 android:layout_width="0dp"
@@ -60,7 +60,7 @@
             android:layout_marginBottom="12dp"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
-            android:textSize="15dp"
+            android:textSize="17dp"
             android:id="@+id/describeShare"/>
 
       <androidx.cardview.widget.CardView
@@ -96,23 +96,25 @@
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:text="user name"
-                      android:textSize="16sp"
+                      android:textSize="17sp"
                       android:textStyle="bold"
                       android:layout_marginLeft="5dp"
                       android:layout_marginTop="14dp"
-                      android:textColor="@color/colorPrimaryDark"
                       />
               </LinearLayout>
               <TextView
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:text="content"
-                  android:textSize="15sp"
+                  android:textSize="17sp"
+                  android:layout_marginTop="8dp"
+                  android:layout_marginLeft="2dp"
+                  android:layout_marginBottom="5dp"
                   android:id="@+id/content_inshared"
                   />
 
               <androidx.cardview.widget.CardView
-                  android:layout_width="wrap_content"
+                  android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:layout_marginTop="10dp"
                   app:cardCornerRadius="10dp">
@@ -130,131 +132,190 @@
 
 
       </androidx.cardview.widget.CardView>
-
-
-
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp">
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:id="@+id/framlayout_yeuthich"
-                android:layout_height="wrap_content">
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-                    android:layout_width="110dp"
-                    android:layout_height="60dp"
-                    android:theme="@style/likeButton"
-                    android:id="@+id/btn_yeuthich"
-                    >
-                </br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
-                <TextView
-                    android:id="@+id/tv_thich"
+                    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:theme="@style/likeButton"
+                        >
+                    </br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
+
+                </FrameLayout>
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thích"
-                    android:textSize="9dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="22dp"
-                    android:layout_marginLeft="50dp"
-                    android:translationZ="5dp"
-
-                    />
-            </FrameLayout>
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:id="@+id/framlayout_binhluan"
-                android:layout_toRightOf="@+id/framlayout_yeuthich"
-                android:layout_height="wrap_content">
-
-                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-                    android:layout_width="130dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/shadow_binhluan2"
-                    android:id="@+id/btn_binhluan"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="horizontal"
                     >
-                </br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:translationZ="5dp"
-                    >
-                    <TextView
-                        android:id="@+id/tv_binhluan"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bình luận"
+                        android:src="@drawable/icon_heart_hong"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="113"
+                        android:id="@+id/numlikes"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="8dp"
+                        android:translationZ="5dp"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 bình luận"
+                        android:id="@+id/numbinhluan"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="8dp"
+                        android:translationZ="5dp"
+
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:translationZ="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="25dp">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:id="@+id/framlayout_yeuthich"
+                    android:layout_height="wrap_content">
+
+                    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                        android:layout_width="110dp"
+                        android:layout_height="60dp"
+                        android:theme="@style/likeButton"
+                        android:id="@+id/btn_yeuthich"
+                        >
+                    </br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
+                    <TextView
+                        android:id="@+id/tv_thich"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thích"
                         android:textSize="9dp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:layout_marginTop="22dp"
-                        android:layout_marginLeft="52dp"
-                        android:translationZ="5dp"  />
-                    <TextView
+                        android:layout_marginLeft="50dp"
+                        android:translationZ="5dp"
 
-                        android:id="@+id/comments"
-                        android:layout_toRightOf="@id/tv_binhluan"
+                        />
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:id="@+id/framlayout_binhluan"
+                    android:layout_toRightOf="@+id/framlayout_yeuthich"
+                    android:layout_height="wrap_content">
+
+                    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                        android:layout_width="130dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/shadow_binhluan2"
+                        android:id="@+id/btn_binhluan"
+                        >
+                    </br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="22dp"
-                        android:textSize="9dp"
-                        android:text="(2)"
-                        android:textColor="@color/colorPrimary"
-                        android:translationZ="4dp"
-                        />
-                </RelativeLayout>
+                        android:translationZ="5dp"
+                        >
+                        <TextView
+                            android:id="@+id/tv_binhluan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bình luận"
+                            android:textSize="9dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginLeft="52dp"
+                            android:translationZ="5dp"  />
+                        <TextView
+
+                            android:id="@+id/comments"
+                            android:layout_toRightOf="@id/tv_binhluan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="22dp"
+                            android:textSize="9dp"
+                            android:text="(2)"
+                            android:textColor="@color/colorPrimary"
+                            android:translationZ="4dp"
+                            />
+                    </RelativeLayout>
 
 
 
 
-            </FrameLayout>
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:id="@+id/framlayout_share"
-                android:layout_toRightOf="@+id/framlayout_binhluan"
-                android:layout_height="wrap_content">
-
-                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-                    android:layout_width="130dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/shadow_share2"
-                    android:id="@+id/btn_share"
-                    >
-                </br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
-                <TextView
-                    android:id="@+id/tv_share"
+                </FrameLayout>
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bình luận"
-                    android:textSize="9dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="22dp"
-                    android:layout_marginLeft="60dp"
-                    android:translationZ="5dp"
+                    android:id="@+id/framlayout_share"
+                    android:layout_toRightOf="@+id/framlayout_binhluan"
+                    android:layout_height="wrap_content">
 
-                    />
-            </FrameLayout>
+                    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                        android:layout_width="130dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/shadow_share2"
+                        android:id="@+id/btn_share"
+                        >
+                    </br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
+                    <TextView
+                        android:id="@+id/tv_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chia sẻ"
+                        android:textSize="9dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginLeft="60dp"
+                        android:translationZ="5dp"
+
+                        />
+                </FrameLayout>
 
 
 
-        </RelativeLayout>
+            </RelativeLayout>
+        </FrameLayout>
 
 
 
-        <TextView
-            android:id="@+id/numlikes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:textColor="@color/colorPrimaryDark"
-            />
+
+
+
 
 
 

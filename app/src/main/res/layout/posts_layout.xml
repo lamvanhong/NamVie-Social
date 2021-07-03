@@ -25,6 +25,7 @@
                 android:id="@+id/user_profile_image_search"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
                 android:src="@drawable/duongtu1"
                 android:padding="5dp"/>
 
@@ -33,11 +34,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="user name"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="14dp"
-                android:textColor="@color/colorPrimaryDark"
                 />
             <Space
                 android:layout_width="0dp"
@@ -61,13 +61,15 @@
             android:text="lamvanhong"
             android:layout_marginBottom="12dp"
             android:layout_marginTop="5dp"
-            android:textSize="15dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="17dp"
             android:id="@+id/describe"/>
 
 
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_marginTop="10dp"
             app:cardCornerRadius="10dp">
             <ImageView

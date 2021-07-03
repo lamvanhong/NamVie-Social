@@ -15,7 +15,7 @@ class SharePostActivity : AppCompatActivity() {
 
     private var postID: String=""
     private var firebaseUser : FirebaseUser?=null
-    private var followingList : ArrayList<String>?=null
+    private var followingList : ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class SharePostActivity : AppCompatActivity() {
         btn_close.setOnClickListener{
             finish()
         }
-
+        getFollowinglist()
 
     }
     private fun getFollowinglist(){
@@ -38,7 +38,7 @@ class SharePostActivity : AppCompatActivity() {
         ref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
-                    followingList!!.clear()
+                    ( followingList as ArrayList).clear()
                     for (s in snapshot.children){
                         followingList!!.add(s.key.toString())
                     }
@@ -50,8 +50,8 @@ class SharePostActivity : AppCompatActivity() {
         })
     }
     fun sharePost(){
-        val shareRef= FirebaseDatabase.getInstance().reference
-            .child("Share Posts").child(firebaseUser!!.uid)
+        val shareRef= FirebaseDatabase.getInstance().reference.child("Contents")
+            .child("Share Posts")
         val shareMap = HashMap<String, Any>()
 
         val idref= shareRef.push().key.toString()
@@ -63,10 +63,18 @@ class SharePostActivity : AppCompatActivity() {
         shareMap["publisher"]=firebaseUser!!.uid
 
 
-        shareRef.child(idref).setValue(shareMap)
+        val timelineUser= FirebaseDatabase.getInstance().reference.child("Contents")
+            .child("ProfileTimeLine").child(FirebaseAuth.getInstance().currentUser.uid)
+        val pMap = HashMap<String, Any>()
+        pMap["post_type"]="sharepost"
+        pMap["id"]=idref
+        pMap["active"]=true
 
+
+        shareRef.child(idref).setValue(shareMap)
+        timelineUser.push().setValue(pMap)
         for(user in followingList!!){
-            val timelineRef= FirebaseDatabase.getInstance().reference
+            val timelineRef= FirebaseDatabase.getInstance().reference.child("Contents")
                 .child("UserTimeLine")
                 .child(user)
             val postMap  = HashMap<String, Any>()

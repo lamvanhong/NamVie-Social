@@ -5,4 +5,24 @@
     <string name="title_notifications">Notifications</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="editmota">Mô tả bản thân</string>
+    <string name="editmotanhap">Nhập mô tả</string>
+    <string name="editchitiet">Chi tiết</string>
+    <string name="accountinfor">Thông tin tài khoản</string>
+    <string name="education">Học vấn</string>
+    <string name="job">Công việc</string>
+    <string name="harbourage">Nơi sống hiện tại</string>
+    <string name="hometown">Quê quán</string>
+    <string name="workplace">Nơi làm việc</string>
+    <string name="relationshipstatus">Tình trạng quan hệ</string>
+    <string name="save">Lưu</string>
+    <string name="addInterests">Thêm sở thích</string>
+    <string name="add">Thêm</string>
+    <string name="changeFeaturedPhoto">Chỉnh sửa ảnh nổi bật</string>
+    <string name="change">Chỉnh sửa</string>
+
+
+    <string name="motaAvatar">Nhập nội dung</string>
+    <string name="nhapmotaAvatar">nhập ...</string>
+    <string name="dang">Đăng</string>
 </resources>

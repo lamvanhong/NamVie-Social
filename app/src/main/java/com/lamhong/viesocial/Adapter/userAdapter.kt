@@ -59,14 +59,14 @@ class UserAdapter(private var _context : Context,private var _user :List<User>,p
                     FirebaseDatabase.getInstance().reference
                             .child("Friends").child(it1.toString())
                             .child("friendList").child(user.getUid())
-                            .setValue(true).addOnCompleteListener { task ->
+                            .setValue("pendinginvite").addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
                                     setNotify(user.getUid())
                                     fireabaseUser?.uid.let { it1 ->
                                         FirebaseDatabase.getInstance().reference
                                                 .child("Friends").child(user.getUid())
                                                 .child("friendList").child(it1.toString())
-                                                .setValue(true).addOnCompleteListener { task ->
+                                                .setValue("pendingconfirm").addOnCompleteListener { task ->
                                                     if (task.isSuccessful) {
 
                                                     }
@@ -103,12 +103,14 @@ class UserAdapter(private var _context : Context,private var _user :List<User>,p
         val notiRef= FirebaseDatabase.getInstance().reference
             .child("Notify").child(userNotifyID)
         val notiMap= HashMap<String, String>()
+        val idpush : String = notiRef.push().key.toString()
         notiMap["userID"]=fireabaseUser!!.uid
         notiMap["notify"]="Đã gửi lời mời kết bạn"
-        notiMap["postID"]="none"
+        notiMap["postID"]="active"
         notiMap["type"]="loimoiketban"
+        notiMap["notifyID"]=idpush
 
-        notiRef.push().setValue(notiMap)
+        notiRef.child(idpush).setValue(notiMap)
     }
     private fun checkFriendStatus(uid: String, btnAdd: CircularProgressButton) {
         val friendref= fireabaseUser?.uid.let{it->

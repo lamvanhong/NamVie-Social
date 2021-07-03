@@ -97,12 +97,14 @@ class  CommentActivity : AppCompatActivity() {
         val notiRef= FirebaseDatabase.getInstance().reference.child("Notify")
             .child(publisher)
         val notiMap = HashMap<String,Any>()
+        val idpush : String = notiRef.push().key.toString()
         notiMap["userID"]=firebaseUser!!.uid
         notiMap["notify"]=edit_add_comment.text.toString()
         notiMap["postID"]=postID
         notiMap["type"]="binhluan"
+        notiMap["notifyID"]=idpush
 
-        notiRef.push().setValue(notiMap)
+        notiRef.child(idpush).setValue(notiMap)
 
     }
     private fun userInfor(){
