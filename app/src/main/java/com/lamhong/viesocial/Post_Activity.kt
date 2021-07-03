@@ -78,6 +78,8 @@ class Post_Activity : AppCompatActivity() {
 
             }
         })}
+
+
     private fun getFollowinglist(){
         val ref = FirebaseDatabase.getInstance().reference.child("Friends")
             .child(FirebaseAuth.getInstance().currentUser.uid)
@@ -97,6 +99,26 @@ class Post_Activity : AppCompatActivity() {
             }
         })
     }
+    private fun checkStatusFriend() {
+        followingList=ArrayList()
+
+        val followRef = FirebaseDatabase.getInstance().reference
+            .child("Friends").child(FirebaseAuth.getInstance().currentUser!!.uid)
+            .child("friendList")
+        followRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    (followingList as ArrayList<String>).clear()
+                    for (s in snapshot.children){
+                        s.key?.let { (followingList as ArrayList<String>).add(it) }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })}
     private fun uploadImage(){
         if(imageUir==null) {
             Toast.makeText(this, "Vui lòng chọn ảnh !!", Toast.LENGTH_SHORT).show()

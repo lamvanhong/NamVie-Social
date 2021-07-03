@@ -134,6 +134,69 @@ class AccountSettingActivity : AppCompatActivity() {
             }
         }
     }
+    private fun updateAvatarInforstorage() {
+
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("Account update")
+        progressDialog.setMessage("Please wait, updating...")
+        progressDialog.show()
+        when{
+            TextUtils.isEmpty(edit_name.text.toString()) -> {
+                Toast.makeText(this, "Vui lòng nhập tên ",Toast.LENGTH_LONG).show()
+            }
+            TextUtils.isEmpty(edit_mota.text.toString()) -> {
+                Toast.makeText(this, "Vui lòng nhập mota ",Toast.LENGTH_LONG).show()
+            }
+            imageUir ==null -> Toast.makeText(this, "Vui lòng chọn ảnh" , Toast.LENGTH_LONG).show()
+            else ->{
+                val file = storageAvatarRef?.child(firebaseUser.uid +".jpg")
+
+                var uploadTask : StorageTask<*>
+                uploadTask= file!!.putFile(imageUir!!)
+                uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>>{
+                        task ->
+                    if (!task.isSuccessful){
+                        task.exception.let {
+                            throw it!!
+                            progressDialog.dismiss()
+                        }
+                    }
+                    return@Continuation file.downloadUrl
+
+                }).addOnCompleteListener(OnCompleteListener<Uri>{task ->
+                    if(task.isSuccessful){
+                        val downloadUrl = task.result
+                        myUrl=downloadUrl.toString()
+
+                        val ref=FirebaseDatabase.getInstance().reference.child("UserInformation")
+
+//                        val userMap = HashMap<String, Any>()
+//                        userMap["fullname"]= edit_name.text.toString()
+//                        userMap["email"]= my  Url
+//
+//                        ref.child(firebaseUser.uid).updateChildren(userMap)
+                        val inMap = HashMap<String, Any>()
+                        inMap["fullname"]= edit_name.text.toString()
+                        inMap["avatar"]= myUrl
+
+
+                        ref.child(firebaseUser.uid).updateChildren(inMap)
+                        val intent = Intent(this@AccountSettingActivity, MainActivity::class.java)
+                        Toast.makeText(this, "Đã cập nhật thông tin !!", Toast.LENGTH_LONG).show()
+                        startActivity(intent)
+                        finish()
+                        progressDialog.dismiss()
+
+
+                    }else{
+                        progressDialog.dismiss()
+                    }
+                })
+
+
+            }
+        }
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
