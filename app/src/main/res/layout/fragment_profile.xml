@@ -51,6 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appbar_layout_profile"
+        android:fillViewport="true"
         android:id="@+id/scrollView"
         >
         <RelativeLayout
@@ -78,18 +79,9 @@
                             android:layout_height="190dp"
                             android:background="@color/white"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/duongtu" />
+                            android:src="@drawable/cty" />
                     </androidx.cardview.widget.CardView>
-                    <ImageButton
-                        android:id="@+id/btnSetting"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/homebtn"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="35dp"
-                        />
+
 
                 </RelativeLayout>
                 <RelativeLayout
@@ -109,7 +101,7 @@
                 android:id="@+id/avatar"
                 android:layout_width="180dp"
                 android:layout_height="180dp"
-                android:src="@drawable/duongtu1"
+                android:src="@drawable/cty"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="130dp"
 
@@ -146,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tv_descrip"
-                    android:text="lamhong"
+                    android:text=""
                     android:textSize="20dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginLeft="10dp"
@@ -157,11 +149,90 @@
 
             </RelativeLayout>
             <RelativeLayout
-                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/top_container"
+                android:id="@+id/specific_container">
+                <LinearLayout
+                    android:layout_margin="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/profileEdit_container"
+                    android:orientation="horizontal"
+                    >
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        app:cardCornerRadius="15dp"
+                        android:layout_marginLeft="15dp"
+                        app:cardElevation="2dp"
+                        android:background="@color/white"
+                        >
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/btn_chinhsua"
+                            android:text="Sửa trang cá nhân"
+                            android:background="@color/main1color"
+                            android:textColor="@color/white"
+                            />
+                    </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:id="@+id/btn_setting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/more_btn"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        />
+
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_margin="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/friendContainer"
+                    android:orientation="horizontal"
+                    >
+                    <Button
+                        android:layout_width="120dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="25dp"
+                        android:id="@+id/btnAddfriend"
+                        android:text="Kết bạn"
+                        android:background="@color/main1color"
+                        android:textColor="@color/white"
+                        />
+                    <Button
+                        android:layout_width="120dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="15dp"
+                        android:id="@+id/btnNhanTin"
+                        android:text="Nhắn tin"
+                        android:background="@color/main1color"
+                        android:textColor="@color/white"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/more_btn"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="30dp"
+                        />
+
+
+
+                </LinearLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/below_container"
+                android:layout_below="@+id/specific_container"
 
                 >
 
@@ -201,6 +272,7 @@
                                 android:theme="@style/seeFriendBtn"
                                 android:layout_below="@+id/tv_banbe"
                                 android:text="Xem"
+                                android:id="@+id/btn_friendList"
                                 android:textSize="12sp"
                                 android:textColor="#16C7DD"
                                 android:layout_centerHorizontal="true"
@@ -257,6 +329,7 @@
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
+                    android:id="@+id/container_recycleview"
                     android:layout_height="250dp"
                     android:layout_toRightOf="@+id/left_infor_container"
                     >
@@ -264,12 +337,267 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/recycleview_picture_bio"
-                        android:padding="10dp"
+                        android:nestedScrollingEnabled="false"
+                        android:paddingTop="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         />
                 </androidx.appcompat.widget.LinearLayoutCompat>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/left_infor_container"
+                    android:layout_below="@+id/container_recycleview"
+                    >
+
+                    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                        android:layout_width="110dp"
+                        android:layout_height="55dp"
+                        android:theme="@style/seeFriendBtn"
+                        android:text="Xem thêm"
+                        android:textSize="12sp"
+                        android:textColor="#16C7DD"
+                        android:layout_centerHorizontal="true"
+
+                        />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/container_chitiet_taikhoan"
+                android:layout_below="@+id/below_container">
+                <androidx.cardview.widget.CardView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardElevation="1dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="25dp"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/accountinfor"
+                            android:layout_gravity="center"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_education_light"
+                                />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/education"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_home_dart"
+                                />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/harbourage"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_hometown_dart"
+                                />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/hometown"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_relationship_dart"
+                                />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/relationshipstatus"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_job"
+                                />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/job"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_workplace_dart"
+                                />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/workplace"
+                                />
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/container_chitiet_taikhoan"
+                android:id="@+id/container_dadang">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_DaDang"
+                    android:text="Đã Đăng"
+                    android:textStyle="bold"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="sans-serif-medium"
+                    />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/tv_DaDang"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_tatca"
+                        android:textStyle="bold"
+                        android:text="Tất cả"
+                        android:textSize="13dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="sans-serif-medium"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_anhvideo"
+                        android:layout_toRightOf="@+id/tv_tatca"
+                        android:text="ảnh/video"
+                        android:textSize="13dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="sans-serif-medium"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_chiase"
+                        android:layout_toRightOf="@+id/tv_anhvideo"
+                        android:text="chia sẻ"
+                        android:textSize="13dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="sans-serif-medium"
+                        />
+
+                </RelativeLayout>
+
 
 
             </RelativeLayout>
+
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recycleview_post_publish"
+                android:layout_below="@+id/container_dadang"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
+
+                />
+
 
         </RelativeLayout>
 

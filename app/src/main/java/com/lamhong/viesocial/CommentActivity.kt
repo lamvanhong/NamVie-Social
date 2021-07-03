@@ -91,6 +91,21 @@ class  CommentActivity : AppCompatActivity() {
         commentRef.push().setValue(commentMap)
 
         edit_add_comment.text.clear()
+        addNotify()
+    }
+    private fun addNotify(){
+        val notiRef= FirebaseDatabase.getInstance().reference.child("Notify")
+            .child(publisher)
+        val notiMap = HashMap<String,Any>()
+        val idpush : String = notiRef.push().key.toString()
+        notiMap["userID"]=firebaseUser!!.uid
+        notiMap["notify"]=edit_add_comment.text.toString()
+        notiMap["postID"]=postID
+        notiMap["type"]="binhluan"
+        notiMap["notifyID"]=idpush
+
+        notiRef.child(idpush).setValue(notiMap)
+
     }
     private fun userInfor(){
         val userRef=FirebaseDatabase.getInstance().reference

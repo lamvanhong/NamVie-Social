@@ -27,7 +27,7 @@ import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_account_setting.*
 
 class AccountSettingActivity : AppCompatActivity() {
-    final lateinit var firebaseUser :FirebaseUser
+    lateinit var firebaseUser :FirebaseUser
     private var myUrl=""
     private var imageUir : Uri?=null
     private var checker=""
@@ -109,7 +109,7 @@ class AccountSettingActivity : AppCompatActivity() {
 
 //                        val userMap = HashMap<String, Any>()
 //                        userMap["fullname"]= edit_name.text.toString()
-//                        userMap["email"]= myUrl
+//                        userMap["email"]= my  Url
 //
 //                        ref.child(firebaseUser.uid).updateChildren(userMap)
                         val inMap = HashMap<String, Any>()
@@ -119,7 +119,7 @@ class AccountSettingActivity : AppCompatActivity() {
 
                         ref.child(firebaseUser.uid).updateChildren(inMap)
                         val intent = Intent(this@AccountSettingActivity, MainActivity::class.java)
-                        Toast.makeText(this, "Đã cập nhật thông tin !!", Toast.LENGTH_LONG)
+                        Toast.makeText(this, "Đã cập nhật thông tin !!", Toast.LENGTH_LONG).show()
                         startActivity(intent)
                         finish()
                         progressDialog.dismiss()

@@ -5,7 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.lamhong.viesocial.Adapter.NotifyAdapter
+import com.lamhong.viesocial.Models.Notify
 import com.lamhong.viesocial.R
+import kotlinx.android.synthetic.main.fragment_notify.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +36,10 @@ class NotifyFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    final lateinit var firebaseUser: FirebaseUser
+    private var notifyList : List<Notify>?=null
+    private var notifyAdapter : NotifyAdapter?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -30,12 +48,51 @@ class NotifyFragment : Fragment() {
         }
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notify, container, false)
+        var view=  inflater.inflate(R.layout.fragment_notify, container, false)
+
+        var recyclerView : RecyclerView= view.findViewById(R.id.recycleview_notify)
+        recyclerView.visibility=View.VISIBLE
+        recyclerView.layoutManager= LinearLayoutManager( context)
+
+        firebaseUser = FirebaseAuth.getInstance().currentUser
+        notifyList= ArrayList()
+        notifyAdapter= context?.let { NotifyAdapter(it, notifyList as ArrayList<Notify>)}
+        recyclerView.adapter= notifyAdapter
+        showNotify()
+
+        view.searchbtn_inNotify.setOnClickListener{
+            (context as FragmentActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, HomeFragment()).commit()
+        }
+        return view
+    }
+
+    private fun showNotify(){
+        val notiRef= FirebaseDatabase.getInstance().reference
+            .child("Notify").child(firebaseUser.uid)
+        notiRef.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    (notifyList as ArrayList<Notify>).clear()
+                    for(s in snapshot.children){
+                        val notify = s.getValue(Notify::class.java)
+                        notify?.setPostID(s.child("postID").value.toString())
+                        (notifyList as ArrayList<Notify>).add(notify!!)
+                    }
+                    Collections.reverse(notifyList)
+                    notifyAdapter!!.notifyDataSetChanged()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
     }
 
     companion object {

@@ -17,12 +17,13 @@
 
     <item
         android:id="@+id/nav_add_post"
-        android:icon="@drawable/userbtn"
+        android:icon="@drawable/btn_addpost"
+        app:itemIconSize="30sp"
         android:title="" />
 
     <item
         android:id="@+id/nav_notifications"
-        android:icon="@drawable/userbtn"
+        android:icon="@drawable/icon_notify"
         android:title=""
         app:itemIconSize="10sp"
         />

@@ -13,7 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBook">
-        <activity android:name="com.lamhong.viesocial.CommentActivity"></activity>
+        <activity android:name="com.lamhong.viesocial.ChangeAvatarActivity"></activity>
+        <activity android:name="com.lamhong.viesocial.ProfileEditting" />
+        <activity android:name="com.lamhong.viesocial.FriendListActivity" />
+        <activity android:name="com.lamhong.viesocial.SharePostActivity" />
+        <activity android:name="com.lamhong.viesocial.UserReacted" />
+        <activity android:name="com.lamhong.viesocial.CommentActivity" />
         <activity android:name="com.lamhong.viesocial.Post_Activity" />
         <activity android:name="com.lamhong.viesocial.SignupActivity" />
         <activity android:name="com.lamhong.viesocial.LoginActivity">
