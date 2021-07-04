@@ -1,11 +1,12 @@
  package com.lamhong.viesocial.Fragment
 
+
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -18,6 +19,7 @@ import com.lamhong.viesocial.Adapter.PostAdapter
 import com.lamhong.viesocial.Models.Post
 import com.lamhong.viesocial.Models.SharePost
 import com.lamhong.viesocial.Models.TimelineContent
+import com.lamhong.viesocial.NewSearchActivity
 import com.lamhong.viesocial.R
 import kotlinx.android.synthetic.main.fragment_z_home.view.*
 
@@ -38,10 +40,18 @@ class zHome : Fragment() {
     private var postAdapter : PostAdapter?=null
     private var followingList : MutableList<Post>?=null
     private var postList : MutableList<Post>?=null
+    private var avatarList : ArrayList<Post> = ArrayList()
+    private var coverImageList : ArrayList<Post> = ArrayList()
+
 
     private var shareList: MutableList<SharePost> = ArrayList()
     private var lstTypeAdapter : List<Int> = ArrayList()
     private var lstIndex : List<Int> = ArrayList()
+    private var lstUserPostTimeline : ArrayList<TimelineContent> = ArrayList()
+
+
+    private var postListID : List<String> = ArrayList()
+    private var shareListID : List<String> = ArrayList()
 
 
 
@@ -65,6 +75,15 @@ class zHome : Fragment() {
         val view= inflater.inflate(R.layout.fragment_z_home, container, false)
         currentUser=FirebaseAuth.getInstance().currentUser
 
+
+
+        checkFollowing()
+        //(postList as ArrayList).add(getPost("-Mbg2gLimdhyWjSh0Tc7"))
+        retrievePosts1()
+
+        postList= ArrayList()
+
+
         var recycleView: RecyclerView ?=null
         recycleView= view.findViewById(R.id.recycleviewzHome)
         val linearLayoutManager = LinearLayoutManager(context)
@@ -72,19 +91,20 @@ class zHome : Fragment() {
         linearLayoutManager.stackFromEnd=true
         recycleView.layoutManager= linearLayoutManager
 
-
-        postList= ArrayList()
-
         postAdapter= context?.let { PostAdapter(it, postList as ArrayList<Post> , lstIndex as ArrayList,
-        lstTypeAdapter as ArrayList, shareList as ArrayList) }
+            lstTypeAdapter as ArrayList, shareList as ArrayList , avatarList as ArrayList,
+            coverImageList as ArrayList) }
+      //  postAdapter= context?.let { PostAdapter(it, lstUserPostTimeline as ArrayList )}
         recycleView.adapter= postAdapter
         recycleView?.visibility= View.VISIBLE
-        checkFollowing()
-        retrievePosts1()
+
         // search function
         view.searchbtn.setOnClickListener{
-            (context as FragmentActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, HomeFragment()).commit()
+//            (context as FragmentActivity).supportFragmentManager.beginTransaction()
+//                .replace(R.id.frameLayout, HomeFragment()).commit()
+            val intent = Intent(context, NewSearchActivity::class.java)
+            startActivity(intent)
+
         }
         return view;
     }
@@ -125,55 +145,118 @@ class zHome : Fragment() {
         })
         return sharePost as SharePost
     }
+    private fun retrievePosts2(){
+        val postRef = FirebaseDatabase.getInstance().reference.child("Contents")
+            .child("UserTimeLine").child(currentUser.uid!!)
+        postRef.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    lstUserPostTimeline.clear()
+                    for(s in snapshot.children){
+                        val post = s.getValue<TimelineContent>(TimelineContent::class.java)
+                        lstUserPostTimeline.add(post!!)
+                    }
+
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
+    private fun retrievePosts1(){
+        val postRef= FirebaseDatabase.getInstance().reference.child("Contents")
+        postRef.addValueEventListener(object:  ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()) {
+                    shareList!!.clear()
+                    postList!!.clear()
+                    (lstIndex as ArrayList).clear()
+                    (lstTypeAdapter as ArrayList).clear()
+                    var ind1 = 0
+                    var ind2 = 0
+                    var ind3=0
+                    var ind4=0
+                    for (s in snapshot.child("UserTimeLine")
+                        .child(currentUser.uid).children) {
+                        val tl = s.getValue(TimelineContent::class.java)
+                        tl!!.setPostType(s.child("post_type").value.toString())
+                        if (tl!!.getPostType() == "sharepost") {
+
+                            var sharePost = snapshot.child("Share Posts").child(tl.getId()).getValue<SharePost>(SharePost::class.java)
+                                 shareList!!.add(sharePost!!)
+                            (shareListID as ArrayList).add(tl.getId())
+                            (lstTypeAdapter as ArrayList).add(1)
+                            (lstIndex as ArrayList).add(ind1)
+                            ind1 += 1
+                        } else if (tl!!.getPostType() == "post") {
+
+
+                            val post = snapshot.child("Posts").child(tl.getId()).getValue(Post::class.java)
+                            postList!!.add(post!!)
+                            (postListID as ArrayList).add(tl.getId())
+                            (lstTypeAdapter as ArrayList).add(0)
+                            (lstIndex as ArrayList).add(ind2)
+                            ind2 += 1
+                        }
+                        else if (tl!!.getPostType()=="changeavatar"){
+                            val avatarPost = snapshot.child("AvatarPost").child(tl.getId()).getValue(Post::class.java)
+                            avatarList!!.add(avatarPost!!)
+                            (lstTypeAdapter as ArrayList).add(2)
+                            (lstIndex as ArrayList).add(ind3)
+                            ind3+=1
+                        }
+                        else if(tl!!.getPostType()=="changecover"){
+                            val coverImagePost = snapshot.child("CoverPost").child(tl.getId()).getValue(Post::class.java)
+                            coverImageList!!.add(coverImagePost!!)
+                            (lstTypeAdapter as ArrayList).add(3)
+                            (lstIndex as ArrayList).add(ind4)
+                            ind4+=1
+                        }
+                      //  getPostAndShare()
+
+                        postAdapter!!.notifyDataSetChanged()
+                    }
+                }
+
+            }
+        })
+
+    }
+
+    private fun getPostAndShare(){
+        for(p in postListID){
+            postList!!.add(getPost(p))
+        }
+        for (s in shareListID){
+            shareList!!.add(getPostShared(s))
+
+        }
+
+
+    }
     private fun getPost(id: String): Post{
         val postRef= FirebaseDatabase.getInstance().reference.child("Posts").child(id)
+
         var post : Post?=null
-        postRef.addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(ss: DataSnapshot) {
-                if(ss.exists()){
-                    val post = ss.getValue(Post::class.java)
-                    post!!.setpost_image(ss.child("post_image").value.toString())
-                    post!!.setpostContent(ss.child("post_content").value.toString())
-                    post.setpost_id(ss.child("post_id").value.toString())
-                }
+        postRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(it: DataSnapshot) {
+                post = it.getValue(Post::class.java)
+                post!!.setpost_image(it.child("post_image").value.toString())
+                post!!.setpostContent(it.child("post_content").value.toString())
+                post!!.setpost_id(it.child("post_id").value.toString())
             }
 
             override fun onCancelled(error: DatabaseError) {
             }
         })
+//        postRef.get().addOnSuccessListener {
+//
+//        }
         return post as Post
-    }
-    private fun retrievePosts1(){
-        val postRef= FirebaseDatabase.getInstance().reference.child("UserTimeLine")
-            .child(currentUser.uid)
-        postRef.addValueEventListener(object: ValueEventListener{
-            override fun onCancelled(error: DatabaseError) {
-            }
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    shareList!!.clear()
-                    postList!!.clear()
-                    var ind1=0
-                    var ind2=0
-                    for (s in snapshot.children){
-                        val tl = s.getValue(TimelineContent::class.java)
-                        if(tl!!.getPostType()=="sharepost"){
-                            shareList!!.add(getPostShared(tl.getId()))
-                            ( lstTypeAdapter as ArrayList).add(1)
-                            (lstIndex as ArrayList).add(ind1)
-                            ind1+=1
-                        }
-                        else if(tl!!.getPostType()=="post"){
-                            postList!!.add(getPost(tl.getId()))
-                            ( lstTypeAdapter as ArrayList).add(0)
-                            (lstIndex as ArrayList).add(ind2)
-                            ind2+=1
-                        }
-                    }
-                    postAdapter!!.notifyDataSetChanged()
-                }
-            }
-        })
+
     }
     private fun retrievePosts() {
         val postRef= FirebaseDatabase.getInstance().reference.child("Posts")

@@ -16,4 +16,7 @@
     <color name="colorBlue">#5552FF</color>
     <color name="custom_primary">#2FBBF0</color>
     <color name="main1color">#50C6F2</color>
+
+    <color name="textcolor1">#00B0D1</color>
+    <color name="textcolor2">#FFACDF</color>
 </resources>

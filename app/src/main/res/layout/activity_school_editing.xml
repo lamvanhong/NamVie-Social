@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SchoolEditingActivity">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00B0D1">
+
+                <ImageView
+                    android:id="@+id/btn_return"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/btn_return_white"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:text="Chỉnh sửa tài khoản"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.Toolbar>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
+            >
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="5dp"
+                    app:cardElevation="1dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="15dp"
+                        >
+                        <LinearLayout
+                            android:padding="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/icon_education_dart"
+                                android:id="@+id/img_typeEdit1"
+                                android:layout_marginRight="15dp"/>
+                            <TextView
+                                android:id="@+id/tv_typeName1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Trường học 1, công nghệ thông tin gì đó"
+                                android:layout_gravity="center"
+                                android:textSize="20dp"
+                                android:textStyle="bold"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/container_1"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+                            <CheckBox
+                                android:id="@+id/chk_1"
+                                android:layout_centerHorizontal="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="35dp"
+                                android:text="Đang học"
+                                android:padding="10dp"
+                                android:button="@drawable/custom_checkbox"
+
+                                />
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="2dp"
+                                android:layout_marginLeft="55dp"
+                                android:layout_marginRight="45dp"
+                                android:layout_marginTop="13dp"
+                                android:padding="10dp"
+                                android:background="@color/white"
+                                >
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/btn_xoa1"
+                                    android:textColor="#03A9F4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="25dp"
+                                    android:text="Xóa"
+                                    android:textSize="9dp"
+                                    android:background="#FFFFFF"
+                                    />
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
+
+
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="2dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/white"
+                            >
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_chinhsua1"
+                                android:textColor="@color/white"
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:text="chỉnh sửa"
+                                android:background="#00B0D1"
+                                />
+                        </androidx.cardview.widget.CardView>
+
+
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="5dp"
+                    app:cardElevation="1dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="15dp"
+                        >
+                        <LinearLayout
+                            android:padding="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/icon_education_light"
+                                android:id="@+id/img_typeEdit2"
+                                android:layout_marginRight="15dp"/>
+                            <TextView
+                                android:id="@+id/tv_typeName2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Trường học 2"
+                                android:layout_gravity="center"
+                                android:textSize="20dp"
+                                android:textStyle="bold"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/container_2"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+                            <CheckBox
+                                android:id="@+id/chk_2"
+                                android:layout_centerHorizontal="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="35dp"
+                                android:text="Đang học"
+                                android:padding="10dp"
+                                android:button="@drawable/custom_checkbox"
+
+                                />
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="2dp"
+                                android:layout_marginLeft="55dp"
+                                android:layout_marginRight="45dp"
+                                android:layout_marginTop="13dp"
+                                android:padding="10dp"
+                                android:background="@color/white"
+                                >
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/btn_xoa2"
+                                    android:textColor="#03A9F4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="25dp"
+                                    android:text="Xóa"
+                                    android:textSize="9dp"
+                                    android:background="#FFFFFF"
+                                    />
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
+
+
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="2dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/white"
+                            >
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_chinhsua2"
+                                android:textColor="@color/white"
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:text="chỉnh sửa"
+                                android:background="#00B0D1"
+                                />
+                        </androidx.cardview.widget.CardView>
+
+
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="5dp"
+                    app:cardElevation="1dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="15dp"
+                        >
+                        <LinearLayout
+                            android:padding="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/img_typeEdit3"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginRight="15dp"
+                                android:src="@drawable/icon_education_light" />
+
+                            <TextView
+                                android:id="@+id/tv_typeName3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Trường học 3"
+                                android:layout_gravity="center"
+                                android:textSize="20dp"
+                                android:textStyle="bold"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/container_3"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+                            <CheckBox
+                                android:id="@+id/chk_3"
+                                android:layout_centerHorizontal="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="35dp"
+                                android:text="Đang học"
+                                android:padding="10dp"
+                                android:button="@drawable/custom_checkbox"
+
+                                />
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="2dp"
+                                android:layout_marginLeft="55dp"
+                                android:layout_marginRight="45dp"
+                                android:layout_marginTop="13dp"
+                                android:padding="10dp"
+                                android:background="@color/white"
+                                >
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/btn_xoa3"
+                                    android:textColor="#03A9F4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="25dp"
+                                    android:text="Xóa"
+                                    android:textSize="9dp"
+                                    android:background="#FFFFFF"
+                                    />
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
+
+
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="2dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/white"
+                            >
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_chinhsua3"
+                                android:textColor="@color/white"
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:text="chỉnh sửa"
+                                android:background="#00B0D1"
+                                />
+                        </androidx.cardview.widget.CardView>
+
+
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+
+
+
+            </LinearLayout>
+        </ScrollView>
+
+
+
+
+
+    </RelativeLayout>

@@ -5,13 +5,15 @@ class Notify {
     private var notify : String =""
     private var postID: String =""
     private var type: String=""
+    private var notifyID: String=""
 
     constructor()
-    constructor(userID: String, notify: String, postID: String, type: String) {
+    constructor(userID: String, notify: String, postID: String, type: String, notifyID: String) {
         this.userID = userID
         this.notify = notify
         this.postID = postID
         this.type = type
+        this.notifyID=notifyID
     }
     fun getUserID(): String{
         return userID
@@ -36,6 +38,12 @@ class Notify {
     }
     fun setType(type: String){
         this.type=type
+    }
+    fun getnotifyID():String{
+        return notifyID
+    }
+    fun setnotifyID(notifyID: String){
+        this.notifyID=notifyID
     }
 
 

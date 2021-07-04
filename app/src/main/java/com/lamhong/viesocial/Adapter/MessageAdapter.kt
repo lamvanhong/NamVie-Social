@@ -10,6 +10,7 @@ import com.lamhong.viesocial.Models.Message
 import com.lamhong.viesocial.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_receive_message.view.*
+import kotlinx.android.synthetic.main.item_sent_message.view.*
 import kotlinx.android.synthetic.main.item_sent_message.view.message
 
 
@@ -77,8 +78,18 @@ class MessageAdapter(private val messageList: ArrayList<Message>) : RecyclerView
 
     private inner class SentViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
         var message = itemView.message
+        var image = itemView.image_chat_sent
+
+
         fun bind(position: Int){
             val recyclerViewModel = messageList[position]
+
+            if (recyclerViewModel.getMessage().equals("photo")) {
+                image.visibility = View.VISIBLE
+                message.visibility = View.GONE
+                Picasso.get().load(recyclerViewModel.getImageUrl()).placeholder(R.drawable.loading_image).into(image)
+            }
+
             message.text= recyclerViewModel.getMessage()
         }
 
@@ -87,6 +98,7 @@ class MessageAdapter(private val messageList: ArrayList<Message>) : RecyclerView
     private inner class ReceiveViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
         var message = itemView.message
         var image = itemView.image_chatlog
+        var image_chat = itemView.image_chat_receive
         //var intent = Intent(itemView.context,NewMessageActivity::class.java)
 
 
@@ -97,6 +109,13 @@ class MessageAdapter(private val messageList: ArrayList<Message>) : RecyclerView
 
         fun bind(position: Int){
             val recyclerViewModel = messageList[position]
+
+            if (recyclerViewModel.getMessage().equals("photo")) {
+                image_chat.visibility = View.VISIBLE
+                message.visibility = View.GONE
+                Picasso.get().load(recyclerViewModel.getImageUrl()).placeholder(R.drawable.loading_image).into(image_chat)
+            }
+
             message.text= recyclerViewModel.getMessage()
 
             Picasso.get().load(uri).into(image)

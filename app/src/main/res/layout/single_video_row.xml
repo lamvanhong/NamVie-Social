@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp"
+        >
+       <FrameLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           >
+           <ImageView
+               android:translationZ="10dp"
+               android:id="@+id/btn_finish"
+               android:layout_marginTop="20dp"
+               android:layout_marginLeft="20dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/icon_return_white"
+               />
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               >
+               <androidx.cardview.widget.CardView
+                   android:translationZ="1dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   app:cardCornerRadius="20dp"
+                   android:layout_centerHorizontal="true"
+                   android:layout_centerVertical="true"
+                   >
+                   <VideoView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/videoView"
+
+
+                       />
+               </androidx.cardview.widget.CardView>
+           </RelativeLayout>
+       </FrameLayout>
+
+    </RelativeLayout>
+    <ProgressBar
+        android:translationZ="3dp"
+        android:id="@+id/videoProgressBar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        />
+    <LinearLayout
+
+        android:translationZ="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#00DCDCDC"
+        android:orientation="horizontal"
+        android:layout_marginTop="3dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+
+
+            >
+            <LinearLayout
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="3dp"
+                android:id="@+id/inforConntainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    >
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/avatar_item_shot"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/cty"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        />
+                    <ImageView
+                        android:id="@+id/btn_follow"
+                        android:layout_width="29dp"
+                        android:layout_height="29dp"
+                        android:src="@drawable/icon_add"
+                        android:layout_marginTop="30dp"
+                        />
+
+                    <ImageView
+                        android:id="@+id/btn_followed"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/icon_check_white"
+                        android:layout_marginTop="40dp"
+                        />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/username_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="lamhong"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical"
+                        />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="confdfdfdfdfdfdere"
+                        android:textSize="16dp"
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginBottom="10dp"
+                        />
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <FrameLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="0dp"
+                android:layout_marginRight="3dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/numlikes_shot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23 thích"
+                    android:textSize="13dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/white"
+                    android:translationZ="3dp"
+                    />
+                <FrameLayout
+                   android:layout_marginTop="38dp"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/framlayout_yeuthich"
+                    android:background="@color/black"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+
+                        android:backgroundTint="@color/black"
+                        android:layout_width="110dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/custombtn_like"
+                        android:background="#25757575"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/btn_yeuthich"
+                        android:translationZ="1dp"
+                        >
+                    </ImageButton>
+                    <TextView
+                        android:id="@+id/tv_thich"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thích"
+                        android:textSize="9dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginLeft="50dp"
+                        android:translationZ="5dp"
+
+                        />
+                </FrameLayout>
+            </FrameLayout>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+<!--    <LinearLayout-->
+
+<!--        android:translationZ="10dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:background="#00DCDCDC"-->
+<!--        >-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+
+
+<!--            >-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:orientation="horizontal">-->
+<!--                <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                    android:layout_width="45dp"-->
+<!--                    android:layout_height="45dp"-->
+<!--                    android:src="@drawable/cty"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:layout_marginLeft="5dp"-->
+<!--                    />-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    >-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/title"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="lamhong"-->
+<!--                        android:textSize="20dp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        />-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/content"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="contentddfdfdfdfdfdfdfdfdfdere"-->
+<!--                        android:textSize="16dp"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        />-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+
+
+<!--            <FrameLayout-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:id="@+id/framlayout_yeuthich"-->
+<!--                android:background="@color/black"-->
+<!--                android:layout_height="wrap_content">-->
+
+<!--                <ImageButton-->
+<!--                    android:layout_width="110dp"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:src="@drawable/custombtn_like"-->
+<!--                    android:background="#25757575"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:id="@+id/btn_yeuthich"-->
+<!--                    android:translationZ="1dp"-->
+<!--                    >-->
+<!--                </ImageButton>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_thich"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Thích"-->
+<!--                    android:textSize="9dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginTop="22dp"-->
+<!--                    android:layout_marginLeft="50dp"-->
+<!--                    android:translationZ="5dp"-->
+
+<!--                    />-->
+<!--            </FrameLayout>-->
+
+<!--        </LinearLayout>-->
+<!--    </LinearLayout>-->
+
+
+</RelativeLayout>
