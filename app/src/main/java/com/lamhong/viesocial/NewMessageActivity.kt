@@ -21,7 +21,7 @@ class NewMessageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_message)
 
         setSupportActionBar(toolbar_new_message)
-        supportActionBar?.title=""
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         fetchUsers()

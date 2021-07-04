@@ -1,0 +1,816 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ProfileActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/appbar_layout_profile"
+            android:background="@color/white"
+            >
+                    <androidx.appcompat.widget.Toolbar
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:id="@+id/toolbar_profile"
+                        android:background="#FFFFFF"
+                        >
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+                            <ImageButton
+                                android:id="@+id/btn_return_toolbar"
+                                android:layout_marginTop="7dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_return_blue"
+                                android:background="@color/white"
+                                />
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/avatar_intoolbar"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/cty"
+                                android:layout_marginLeft="30dp"
+                                />
+
+                            <TextView
+                                android:layout_marginLeft="90dp"
+                                android:id="@+id/username_toolbar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="username"
+                                android:textSize="20dp"
+                                android:textColor="#00BCD4"
+                                android:layout_centerVertical="true"
+                                android:maxLines="1"
+                                android:textStyle="bold"
+                                />
+
+
+                        </RelativeLayout>
+                    </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appbar_layout_profile"
+            android:fillViewport="true"
+            android:id="@+id/scrollView"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            app:cardCornerRadius="30dp"
+                            android:layout_margin="19dp"
+                            android:background="@color/white"
+                            android:elevation="10dp">
+
+                            <ImageView
+                                android:id="@+id/roundedImageView"
+                                android:layout_width="match_parent"
+                                android:layout_height="190dp"
+                                android:background="@color/white"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/cty" />
+                        </androidx.cardview.widget.CardView>
+
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            android:layout_marginTop="120dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@color/white"
+                            />
+                    </RelativeLayout>
+                </FrameLayout>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/cty"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="130dp"
+
+                    />
+
+
+                <RelativeLayout
+                    android:id="@+id/top_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/avatar"
+                    >
+                    <TextView
+                        android:id="@+id/txt_name_avatar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Yang Zi"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:textStyle="bold"
+                        android:textSize="30sp"
+                        />
+                    <TextView
+                        android:id="@+id/tv_descrip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Này là idol của hồng"
+                        android:layout_below="@+id/txt_name_avatar"
+                        android:layout_marginTop="10dp"
+                        android:layout_centerHorizontal="true"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/tv_descrip"
+                        android:text=""
+                        android:textSize="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/txtSetting"
+                        />
+
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/top_container"
+                    android:id="@+id/specific_container">
+                    <LinearLayout
+                        android:layout_margin="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/profileEdit_container"
+                        android:orientation="horizontal"
+                        >
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="300dp"
+                            android:layout_height="50dp"
+                            app:cardCornerRadius="25dp"
+                            android:layout_marginLeft="15dp"
+                            app:cardElevation="2dp"
+                            android:background="@color/white"
+                            >
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/btn_chinhsua"
+                                android:text="Sửa trang cá nhân"
+                                android:background="#00BCD4"
+                                android:textColor="@color/white"
+                                />
+                        </androidx.cardview.widget.CardView>
+                        <ImageView
+                            android:id="@+id/btn_setting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/more_btn"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="20dp"
+                            />
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_margin="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/friendContainer"
+                        android:orientation="horizontal"
+                        >
+                        <Button
+                            android:layout_width="120dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="25dp"
+                            android:id="@+id/btnAddfriend"
+                            android:text="Kết bạn"
+                            android:background="@color/main1color"
+                            android:textColor="@color/white"
+                            />
+                        <Button
+                            android:layout_width="120dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="15dp"
+                            android:id="@+id/btnNhanTin"
+                            android:text="Nhắn tin"
+                            android:background="@color/main1color"
+                            android:textColor="@color/white"
+                            />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/more_btn"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="30dp"
+                            />
+
+
+
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/below_container"
+                    android:layout_below="@+id/specific_container"
+
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/left_infor_container"
+                        android:layout_width="100dp"
+                        android:layout_height="250dp"
+                        android:background="@drawable/custom_leftbar_settingaccount">
+                        <RelativeLayout
+                            android:id="@+id/container_numfriends"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_marginTop="23dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:text="350"
+                                android:textSize="27sp"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="10dp"
+                                android:id="@+id/tv_numberFriends"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="-1dp"
+                                android:text="Bạn bè"
+                                android:textSize="13sp"
+                                android:id="@+id/tv_banbe"
+                                android:layout_below="@+id/tv_numberFriends"
+                                />
+                            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:theme="@style/seeFriendBtn"
+                                android:layout_below="@+id/tv_banbe"
+                                android:text="Xem"
+                                android:id="@+id/btn_friendList"
+                                android:textSize="12sp"
+                                android:textColor="#16C7DD"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+
+                                />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_below="@+id/container_numfriends"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_marginTop="10dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:text="350"
+                                android:textSize="27sp"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="10dp"
+                                android:id="@+id/tv_numberFollows"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="-1dp"
+                                android:text="Theo dõi"
+                                android:textSize="13sp"
+                                android:id="@+id/tv_theodoi"
+                                android:layout_below="@+id/tv_numberFollows"
+                                />
+                            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:id="@+id/btn_followlist"
+                                android:theme="@style/seeFriendBtn"
+                                android:layout_below="@+id/tv_theodoi"
+                                android:text="Xem"
+                                android:textSize="12sp"
+                                android:textColor="#16C7DD"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+
+                                />
+                        </RelativeLayout>
+
+
+
+                    </RelativeLayout>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:id="@+id/container_recycleview"
+                        android:layout_height="250dp"
+                        android:layout_toRightOf="@+id/left_infor_container"
+                        >
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/recycleview_picture_bio"
+                            android:nestedScrollingEnabled="false"
+                            android:paddingTop="10dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/left_infor_container"
+                        android:layout_below="@+id/container_recycleview"
+                        >
+
+                        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:theme="@style/seeFriendBtn"
+                            android:text="Xem thêm"
+                            android:textSize="12sp"
+                            android:textColor="#16C7DD"
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/btn_xemthem"
+                            />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="120dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/white"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="2dp">
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btnxemthem"
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:background="#FFFFFF"
+                                android:text="Xem thêm"
+                                android:textColor="#16C7DD" />
+
+                        </androidx.cardview.widget.CardView>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/container_chitiet_taikhoan"
+                    android:layout_below="@+id/below_container">
+                    <androidx.cardview.widget.CardView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardElevation="1dp"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingTop="15dp"
+                            android:paddingBottom="25dp"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/accountinfor"
+                                android:layout_gravity="center"
+                                android:textSize="21dp"
+                                android:textStyle="bold"
+                                />
+                            <LinearLayout
+                                android:id="@+id/container_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:orientation="horizontal"
+                                >
+                                <ImageView
+                                    android:id="@+id/ic_education_profile1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/icon_education_light"
+                                    />
+                                <TextView
+                                    android:id="@+id/tv_education_profile1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:text="@string/education"
+                                    android:textSize="16dp"
+                                    />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/container_2f"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:orientation="horizontal"
+                                >
+                                <ImageView
+                                    android:id="@+id/ic_education_profile2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/icon_education_light"
+                                    />
+                                <TextView
+                                    android:id="@+id/tv_education_profile2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:text="@string/education"
+                                    android:textSize="16dp"
+                                    />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/container_3f"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:orientation="horizontal"
+                                >
+                                <ImageView
+                                    android:id="@+id/ic_education_profile3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/icon_education_light"
+                                    />
+                                <TextView
+                                    android:id="@+id/tv_education_profile3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:text="@string/education"
+                                    android:textSize="16dp"
+                                    />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:orientation="horizontal"
+                                >
+                                <ImageView
+                                    android:id="@+id/ic_home_profile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/icon_home_dart"
+                                    />
+                                <TextView
+                                    android:id="@+id/tv_home_profile"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:text="@string/harbourage"
+                                    android:textSize="16dp"
+                                    />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:orientation="horizontal"
+                                >
+                                <ImageView
+                                    android:id="@+id/ic_hometown_profile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/icon_hometown_dart"
+                                    />
+                                <TextView
+                                    android:id="@+id/tv_hometown_profile"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:text="@string/hometown"
+                                    android:textSize="16dp"
+                                    />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:orientation="horizontal"
+                                >
+                                <ImageView
+                                    android:id="@+id/ic_relationship_profile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/icon_relationship_dart"
+                                    />
+                                <TextView
+                                    android:id="@+id/tv_relationship_profile"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:text="@string/relationshipstatus"
+                                    android:textSize="16dp"
+                                    />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:orientation="horizontal"
+                                >
+                                <ImageView
+                                    android:id="@+id/ic_job_profile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/icon_job"
+                                    />
+                                <TextView
+                                    android:id="@+id/tv_job_profile"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:text="@string/job"
+                                    android:textSize="16dp"
+                                    />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:orientation="horizontal"
+                                >
+                                <ImageView
+                                    android:id="@+id/ic_workplace_profile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/icon_workplace_dart"
+                                    />
+                                <TextView
+                                    android:id="@+id/tv_workplace_profile"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:text="@string/workplace"
+                                    android:textSize="16dp"
+                                    />
+                            </LinearLayout>
+
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/container_chitiet_taikhoan"
+                    android:id="@+id/container_dadang">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_DaDang"
+                        android:text="Đã Đăng"
+                        android:textStyle="bold"
+                        android:textSize="25dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="sans-serif-medium"
+                        />
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_toRightOf="@+id/tv_DaDang"
+                        android:layout_marginTop="3dp"
+                        android:layout_height="0dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_tatca"
+                            android:textStyle="bold"
+                            android:text="Tất cả"
+                            android:textSize="13dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginBottom="15dp"
+                            android:fontFamily="sans-serif-medium"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_anhvideo"
+                            android:layout_toRightOf="@+id/tv_tatca"
+                            android:text="ảnh/video"
+                            android:textSize="13dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginBottom="15dp"
+                            android:fontFamily="sans-serif-medium"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_chiase"
+                            android:layout_toRightOf="@+id/tv_anhvideo"
+                            android:text="chia sẻ"
+                            android:textSize="13dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginBottom="15dp"
+                            android:fontFamily="sans-serif-medium"
+                            />
+
+                    </RelativeLayout>
+
+
+
+                </RelativeLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    app:cardCornerRadius="35dp"
+                    app:cardElevation="1dp"
+                    android:elevation="0dp"
+                    android:layout_below="@+id/container_dadang"
+                    android:id="@+id/container_selectmode"
+                    >
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        >
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="25dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/white"
+                            >
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_chinhsua1"
+                                android:textColor="#FFFFFF"
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:textSize="9dp"
+                                android:text="Tất cả"
+                                android:background="#00BCD4"
+                                android:paddingBottom="4dp"
+                                />
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="2dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/white"
+                            >
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_chinhsua2"
+                                android:textColor="#989898"
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:textSize="9dp"
+                                android:text="Ảnh/video"
+                                android:background="#FFFFFF"
+                                android:paddingBottom="4dp"
+                                />
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="2dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/white"
+                            >
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_chinhsua3"
+                                android:textColor="#989898"
+                                android:layout_width="match_parent"
+                                android:textSize="9dp"
+                                android:layout_height="35dp"
+                                android:text="Chia sẻ"
+                                android:background="#FFFFFF"
+                                android:paddingBottom="4dp"
+                                />
+                        </androidx.cardview.widget.CardView>
+
+                        <RelativeLayout
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#9BE6EF"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_search_white"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                />
+                        </RelativeLayout>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.cardview.widget.CardView>
+
+
+
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recycleview_post_publish1"
+                    android:layout_below="@+id/container_selectmode"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false"
+
+                    />
+
+
+            </RelativeLayout>
+
+
+            <!-- Delete here-->
+
+            <!-- Delete here-->
+
+
+
+
+
+
+        </ScrollView>
+
+
+    </RelativeLayout>

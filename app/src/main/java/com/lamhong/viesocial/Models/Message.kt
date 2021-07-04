@@ -6,6 +6,7 @@ class Message {
     private var senderID : String = ""
     private var timestamp : Long = 0
     private var feeling : Int = 0
+    private var imageUrl : String = ""
 
 
 
@@ -57,5 +58,13 @@ class Message {
 
     fun setFeeling(feeling:Int){
         this.feeling=feeling
+    }
+
+    fun getImageUrl() : String {
+        return imageUrl
+    }
+
+    fun setImageUrl(imageUrl:String) {
+        this.imageUrl=imageUrl
     }
 }

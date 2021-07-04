@@ -1,5 +1,6 @@
 package com.lamhong.viesocial.Adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.lamhong.viesocial.ChatLogActivity
 import com.lamhong.viesocial.Models.User
 import com.lamhong.viesocial.R
 import com.squareup.picasso.Picasso
@@ -66,6 +68,19 @@ class MessageUsersAdapter(private val messageUsersList: ArrayList<User>) : Recyc
 
         holder.textView.text = currentItem.getName()
         Picasso.get().load(currentItem.getAvatar()).into(holder.imageView)
+
+
+        holder.itemView.setOnClickListener{v: View ->
+
+            val intent = Intent(v.context, ChatLogActivity::class.java)
+
+            intent.putExtra("name",currentItem.getName())
+            intent.putExtra("image",currentItem.getAvatar())
+            intent.putExtra("uid",currentItem.getUid())
+            intent.putExtra("image",currentItem.getAvatar())
+
+            v.context.startActivity(intent)
+        }
 
     }
 

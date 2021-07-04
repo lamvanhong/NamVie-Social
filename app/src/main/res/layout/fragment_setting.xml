@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".Fragment.SettingFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:translationZ="1dp"
+                    app:cardCornerRadius="10dp">
+                    <com.jgabrielfreitas.core.BlurImageView
+                        android:id="@+id/coverBlur"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/cty"
+                        android:scaleType="centerCrop"
+                        app:radius="20"
+                        />
+                </androidx.cardview.widget.CardView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:translationZ="3dp"
+                    >
+                    <de.hdodenhof.circleimageview.CircleImageView
+
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:src="@color/white"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:translationZ="5dp"
+                        android:layout_centerVertical="true"
+                        />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:src="@drawable/cty"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:translationZ="10dp"
+                        android:layout_centerVertical="true"
+                        />
+                </RelativeLayout>
+
+
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lam Van Hong"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="13dp"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:id="@+id/describe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Describe here nha bro"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="16dp"
+                    android:layout_marginTop="5dp"
+                    />
+
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_marginTop="23dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="13dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/NumFriends"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="32"
+                        android:textStyle="bold"
+                        android:textSize="23dp"
+                        />
+                    <TextView
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/NumFriends"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bạn bè"
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/numFollow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textStyle="bold"
+                        android:textSize="23dp"
+                        />
+                    <TextView
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/numFollow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Đang theo dõi"
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/numPost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textStyle="bold"
+                        android:textSize="23dp"
+                        />
+                    <TextView
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/numPost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bài viết"
+                        />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:layout_width="340dp"
+                    android:layout_height="50dp"
+                    app:cardCornerRadius="25dp"
+                    app:cardElevation="2dp"
+                    android:background="@color/white"
+                    android:layout_centerHorizontal="true"
+                    >
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/btn_movetoProfile"
+                        android:text="Trang cá nhân của tôi"
+                        android:background="@drawable/custom_gradient_button1"
+                        android:textColor="@color/white"
+                        />
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/btn_movetoFriendList"
+                android:layout_width="match_parent"
+                android:layout_marginTop="40dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="#F6F6F6"
+                        android:layout_marginLeft="40dp"
+                        android:translationZ="1dp"
+
+                        />
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/icf_list"
+                        android:layout_marginLeft="50dp"
+                        android:translationZ="3dp"
+                        />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Danh sách bạn bè"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    />
+                <RelativeLayout
+                    android:layout_marginTop="10dp "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_next"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="35dp"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                >
+                <View
+                    android:layout_width="300dp"
+                    android:layout_height="1dp"
+                    android:background="#45A1A1A1"
+                    android:layout_centerHorizontal="true"
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="#F6F6F6"
+                        android:layout_marginLeft="40dp"
+                        android:translationZ="1dp"
+
+                        />
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/icf_private"
+                        android:layout_marginLeft="50dp"
+                        android:translationZ="3dp"
+                        />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quyền riêng tư"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    />
+                <RelativeLayout
+                    android:layout_marginTop="10dp "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_next"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="35dp"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                >
+                <View
+                    android:layout_width="300dp"
+                    android:layout_height="1dp"
+                    android:background="#45A1A1A1"
+                    android:layout_centerHorizontal="true"
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="#F6F6F6"
+                        android:layout_marginLeft="40dp"
+                        android:translationZ="1dp"
+
+                        />
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/icf_activity"
+                        android:layout_marginLeft="50dp"
+                        android:translationZ="3dp"
+                        />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hoạt động"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    />
+                <RelativeLayout
+                    android:layout_marginTop="10dp "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_next"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="35dp"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                >
+                <View
+                    android:layout_width="300dp"
+                    android:layout_height="1dp"
+                    android:background="#45A1A1A1"
+                    android:layout_centerHorizontal="true"
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="#F6F6F6"
+                        android:layout_marginLeft="40dp"
+                        android:translationZ="1dp"
+
+                        />
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/icf_savepost"
+                        android:layout_marginLeft="50dp"
+                        android:translationZ="3dp"
+                        />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bài viết đã lưu"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    />
+                <RelativeLayout
+                    android:layout_marginTop="10dp "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_next"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="35dp"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                >
+                <View
+                    android:layout_width="300dp"
+                    android:layout_height="1dp"
+                    android:background="#45A1A1A1"
+                    android:layout_centerHorizontal="true"
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="#F6F6F6"
+                        android:layout_marginLeft="40dp"
+                        android:translationZ="1dp"
+
+                        />
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/icf_setting"
+                        android:layout_marginLeft="50dp"
+                        android:translationZ="3dp"
+                        />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cài đặt hệ thống"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    />
+                <RelativeLayout
+                    android:layout_marginTop="10dp "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_next"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="35dp"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                >
+                <View
+                    android:layout_width="300dp"
+                    android:layout_height="1dp"
+                    android:background="#45A1A1A1"
+                    android:layout_centerHorizontal="true"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+
+</LinearLayout>

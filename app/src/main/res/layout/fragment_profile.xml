@@ -81,16 +81,7 @@
                             android:scaleType="centerCrop"
                             android:src="@drawable/cty" />
                     </androidx.cardview.widget.CardView>
-                    <ImageButton
-                        android:id="@+id/btnSetting"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/homebtn"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="35dp"
-                        />
+
 
                 </RelativeLayout>
                 <RelativeLayout
@@ -147,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tv_descrip"
-                    android:text="lamhong"
+                    android:text=""
                     android:textSize="20dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginLeft="10dp"
@@ -158,11 +149,90 @@
 
             </RelativeLayout>
             <RelativeLayout
-                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/top_container"
+                android:id="@+id/specific_container">
+                <LinearLayout
+                    android:layout_margin="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/profileEdit_container"
+                    android:orientation="horizontal"
+                    >
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        app:cardCornerRadius="25dp"
+                        android:layout_marginLeft="15dp"
+                        app:cardElevation="2dp"
+                        android:background="@color/white"
+                        >
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/btn_chinhsua"
+                            android:text="Sửa trang cá nhân"
+                            android:background="#00BCD4"
+                            android:textColor="@color/white"
+                            />
+                    </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:id="@+id/btn_setting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/more_btn"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        />
+
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_margin="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/friendContainer"
+                    android:orientation="horizontal"
+                    >
+                    <Button
+                        android:layout_width="120dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="25dp"
+                        android:id="@+id/btnAddfriend"
+                        android:text="Kết bạn"
+                        android:background="@color/main1color"
+                        android:textColor="@color/white"
+                        />
+                    <Button
+                        android:layout_width="120dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="15dp"
+                        android:id="@+id/btnNhanTin"
+                        android:text="Nhắn tin"
+                        android:background="@color/main1color"
+                        android:textColor="@color/white"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/more_btn"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="30dp"
+                        />
+
+
+
+                </LinearLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/below_container"
+                android:layout_below="@+id/specific_container"
 
                 >
 
@@ -202,6 +272,7 @@
                                 android:theme="@style/seeFriendBtn"
                                 android:layout_below="@+id/tv_banbe"
                                 android:text="Xem"
+                                android:id="@+id/btn_friendList"
                                 android:textSize="12sp"
                                 android:textColor="#16C7DD"
                                 android:layout_centerHorizontal="true"
@@ -258,6 +329,7 @@
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
+                    android:id="@+id/container_recycleview"
                     android:layout_height="250dp"
                     android:layout_toRightOf="@+id/left_infor_container"
                     >
@@ -266,17 +338,275 @@
                         android:layout_height="match_parent"
                         android:id="@+id/recycleview_picture_bio"
                         android:nestedScrollingEnabled="false"
-                        android:padding="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         />
                 </androidx.appcompat.widget.LinearLayoutCompat>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/left_infor_container"
+                    android:layout_below="@+id/container_recycleview"
+                    >
 
+                    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:theme="@style/seeFriendBtn"
+                        android:text="Xem thêm"
+                        android:textSize="12sp"
+                        android:textColor="#16C7DD"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/btn_xemthem"
+                        />
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="120dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:cardCornerRadius="25dp"
+                        app:cardElevation="2dp">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnxemthem"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="#FFFFFF"
+                            android:text="Xem thêm"
+                            android:textColor="#16C7DD" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
 
             </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/below_container"
+                android:id="@+id/container_chitiet_taikhoan"
+                android:layout_below="@+id/below_container">
+                <androidx.cardview.widget.CardView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardElevation="1dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="25dp"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/accountinfor"
+                            android:layout_gravity="center"
+                            android:textSize="21dp"
+                            android:textStyle="bold"
+                            />
+                        <LinearLayout
+                            android:id="@+id/container_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:id="@+id/ic_education_profile1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_education_light"
+                                />
+                            <TextView
+                                android:id="@+id/tv_education_profile1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/education"
+                                android:textSize="16dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/container_2f"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:id="@+id/ic_education_profile2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_education_light"
+                                />
+                            <TextView
+                                android:id="@+id/tv_education_profile2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/education"
+                                android:textSize="16dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/container_3f"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:id="@+id/ic_education_profile3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_education_light"
+                                />
+                            <TextView
+                                android:id="@+id/tv_education_profile3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/education"
+                                android:textSize="16dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:id="@+id/ic_home_profile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_home_dart"
+                                />
+                            <TextView
+                                android:id="@+id/tv_home_profile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/harbourage"
+                                android:textSize="16dp"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:id="@+id/ic_hometown_profile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_hometown_dart"
+                                />
+                            <TextView
+                                android:id="@+id/tv_hometown_profile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/hometown"
+                                android:textSize="16dp"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:id="@+id/ic_relationship_profile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_relationship_dart"
+                                />
+                            <TextView
+                                android:id="@+id/tv_relationship_profile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/relationshipstatus"
+                                android:textSize="16dp"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:id="@+id/ic_job_profile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_job"
+                                />
+                            <TextView
+                                android:id="@+id/tv_job_profile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/job"
+                                android:textSize="16dp"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:id="@+id/ic_workplace_profile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_workplace_dart"
+                                />
+                            <TextView
+                                android:id="@+id/tv_workplace_profile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/workplace"
+                                android:textSize="16dp"
+                                />
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/container_chitiet_taikhoan"
                 android:id="@+id/container_dadang">
                 <TextView
                     android:layout_width="wrap_content"
@@ -285,16 +615,16 @@
                     android:text="Đã Đăng"
                     android:textStyle="bold"
                     android:textSize="25dp"
-                    android:layout_marginLeft="35dp"
+                    android:layout_marginLeft="17dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="15dp"
                     android:fontFamily="sans-serif-medium"
                     />
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_toRightOf="@+id/tv_DaDang"
                     android:layout_marginTop="3dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="0dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -337,6 +667,108 @@
 
 
             </RelativeLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                app:cardCornerRadius="35dp"
+                app:cardElevation="1dp"
+                android:elevation="0dp"
+                android:layout_below="@+id/container_dadang"
+                android:id="@+id/container_selectmode"
+                >
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="#FFFFFF"
+                    android:orientation="horizontal"
+                    >
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="25dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/white"
+                        >
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_chinhsua1"
+                            android:textColor="#FFFFFF"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:textSize="9dp"
+                            android:text="Tất cả"
+                            android:background="#00BCD4"
+                            android:paddingBottom="4dp"
+                            />
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="25dp"
+                        app:cardElevation="2dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/white"
+                        >
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_chinhsua2"
+                            android:textColor="#989898"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:textSize="9dp"
+                            android:text="Ảnh/video"
+                            android:background="#FFFFFF"
+                            android:paddingBottom="4dp"
+                            />
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="25dp"
+                        app:cardElevation="2dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/white"
+                        >
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_chinhsua3"
+                            android:textColor="#989898"
+                            android:layout_width="match_parent"
+                            android:textSize="9dp"
+                            android:layout_height="35dp"
+                            android:text="Chia sẻ"
+                            android:background="#FFFFFF"
+                            android:paddingBottom="4dp"
+                            />
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#9BE6EF"
+                        >
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/icon_search_white"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            />
+                    </RelativeLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
 
 
 
@@ -345,7 +777,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/recycleview_post_publish"
-                android:layout_below="@+id/container_dadang"
+                android:layout_below="@+id/container_selectmode"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
@@ -353,12 +785,6 @@
 
                 />
 
-            <ImageView
-                android:layout_width="500dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/cty"
-                android:layout_below="@+id/recycleview_post_publish"
-                />
 
         </RelativeLayout>
 

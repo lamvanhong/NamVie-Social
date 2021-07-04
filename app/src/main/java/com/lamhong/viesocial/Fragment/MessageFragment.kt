@@ -57,6 +57,21 @@ class MessageFragment : Fragment() {
 
         view.rv_message_users.adapter = adapter
 
+        val users_mess = ArrayList<String>()
+
+/*        FirebaseDatabase.getInstance().reference.child("/chats").addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (ss in snapshot.children) {
+                    users_mess.add(ss.value.toString())
+                }
+            }
+        })*/
+
+
+
         FirebaseDatabase.getInstance().reference.child("/UserInformation").addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
 
@@ -67,8 +82,8 @@ class MessageFragment : Fragment() {
                 for (ss in snapshot.children) {
                     val user = ss.getValue(User::class.java)
                     user!!.setName(ss.child("fullname").value.toString())
-                    if (user != null) {
-                        users.add(user)
+                        if (user != null) {
+                            users.add(user)
                     }
                 }
                 adapter.notifyDataSetChanged()

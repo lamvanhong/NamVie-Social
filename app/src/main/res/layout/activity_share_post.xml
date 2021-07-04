@@ -13,13 +13,13 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/main1color"
+            android:background="#FFFFFF"
             >
             <ImageView
                 android:id="@+id/btn_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/close_btn"
+                android:src="@drawable/icon_delete_full"
 
                 />
             <TextView
@@ -28,22 +28,33 @@
                 android:text="Chia sẻ bài viết"
                 android:textStyle="bold"
                 android:textSize="20dp"
-                android:textColor="@color/white"
+                android:textColor="#00BCD4"
                 android:layout_marginLeft="50dp"
           />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 >
-                <Button
-                    android:id="@+id/btn_dangShare"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:text="Dang"
+                <androidx.cardview.widget.CardView
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp"
-                    />
+                    android:layout_marginRight="40dp"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="2dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/white"
+                    >
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_dangShare"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:text="Đăng"
+                        android:background="#00B0D1"
+                        />
+                </androidx.cardview.widget.CardView>
             </RelativeLayout>
 
 
@@ -61,17 +72,18 @@
             android:id="@+id/linear1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/user_profile_image_search"
+                android:id="@+id/avatar_userSharing"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/duongtu1"
                 android:padding="5dp"/>
 
             <TextView
-                android:id="@+id/user_name_search"
+                android:id="@+id/name_userSharing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="user name"
@@ -79,7 +91,6 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="14dp"
-                android:textColor="@color/colorPrimaryDark"
                 />
             <Space
                 android:layout_width="0dp"
@@ -110,13 +121,15 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:layout_marginLeft="20dp"
-            android:elevation="2dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
 
             >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:layout_marginRight="5dp"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -125,16 +138,16 @@
                     >
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/user_avatar_shared"
+                        android:id="@+id/avatar_userShared"
                         android:layout_marginTop="5dp"
-                        android:layout_marginLeft="1dp"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:src="@drawable/duongtu1"
                         android:padding="5dp"/>
 
                     <TextView
-                        android:id="@+id/user_name_shared"
+                        android:id="@+id/name_userShared"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="user name"
@@ -142,7 +155,6 @@
                         android:textStyle="bold"
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="14dp"
-                        android:textColor="@color/colorPrimaryDark"
                         />
                 </LinearLayout>
                 <TextView
@@ -150,15 +162,19 @@
                     android:layout_height="wrap_content"
                     android:text="content"
                     android:textSize="15sp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
                     android:id="@+id/content_inshared"
                     />
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     app:cardCornerRadius="10dp">
                     <ImageView
+                        android:id="@+id/imagePost"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:src="@drawable/cty"

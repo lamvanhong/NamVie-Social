@@ -9,28 +9,74 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.lamhong.viesocial.Models.User
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_share_post.*
 
 class SharePostActivity : AppCompatActivity() {
 
     private var postID: String=""
+    private var publisher: String=""
     private var firebaseUser : FirebaseUser?=null
-    private var followingList : ArrayList<String>?=null
+    private var followingList : ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_share_post)
         firebaseUser=FirebaseAuth.getInstance().currentUser
         postID= intent.getStringExtra("postID").toString()
+        publisher= intent.getStringExtra("publisher").toString()
         btn_dangShare.setOnClickListener{
             sharePost()
         }
         btn_close.setOnClickListener{
             finish()
         }
-
+        getFollowinglist()
+        showProfile()
 
     }
+
+    private fun showProfile() {
+        val userRef = FirebaseDatabase.getInstance().reference
+            .child("UserInformation")
+        userRef.addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val userSharing = snapshot.child(firebaseUser!!.uid!!).getValue(User::class.java)
+                    userSharing!!.setName(snapshot.child(firebaseUser!!.uid!!).child("fullname").value.toString())
+                    val userShared = snapshot.child(publisher).getValue(User::class.java)
+                    userShared!!.setName(snapshot.child(publisher).child("fullname").value.toString())
+
+                    name_userSharing.setText(userSharing.getName().toString())
+                    name_userShared.setText(userShared.getName())
+                    Picasso.get().load(userSharing.getAvatar()).into(avatar_userSharing)
+                    Picasso.get().load(userShared.getAvatar()).into(avatar_userShared)
+                }
+
+            }
+        })
+        val postRef= FirebaseDatabase.getInstance().reference
+            .child("Contents").child("Posts").child(postID)
+        postRef.addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val imageuri= snapshot.child("post_image").value.toString()
+                    val content= snapshot.child("post_content").value.toString()
+                    content_inshared.text=content
+                    Picasso.get().load(imageuri).into(imagePost)
+                }
+            }
+        })
+
+    }
+
     private fun getFollowinglist(){
         val ref = FirebaseDatabase.getInstance().reference.child("Friends")
             .child(FirebaseAuth.getInstance().currentUser.uid)
@@ -38,7 +84,7 @@ class SharePostActivity : AppCompatActivity() {
         ref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
-                    followingList!!.clear()
+                    ( followingList as ArrayList).clear()
                     for (s in snapshot.children){
                         followingList!!.add(s.key.toString())
                     }
@@ -50,8 +96,8 @@ class SharePostActivity : AppCompatActivity() {
         })
     }
     fun sharePost(){
-        val shareRef= FirebaseDatabase.getInstance().reference
-            .child("Share Posts").child(firebaseUser!!.uid)
+        val shareRef= FirebaseDatabase.getInstance().reference.child("Contents")
+            .child("Share Posts")
         val shareMap = HashMap<String, Any>()
 
         val idref= shareRef.push().key.toString()
@@ -63,10 +109,18 @@ class SharePostActivity : AppCompatActivity() {
         shareMap["publisher"]=firebaseUser!!.uid
 
 
-        shareRef.child(idref).setValue(shareMap)
+        val timelineUser= FirebaseDatabase.getInstance().reference.child("Contents")
+            .child("ProfileTimeLine").child(FirebaseAuth.getInstance().currentUser.uid)
+        val pMap = HashMap<String, Any>()
+        pMap["post_type"]="sharepost"
+        pMap["id"]=idref
+        pMap["active"]=true
 
+
+        shareRef.child(idref).setValue(shareMap)
+        timelineUser.push().setValue(pMap)
         for(user in followingList!!){
-            val timelineRef= FirebaseDatabase.getInstance().reference
+            val timelineRef= FirebaseDatabase.getInstance().reference.child("Contents")
                 .child("UserTimeLine")
                 .child(user)
             val postMap  = HashMap<String, Any>()

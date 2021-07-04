@@ -3,6 +3,7 @@
     package="com.lamhong.viesocial">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -13,7 +14,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBook">
-        <activity android:name="com.lamhong.viesocial.ChatLogActivity"/>
+        <activity android:name="com.lamhong.viesocial.MyShotVideoActivity"></activity>
+        <activity android:name="com.lamhong.viesocial.ShotVideoActivity" />
+        <activity android:name="com.lamhong.viesocial.AddShotVideoActivity" />
+        <activity android:name="com.lamhong.viesocial.ReplayCommentActivity" />
+        <activity android:name="com.lamhong.viesocial.FollowingListActivity" />
+        <activity android:name="com.lamhong.viesocial.ProfileActivity" />
+        <activity android:name="com.lamhong.viesocial.NewSearchActivity" />
+        <activity android:name="com.lamhong.viesocial.PictureActivity" />
+        <activity android:name="com.lamhong.viesocial.SchoolEditingActivity" />
+        <activity android:name="com.lamhong.viesocial.DetailEditGeneralActivity" />
+        <activity android:name="com.lamhong.viesocial.DetailUserInforChangeActivity" />
+        <activity android:name="com.lamhong.viesocial.ChangeCoverImageActivity" />
+        <activity android:name="com.lamhong.viesocial.ChangeAvatarActivity" />
+        <activity android:name="com.lamhong.viesocial.ProfileEditting" />
+        <activity android:name="com.lamhong.viesocial.FriendListActivity" />
+        <activity android:name="com.lamhong.viesocial.ChatLogActivity" />
         <activity android:name="com.lamhong.viesocial.NewMessageActivity" />
         <activity android:name="com.lamhong.viesocial.SharePostActivity" />
         <activity android:name="com.lamhong.viesocial.UserReacted" />

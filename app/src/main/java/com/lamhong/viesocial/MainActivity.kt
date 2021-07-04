@@ -1,10 +1,10 @@
 package com.lamhong.viesocial
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.lamhong.viesocial.Fragment.SettingFragment
 import com.lamhong.viesocial.Fragment.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +23,9 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.nav_add_post -> {
                 //item.isChecked=false
-                startActivity(Intent(this, Post_Activity::class.java))
+               // startActivity(Intent(this, Post_Activity::class.java))
+              //  moveFragment(ShortVideoFragment())
+                moveFragment(VideoFragment())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_notifications -> {
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_profile -> {
-                moveFragment(ProfileFragment())
+                moveFragment(SettingFragment())
                 return@OnNavigationItemSelectedListener true
             }
 
