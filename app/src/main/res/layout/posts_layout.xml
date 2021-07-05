@@ -61,11 +61,12 @@
                 </RelativeLayout>
                 <ImageView
                     android:layout_alignParentRight="true"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="15dp"
-                    android:src="@drawable/more_btn"
+                    android:src="@drawable/icf_option"
+                    android:id="@+id/btn_option"
                     />
             </RelativeLayout>
 
@@ -299,15 +300,7 @@
 
 
 
-        <TextView
-            android:id="@+id/numlikes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:textColor="@color/colorPrimaryDark"
-            />
+
 
 
 

@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "VieSocial"
+rootProject.name = "MyBook"

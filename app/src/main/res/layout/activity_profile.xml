@@ -173,6 +173,8 @@
                         >
 
                         <androidx.cardview.widget.CardView
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
                             android:layout_width="300dp"
                             android:layout_height="50dp"
                             app:cardCornerRadius="25dp"
@@ -185,8 +187,8 @@
                                 android:layout_height="match_parent"
                                 android:id="@+id/btn_chinhsua"
                                 android:text="Sửa trang cá nhân"
-                                android:background="#00BCD4"
-                                android:textColor="@color/white"
+                                android:background="#FFFFFF"
+                                android:textColor="#00BCD4"
                                 />
                         </androidx.cardview.widget.CardView>
                         <ImageView
@@ -208,24 +210,47 @@
                         android:id="@+id/friendContainer"
                         android:orientation="horizontal"
                         >
-                        <Button
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
                             android:layout_width="120dp"
                             android:layout_height="50dp"
-                            android:layout_marginLeft="25dp"
-                            android:id="@+id/btnAddfriend"
-                            android:text="Kết bạn"
-                            android:background="@color/main1color"
-                            android:textColor="@color/white"
-                            />
-                        <Button
-                            android:layout_width="120dp"
-                            android:layout_height="50dp"
+                            app:cardCornerRadius="20dp"
                             android:layout_marginLeft="15dp"
-                            android:id="@+id/btnNhanTin"
-                            android:text="Nhắn tin"
-                            android:background="@color/main1color"
-                            android:textColor="@color/white"
-                            />
+                            app:cardElevation="2dp"
+                            android:background="@color/white"
+                            >
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/btnAddfriend"
+                                android:text="Kết bạn"
+                                android:background="#FFFFFF"
+                                android:textColor="#00BCD4"
+                                />
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:layout_width="120dp"
+                            android:layout_height="50dp"
+                            app:cardCornerRadius="20dp"
+                            android:layout_marginLeft="15dp"
+                            app:cardElevation="2dp"
+                            android:background="@color/white"
+                            >
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/btnNhanTin"
+                                android:text="nhắn tin"
+                                android:background="#FFFFFF"
+                                android:textColor="#00BCD4"
+                                />
+                        </androidx.cardview.widget.CardView>
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

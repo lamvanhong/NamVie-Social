@@ -8,6 +8,28 @@
 
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/message"
+        app:layout_constraintStart_toEndOf="@+id/message"
+        app:layout_constraintTop_toTopOf="@+id/message">
+
+        <TextView
+            android:id="@+id/time_chat_receive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thu 10:24 PM"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
@@ -23,6 +45,7 @@
             android:scaleType="fitCenter"
             android:visibility="gone"
             app:srcCompat="@drawable/sontung" />
+
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
@@ -30,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.73" />
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -44,6 +67,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/message"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_chatlog2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/sontung"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/linearLayout4"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/message"
         android:layout_width="wrap_content"
@@ -52,16 +87,32 @@
         android:layout_marginLeft="20dp"
         android:background="@drawable/receive_message_drawable"
         android:paddingLeft="15dp"
-        android:paddingTop="8dp"
+        android:paddingTop="11dp"
         android:paddingRight="15dp"
         android:paddingBottom="8dp"
-        android:text="Hello  "
+        android:text="Hello"
+        android:textColor="@color/black"
         android:textSize="16sp"
+        android:visibility="visible"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@+id/image_chatlog"
-        app:layout_constraintTop_toTopOf="@id/image_chatlog" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/time_chat_receive2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="10:24 PM"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout4"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout4" />
 
     <!--<ImageView
         android:id="@+id/feeling"
