@@ -19,4 +19,24 @@
 
     <color name="textcolor1">#00B0D1</color>
     <color name="textcolor2">#FFACDF</color>
+
+    <!--  -devBlinkCat  -->
+    <color name="colorMeetingInvitationStart">#4004BB</color>
+    <color name="colorMeetingInvitationEnd">#8A1AAA</color>
+    <color name="colorTextIcons">#FFFFFF</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorLightGreen">#2ed95b</color>
+    <color name="colorLightRed">#fc4538</color>
+
+    <color name="eb3a2a">#eb3a2a</color>
+    <color name="a598eb">#a598eb</color>
+    <color name="e84fcf">#e84fcf</color>
+    <color name="b53f3f">#b53f3f</color>
+    <color name="a0e92eb">#0e92eb</color>
+    <color name="de625b">#de625b</color>
+    <color name="e6a50e">#e6a50e</color>
+    <color name="a69c90c">#69c90c</color>
+    <color name="a4e42ad">#4e42ad</color>
+    <color name="a80ddd">#a80ddd</color>
+
 </resources>

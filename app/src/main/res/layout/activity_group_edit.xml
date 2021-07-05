@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/message_new_user"
-                android:text="New Group"
+                android:text="Chỉnh sửa"
                 android:layout_alignParentLeft="true"
                 android:textSize="25sp"
                 android:textStyle="bold"/>
@@ -50,7 +50,7 @@
         android:layout_marginTop="10dp"
         android:background="#eee"
         android:editable="true"
-        android:hint="Group Title"
+        android:hint="Tên nhóm"
         android:padding="10dp" />
 
     <EditText
@@ -62,7 +62,7 @@
         android:background="#eee"
         android:editable="true"
         android:gravity="top"
-        android:hint="Group Description"
+        android:hint="Mô tả"
         android:inputType="textImeMultiLine|textCapSentences"
         android:minHeight="100dp"
         android:padding="10dp" />

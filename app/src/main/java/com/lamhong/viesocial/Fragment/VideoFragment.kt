@@ -107,15 +107,19 @@ class VideoFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     if(snapshot.child("followerList").exists()){
+                        if(numFollower_shotprofile!=null)
                         numFollower_shotprofile.text=snapshot.child("followerList").childrenCount.toString()
                     }
                     else{
+                        if(numFollower_shotprofile!=null)
                         numFollower_shotprofile.text="0"
                     }
                     if(snapshot.child("followingList").exists()){
+                        if(numFollowinng_shotprofile!=null)
                         numFollowinng_shotprofile.text=snapshot.child("followingList").childrenCount.toString()
                     }
                     else{
+                        if(numFollowinng_shotprofile!=null)
                         numFollowinng_shotprofile.text="0"
                     }
                 }

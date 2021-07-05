@@ -25,6 +25,8 @@
     <string name="motaAvatar">Nhập nội dung</string>
     <string name="nhapmotaAvatar">nhập ...</string>
     <string name="dang">Đăng</string>
+    <string name="incoming_video_call">Incoming Video Call</string>
+    <string name="calling">Calling</string>
 
 
 </resources>

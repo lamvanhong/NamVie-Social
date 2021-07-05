@@ -79,7 +79,7 @@
             android:id="@+id/editGroupTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit Group"
+            android:text="Chỉnh sửa"
             android:drawableStart="@drawable/ic_edit"
             android:layout_gravity="center_vertical"
             android:drawablePadding="10dp"
@@ -98,7 +98,7 @@
             android:id="@+id/addMemberTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Member"
+            android:text="Thêm thành viên"
             android:padding="5dp"
             android:textColor="@color/black"/>
         <View
@@ -113,7 +113,7 @@
             android:id="@+id/leaveGroupTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Leave Group"
+            android:text="Rời nhóm"
             android:padding="5dp"
             android:textColor="@color/black"/>
         <View
@@ -128,7 +128,7 @@
             android:id="@+id/membersTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Members (N)"
+            android:text="Thành viên (N)"
             android:padding="5dp"
             android:textColor="@color/black"/>
 

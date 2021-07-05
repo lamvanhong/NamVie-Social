@@ -42,38 +42,76 @@
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-    <androidx.cardview.widget.CardView
-        android:translationZ="1dp"
-        app:cardCornerRadius="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/appbar_layout_comment"
-        android:id="@+id/container_imagepost"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        >
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:id="@+id/image_post_incomment"
-            android:scaleType="centerCrop"
-            android:src="@drawable/cty"
-
-            />
-    </androidx.cardview.widget.CardView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:translationZ="1dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycleview_comment"
-        android:layout_below="@+id/container_imagepost"
+        android:orientation="vertical"
         android:layout_marginBottom="100dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="10dp"
-        />
+        android:layout_below="@+id/appbar_layout_comment"
+        >
+        <androidx.cardview.widget.CardView
+            android:translationZ="1dp"
+            app:cardCornerRadius="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/container_imagepost"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:id="@+id/image_post_incomment"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cty"
+
+                />
+
+        </androidx.cardview.widget.CardView>
+
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           >
+           <androidx.cardview.widget.CardView
+               android:translationZ="1dp"
+               app:cardCornerRadius="20dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="5dp"
+               android:layout_marginLeft="10dp"
+               android:layout_marginRight="10dp"
+               app:cardElevation="0dp"
+               android:elevation="0dp"
+               android:outlineAmbientShadowColor="@color/white"
+               android:layout_centerHorizontal="true"
+               android:id="@+id/container_post_avatar_comment"
+               >
+               <ImageView
+                   android:layout_width="250dp"
+                   android:layout_height="250dp"
+                   android:src="@drawable/duongtu"
+                   android:translationZ="2dp"
+                   android:id="@+id/post_avatar_comment"
+                   />
+           </androidx.cardview.widget.CardView>
+
+       </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:translationZ="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recycleview_comment"
+            android:layout_below="@+id/container_imagepost"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="10dp"
+            />
+    </LinearLayout>
     <RelativeLayout
         android:translationZ="10dp"
         android:background="@color/white"

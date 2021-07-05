@@ -121,6 +121,53 @@ class MessageAdapter(private val messageList: ArrayList<Message>, private val se
             }
             else if (type == "text") {
                 message.text= recyclerViewModel.getMessage()
+
+                FirebaseDatabase.getInstance().reference.child("chats")
+                    .child(senderRoom)
+                    .child("color")
+                    .addValueEventListener(object : ValueEventListener {
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot!=null) {
+                                if (snapshot.value.toString() == "#eb3a2a" || snapshot.value.toString() == "#EB3A2A") {
+                                    message.setBackgroundResource(R.drawable.sent_eb3a2a)
+                                }
+                                else if (snapshot.value.toString() == "#a598eb" || snapshot.value.toString() == "#A598EB") {
+                                    message.setBackgroundResource(R.drawable.sent_a598eb)
+                                }
+                                else if (snapshot.value.toString() == "#e84fcf" || snapshot.value.toString() == "#E84FCF") {
+                                    message.setBackgroundResource(R.drawable.sent_e84fcf)
+                                }
+                                else if (snapshot.value.toString() == "#0e92eb" || snapshot.value.toString() == "#0E92EB") {
+                                    message.setBackgroundResource(R.drawable.sent_0e92eb)
+                                }
+                                else if (snapshot.value.toString() == "#b53f3f" || snapshot.value.toString() == "#B53F3F") {
+                                    message.setBackgroundResource(R.drawable.sent_b53f3f)
+                                }
+                                else if (snapshot.value.toString() == "#de625b" || snapshot.value.toString() == "#DE625B") {
+                                    message.setBackgroundResource(R.drawable.sent_de625b)
+                                }
+                                else if (snapshot.value.toString() == "#e6a50e" || snapshot.value.toString() == "#E6A50E") {
+                                    message.setBackgroundResource(R.drawable.sent_e6a50e)
+                                }
+                                else if (snapshot.value.toString() == "#69c90c" || snapshot.value.toString() == "#69C90C") {
+                                    message.setBackgroundResource(R.drawable.sent_69c90c)
+                                }
+                                else if (snapshot.value.toString() == "#4e42ad" || snapshot.value.toString() == "#4E42AD") {
+                                    message.setBackgroundResource(R.drawable.sent_4e42ad)
+                                }
+                                else if (snapshot.value.toString() == "#a80ddd" || snapshot.value.toString() == "#A80DDD") {
+                                    message.setBackgroundResource(R.drawable.sent_a80ddd)
+                                }
+                            }
+
+                        }
+
+                    })
+
             }
 
 //            if (recyclerViewModel.getMessage() == "[Photo]") {
@@ -144,8 +191,14 @@ class MessageAdapter(private val messageList: ArrayList<Message>, private val se
 
 
             if (date.day!=date2.day) {
-                timestamp.text = dateFormat.format(date)
-                timestampimage.text = dateFormat.format(date)
+                if (date.date==(date2.date-1)) {
+                    timestamp.text = "Hôm qua"
+                    timestampimage.text = "Hôm qua"
+                }
+                else {
+                    timestamp.text = dateFormat.format(date)
+                    timestampimage.text = dateFormat.format(date)
+                }
             }
             else {
                 timestamp.text = dateFormat2.format(date)
@@ -155,12 +208,12 @@ class MessageAdapter(private val messageList: ArrayList<Message>, private val se
 
             if (position==(messageList.size-1)) {
                 if (recyclerViewModel.isSeen()) {
-                    seen.text  = "Seen"
-                    seenimage.text = "Seen"
+                    seen.text  = "Đã xem"
+                    seenimage.text = "Đã xem"
                 }
                 else {
-                    seen.text = "Delivered"
-                    seenimage.text = "Delivered"
+                    seen.text = "Đã nhận"
+                    seenimage.text = "Đã nhận"
                 }
             }
             else {
@@ -295,7 +348,7 @@ class MessageAdapter(private val messageList: ArrayList<Message>, private val se
 
                         //ss.ref.removeValue()
                         val hashMap = hashMapOf<String, Any?>()
-                        hashMap["message"] = "You unsent a message"
+                        hashMap["message"] = "Bạn đã gỡ một tin nhắn"
                         hashMap["type"] = "text"
                         ss.ref.updateChildren(hashMap)
 
@@ -303,7 +356,7 @@ class MessageAdapter(private val messageList: ArrayList<Message>, private val se
 
                         if (position==(messageList.size-1)) {
 
-                            lastMess["lastMess"] = "You unsent a message"
+                            lastMess["lastMess"] = "Bạn đã gỡ một tin nhắn"
                             //lastMess.put("lastTime", date.time)
 
                             FirebaseDatabase.getInstance().reference.child("chats").child(senderRoom.toString()).updateChildren(lastMess)
@@ -355,7 +408,7 @@ class MessageAdapter(private val messageList: ArrayList<Message>, private val se
 
                         //ss.ref.removeValue()
                         val hashMap = hashMapOf<String, Any?>()
-                        hashMap["message"] = "This message has been unsent"
+                        hashMap["message"] = "Tin nhắn này đã được gỡ"
                         hashMap["type"] = "text"
                         ss.ref.updateChildren(hashMap)
 
@@ -363,7 +416,7 @@ class MessageAdapter(private val messageList: ArrayList<Message>, private val se
 
                             val lastMess = hashMapOf<String, Any?>()
 
-                            lastMess["lastMess"] = "This message has been unsent"
+                            lastMess["lastMess"] = "Tin nhắn này đã được gỡ"
                             //lastMess.put("lastTime", date.time)
 
                             FirebaseDatabase.getInstance().reference.child("chats").child(receiveRoom.toString()).updateChildren(lastMess)
@@ -425,7 +478,7 @@ class MessageAdapter(private val messageList: ArrayList<Message>, private val se
 
                         //ss.ref.removeValue()
                         val hashMap = hashMapOf<String, Any?>()
-                        hashMap["message"] = "You deleted a message"
+                        hashMap["message"] = "Bạn đã xóa một tin nhắn"
                         hashMap["type"] = "text"
                         ss.ref.updateChildren(hashMap)
 
@@ -433,7 +486,7 @@ class MessageAdapter(private val messageList: ArrayList<Message>, private val se
 
                             val lastMess = hashMapOf<String, Any?>()
 
-                            lastMess["lastMess"] = "You deleted a message"
+                            lastMess["lastMess"] = "Bạn đã xóa một tin nhắn"
                             //lastMess.put("lastTime", date.time)
 
                             FirebaseDatabase.getInstance().reference.child("chats").child(senderRoom.toString()).updateChildren(lastMess)
@@ -444,14 +497,14 @@ class MessageAdapter(private val messageList: ArrayList<Message>, private val se
                     else {
                         //ss.ref.removeValue()
                         val hashMap = hashMapOf<String, Any?>()
-                        hashMap["message"] = "This message has been deleted"
+                        hashMap["message"] = "Tin nhắn này đã được xóa"
                         ss.ref.updateChildren(hashMap)
 
                         if (position==(messageList.size-1)) {
 
                             val lastMess = hashMapOf<String, Any?>()
 
-                            lastMess["lastMess"] = "This message has been deleted"
+                            lastMess["lastMess"] = "Tin nhắn này đã được xóa"
                             //lastMess.put("lastTime", date.time)
 
                             FirebaseDatabase.getInstance().reference.child("chats").child(senderRoom.toString()).updateChildren(lastMess)
@@ -536,10 +589,17 @@ class MessageAdapter(private val messageList: ArrayList<Message>, private val se
 //            }
 
             if (date.day!=date2.day) {
+                if (date.date==(date2.date-1)) {
+                    timestamp.text = "Hôm qua"
+                    timestamp2.text = "Hôm qua"
+                }
+                else {
+                    timestamp.text = dateFormat.format(date)
+                    timestamp2.text = dateFormat.format(date)
+                }
 
-                timestamp.text = dateFormat.format(date)
-                timestamp2.text = dateFormat.format(date)
             }
+
             else {
                 timestamp.text = dateFormat2.format(date)
                 timestamp2.text = dateFormat2.format(date)

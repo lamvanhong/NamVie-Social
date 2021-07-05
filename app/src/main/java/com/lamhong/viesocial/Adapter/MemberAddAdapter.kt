@@ -72,7 +72,7 @@ class MemberAddAdapter(private val userslist: ArrayList<User>, private val group
                             builder.setTitle("Choose Option")
                             if (myGroupRole == "creator") {
                                 if (hispreviousRole == "admin") {
-                                    options = arrayOf("Remove Admin","Remove User")
+                                    options = arrayOf("Xóa Admin","Xóa User")
                                     builder.setItems(
                                         options
                                     ) { dialog, which ->
@@ -84,7 +84,7 @@ class MemberAddAdapter(private val userslist: ArrayList<User>, private val group
                                     }.show()
                                 }
                                 else if (hispreviousRole == "member") {
-                                    options = arrayOf("Make Admin","Remove User")
+                                    options = arrayOf("Chọn Admin","Xóa User")
                                     builder.setItems(
                                         options
                                     ) { dialog, which ->
@@ -98,10 +98,10 @@ class MemberAddAdapter(private val userslist: ArrayList<User>, private val group
                             }
                             else if (myGroupRole == "admin") {
                                 if (hispreviousRole == "creator") {
-                                    Toast.makeText(it.context,"Creator of Group...",Toast.LENGTH_LONG).show()
+                                    Toast.makeText(it.context,"Người sáng lập nhóm...",Toast.LENGTH_LONG).show()
                                 }
                                 else if (hispreviousRole == "admin") {
-                                    options = arrayOf("Remove Admin","Remove User")
+                                    options = arrayOf("Xóa Admin","Xóa User")
                                     builder.setItems(
                                         options
                                     ) { dialog, which ->
@@ -113,7 +113,7 @@ class MemberAddAdapter(private val userslist: ArrayList<User>, private val group
                                     }.show()
                                 }
                                 else if (hispreviousRole == "member") {
-                                    options = arrayOf("Make Admin","Remove User")
+                                    options = arrayOf("Chọn Admin","Xóa User")
                                     builder.setItems(
                                         options
                                     ) { dialog, which ->
@@ -129,12 +129,12 @@ class MemberAddAdapter(private val userslist: ArrayList<User>, private val group
                         }
                         else {
                             val builder = AlertDialog.Builder(it.context)
-                            builder.setTitle("Add Member")
-                                .setMessage("Add this user in this group?")
-                                .setPositiveButton("ADD") {dialog, which ->
+                            builder.setTitle("Thêm thành viên")
+                                .setMessage("Thêm người dùng này vào nhóm?")
+                                .setPositiveButton("THÊM") {dialog, which ->
                                     addMember(currentItem,it)
                                 }
-                                .setNegativeButton("CANCEL") {dialog, which ->
+                                .setNegativeButton("HỦY") {dialog, which ->
                                     dialog.dismiss()
                                 }.show()
                         }
@@ -156,7 +156,7 @@ class MemberAddAdapter(private val userslist: ArrayList<User>, private val group
             .child(currentItem.getUid())
             .setValue(hashMap)
             .addOnSuccessListener {
-                Toast.makeText(v.context,"Added successfully",Toast.LENGTH_SHORT).show()
+                Toast.makeText(v.context,"Thêm thành công",Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                 Toast.makeText(v.context,""+it.message,Toast.LENGTH_SHORT).show()
@@ -173,7 +173,7 @@ class MemberAddAdapter(private val userslist: ArrayList<User>, private val group
             .child(currentItem.getUid())
             .updateChildren(hashMap)
             .addOnSuccessListener {
-                Toast.makeText(v.context,"The user is now admin",Toast.LENGTH_SHORT).show()
+                Toast.makeText(v.context,"Người dùng này bây giờ là admin",Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                 Toast.makeText(v.context,""+it.message,Toast.LENGTH_SHORT).show()
@@ -204,7 +204,7 @@ class MemberAddAdapter(private val userslist: ArrayList<User>, private val group
             .child(currentItem.getUid())
             .updateChildren(hashMap)
             .addOnSuccessListener {
-                Toast.makeText(v.context,"The user is no longer admin",Toast.LENGTH_SHORT).show()
+                Toast.makeText(v.context,"Người dùng này không còn là admin",Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                 Toast.makeText(v.context,""+it.message,Toast.LENGTH_SHORT).show()

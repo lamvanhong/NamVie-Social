@@ -30,7 +30,10 @@ class   Post_Activity : AppCompatActivity() {
     private var storagePostRef : StorageReference? = null
     private var followingList: ArrayList<String> =ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
+
         setContentView(R.layout.activity_post_)
         getFollowinglist()
         storagePostRef = FirebaseStorage.getInstance().reference.child( "Posts Images")
@@ -38,7 +41,7 @@ class   Post_Activity : AppCompatActivity() {
         btn_publish.setOnClickListener {
             uploadImage()
         }
-        image_content.setOnClickListener{
+        btn_selectPicture.setOnClickListener{
             CropImage.activity()
                 .setAspectRatio(7,5)
                 .start(this)

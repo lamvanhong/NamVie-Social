@@ -11,14 +11,18 @@ import com.google.firebase.database.ValueEventListener
 import com.lamhong.viesocial.Adapter.ImageProfileAdapter
 import com.lamhong.viesocial.Models.Post
 import kotlinx.android.synthetic.main.activity_picture.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PictureActivity : AppCompatActivity() {
     private var postList : List<Post> = ArrayList()
     private var ImageAdapter : ImageProfileAdapter ?=null
+
+    private var userID: String =""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_picture)
-
+        userID= intent.getStringExtra("userID").toString()
 
         // adapter
         var recyclerView : RecyclerView
@@ -56,7 +60,7 @@ class PictureActivity : AppCompatActivity() {
 
     }
     private fun getPicture(){
-        val postRef=FirebaseDatabase.getInstance().reference.child("Posts")
+        val postRef=FirebaseDatabase.getInstance().reference.child("Contents").child("Posts")
         postRef.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
@@ -64,10 +68,15 @@ class PictureActivity : AppCompatActivity() {
                     for (s in snapshot.children){
                         val post= s.getValue(Post::class.java)
                         post!!.setpost_id(s.child("post_id").value.toString())
-                        (postList as ArrayList<Post>).add(post!!)
-                        //Collections.reverse(postList)
-                        ImageAdapter!!.notifyDataSetChanged()
+                        post!!.setpublisher(s.child("publisher").value.toString())
+                        if(post.getpublisher()==userID){
+                            (postList as ArrayList<Post>).add(post!!)
+
+                            ImageAdapter!!.notifyDataSetChanged()
+                        }
+
                     }
+                    Collections.reverse(postList)
 
                 }
             }

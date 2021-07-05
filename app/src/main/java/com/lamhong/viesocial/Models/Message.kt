@@ -9,6 +9,7 @@ class Message {
     private var imageUrl : String = ""
     private var isSeen : Boolean = false
     private var type : String = ""
+    private var color: String = ""
 
 
 
@@ -30,6 +31,14 @@ class Message {
 //    fun setMessageID(messageID:String){
 //        this.messageID=messageID
 //    }
+
+    fun getColor() : String {
+        return type
+    }
+
+    fun setColor(type: String){
+        this.type=type
+    }
 
     fun getMessage() : String {
         return message

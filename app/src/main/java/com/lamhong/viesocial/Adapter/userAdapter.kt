@@ -162,9 +162,8 @@ class UserAdapter(private var _context : Context,private var _user :List<User>,p
         var tv_name: TextView = itemview.findViewById(R.id.tv_name)
         var tv_descript : TextView = itemview.findViewById(R.id.tv_shortInfor_user)
         var userImage : CircleImageView = itemview.findViewById(R.id.image_avatar)
-         var btn_add: AppCompatButton = itemview.findViewById(R.id.btn_addFriend)
+        var btn_add: AppCompatButton = itemview.findViewById(R.id.btn_addFriend)
 
     }
-
 
 }

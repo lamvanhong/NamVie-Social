@@ -13,7 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:padding="10dp"
-        android:text="Who do you want to remove this message for?"
+        android:text="Bạn muốn ai không nhìn thấy tin nhắn này nữa?"
         android:textSize="12sp" />
 
 
@@ -29,7 +29,7 @@
             android:layout_width="333dp"
             android:layout_height="wrap_content"
             android:padding="6dp"
-            android:text="Unsend for Everyone"
+            android:text="Thu hồi"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
             android:layout_width="333dp"
             android:layout_height="wrap_content"
             android:padding="6dp"
-            android:text="Remove for You"
+            android:text="Gỡ tin nhắn ở phía bạn"
             android:textSize="14sp"
             android:textStyle="bold" />
 

@@ -6,10 +6,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +28,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                    private val mShare: List<SharePost>, private val mAvatarList : List<Post>,
                     private val mCoverImageList : List<Post>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     private var firebaseUser : FirebaseUser?=null
-
+    var uri: String=""
     inner class ViewHolder0(@NonNull itemVIew: View): RecyclerView.ViewHolder(itemVIew){
         var btn_option : ImageView = itemView.findViewById(R.id.btn_option)
         var postImage :ImageView
@@ -76,6 +73,11 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
         var btnComment: ImageButton
         var btnShare: ImageButton
 
+        var avatar_sharelayout: CircleImageView
+        var container_avatar_sharelayout: RelativeLayout
+        var tv_displaytype: TextView
+        var tv_displaytypesharer: TextView
+
         init {
             postImage= itemView.findViewById(R.id.image_content)
             avatar_sharing=itemView.findViewById(R.id.user_avata_sharing)
@@ -85,16 +87,23 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
             content_sharing=itemView.findViewById(R.id.describeShare)
             content_shared= itemView.findViewById(R.id.content_inshared)
             numlike=itemView.findViewById(R.id.numlikes)
-            numComment=itemView.findViewById(R.id.comments)
+            numComment=itemView.findViewById(R.id.numbinhluan)
             btnLike=itemView.findViewById(R.id.btn_yeuthich)
             btnComment=itemView.findViewById(R.id.btn_binhluan)
             btnShare=itemView.findViewById(R.id.btn_share)
             tvthich= itemView.findViewById(R.id.tv_thich)
+
+            avatar_sharelayout=itemView.findViewById(R.id.avatar_sharelayout)
+            container_avatar_sharelayout=itemView.findViewById(R.id.container_avatar_sharelayout)
+            tv_displaytype=itemView.findViewById(R.id.tv_displaytype)
+            tv_displaytypesharer=itemView.findViewById(R.id.tv_showtype)
         }
     }
 
     inner class ViewHolder2(@NonNull itemVIew: View): RecyclerView.ViewHolder(itemVIew){
+        // this vh for avatar post
         val numshare: TextView= itemView.findViewById(R.id.numshare)
+        val btn_option : ImageView = itemView.findViewById(R.id.btn_option)
         var avatarImage :CircleImageView
         var profileImage : CircleImageView
         var userName: TextView
@@ -173,7 +182,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                     mcontext.startActivity(userIntent)
                 }
                 holder1.btn_option.setOnClickListener{
-                    val bottomSheetFragment = BottomSheetFragment(mcontext,"post", post.getpost_id())
+                    val bottomSheetFragment = BottomSheetFragment(mcontext,"post", post.getpost_id(), post.getpublisher())
                     bottomSheetFragment.show((mcontext as AppCompatActivity).supportFragmentManager, "")
                 }
                 Picasso.get().load(post.getpost_image()).into(holder1.postImage)
@@ -224,16 +233,30 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                     val commentIntent = Intent(mcontext, CommentActivity::class.java)
                     commentIntent.putExtra("postID", post.getpost_id())
                     commentIntent.putExtra("publisher", post.getpublisher())
+                    commentIntent.putExtra("type", "post")
                     mcontext.startActivity(commentIntent)
                 }
                 holder1.btnShare.setOnClickListener{
                     val shareIntent = Intent(mcontext, SharePostActivity::class.java)
                     shareIntent.putExtra("postID", post.getpost_id())
                     shareIntent.putExtra("publisher", post.getpublisher())
+                    shareIntent.putExtra("type", "post")
                     mcontext.startActivity(shareIntent)
+                }
+                holder1.postImage.setOnClickListener{
+                    val intentFull= Intent(mcontext, FullScreenPictureActivity::class.java)
+                    intentFull.putExtra("imageuri", post.getpost_image())
+                    mcontext.startActivity(intentFull)
+                }
+                holder1.postImage.setOnClickListener{
+
+                    val intentFull= Intent(mcontext, FullScreenPictureActivity::class.java)
+                    intentFull.putExtra("imageuri", post.getpost_image())
+                    mcontext.startActivity(intentFull)
                 }
             }
             1->{
+                // share option
                 val holder1= holderc as ViewHolder1
                 val sharePost = mShare[mLstIndex[position]]
 
@@ -249,16 +272,18 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                     mcontext.startActivity(userIntent)
                 }
                 holder1.btn_option.setOnClickListener{
-                    val bottomSheetFragment = BottomSheetFragment(mcontext,"share", sharePost.getShareID())
+                    val bottomSheetFragment = BottomSheetFragment(mcontext,"sharepost", sharePost.getShareID() , sharePost.getPublisher())
                     bottomSheetFragment.show((mcontext as AppCompatActivity).supportFragmentManager, "")
                 }
 
                 //basic
+
                 holder1.content_sharing.text=sharePost.getContent()
                 publishInfo(holder1.avatar_sharing, holder1.name_sharing,sharePost.getPublisher())
 
                 getPost(sharePost.getPostID(), holder1.postImage, holder1.avatar_shared,
-                    holder1.content_shared, holder1.name_shared)
+                    holder1.content_shared, holder1.name_shared , sharePost.getType()
+                , holder1.container_avatar_sharelayout, holder1.avatar_sharelayout, holder1.tv_displaytype)
 
 
 
@@ -296,7 +321,19 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                 holder1.btnShare.setOnClickListener{
                     val shareIntent = Intent(mcontext, SharePostActivity::class.java)
                     shareIntent.putExtra("postID", sharePost.getPostID())
+                    shareIntent.putExtra("publisher", sharePost.getPostOwner())
+                    shareIntent.putExtra("type", sharePost.getType())
                     mcontext.startActivity(shareIntent)
+                }
+                holder1.btnComment.setOnClickListener{
+                    val commentIntent = Intent(mcontext, CommentShareActivity::class.java)
+                    commentIntent.putExtra("shareID", sharePost.getShareID())
+                    commentIntent.putExtra("postID", sharePost.getPostID())
+                    commentIntent.putExtra("publisher", sharePost.getPublisher())
+                    commentIntent.putExtra("postowner", sharePost.getPostOwner())// fix
+                    commentIntent.putExtra("content", sharePost.getContent())
+                    commentIntent.putExtra("type", sharePost.getType())
+                    mcontext.startActivity(commentIntent)
                 }
 
 
@@ -305,8 +342,13 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
             2->{
                 val holder1 : ViewHolder2 = holderc as ViewHolder2
 
-                holder1.tv_typePost.visibility= View.GONE
+
                 val post= mAvatarList[mLstIndex[position]]
+
+                holder1.btn_option.setOnClickListener{
+                    val bottomSheetFragment = BottomSheetFragment(mcontext,"changeavatar", post.getpost_id(), post.getpublisher())
+                    bottomSheetFragment.show((mcontext as AppCompatActivity).supportFragmentManager, "")
+                }
 
                 Picasso.get().load(post.getpost_image()).into(holder1.avatarImage)
 
@@ -352,12 +394,20 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                     val commentIntent = Intent(mcontext, CommentActivity::class.java)
                     commentIntent.putExtra("postID", post.getpost_id())
                     commentIntent.putExtra("publisher", post.getpublisher())
+                    commentIntent.putExtra("type", "avatar")
                     mcontext.startActivity(commentIntent)
                 }
                 holder1.btnShare.setOnClickListener{
                     val shareIntent = Intent(mcontext, SharePostActivity::class.java)
                     shareIntent.putExtra("postID", post.getpost_id())
+                    shareIntent.putExtra("publisher", post.getpublisher())
+                    shareIntent.putExtra("type", "avatar")
                     mcontext.startActivity(shareIntent)
+                }
+                holder1.avatarImage.setOnClickListener{
+                    val intentFull= Intent(mcontext, FullScreenPictureActivity::class.java)
+                    intentFull.putExtra("imageuri", post.getpost_image())
+                    mcontext.startActivity(intentFull)
                 }
             }
             3->{
@@ -370,7 +420,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                 publishInfo(holder1.profileImage, holder1.userName,  post.getpublisher())
                 //describe import
-                if(post.getpostContent().equals("")){
+                if(post.getpostContent()==""){
                     holder1.describe.visibility=View.GONE
                 }else{
                     holder1.describe.visibility=View.VISIBLE
@@ -406,16 +456,28 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                     }
                 }
+                holder1.btn_option.setOnClickListener{
+                    val bottomSheetFragment = BottomSheetFragment(mcontext,"changecover", post.getpost_id(), post.getpublisher())
+                    bottomSheetFragment.show((mcontext as AppCompatActivity).supportFragmentManager, "")
+                }
                 holder1.btnComment.setOnClickListener{
                     val commentIntent = Intent(mcontext, CommentActivity::class.java)
                     commentIntent.putExtra("postID", post.getpost_id())
                     commentIntent.putExtra("publisher", post.getpublisher())
+                    commentIntent.putExtra("type", "cover")
                     mcontext.startActivity(commentIntent)
                 }
                 holder1.btnShare.setOnClickListener{
                     val shareIntent = Intent(mcontext, SharePostActivity::class.java)
                     shareIntent.putExtra("postID", post.getpost_id())
+                    shareIntent.putExtra("publisher", post.getpublisher())
+                    shareIntent.putExtra("type", "cover")
                     mcontext.startActivity(shareIntent)
+                }
+                holder1.postImage.setOnClickListener{
+                    val intentFull= Intent(mcontext, FullScreenPictureActivity::class.java)
+                    intentFull.putExtra("imageuri", post.getpost_image())
+                    mcontext.startActivity(intentFull)
                 }
             }
         }
@@ -452,8 +514,24 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
     }
 
     private fun getPost(id: String, postImage: ImageView, avatar_shared: CircleImageView,
-            content_shared: TextView , name_shared : TextView){
-        val postRef= FirebaseDatabase.getInstance().reference.child("Contents").child("Posts").child(id)
+            content_shared: TextView , name_shared : TextView , type: String,
+            container : RelativeLayout, avatar: CircleImageView, tv_displaytype: TextView){
+        var path=""
+        if(type=="avatar"){
+            path="AvatarPost"
+            tv_displaytype.text="đã cập nhật ảnh đại diện"
+
+        }
+        else if(type=="cover"){
+            path="CoverPost"
+            tv_displaytype.text="đã thay đổi ảnh bìa"
+        }
+        else{
+            path="Posts"
+            tv_displaytype.text="đã đăng bài viết"
+
+        }
+        val postRef= FirebaseDatabase.getInstance().reference.child("Contents").child(path).child(id)
         var post: Post ?=null
         postRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(ss: DataSnapshot) {
@@ -463,11 +541,25 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                     post!!.setpostContent(ss.child("post_content").value.toString())
                     post!!.setpost_id(ss.child("post_id").value.toString())
 
-                    Picasso.get().load(post!!.getpost_image()).into(postImage)
+                    if(type=="avatar"){
+                        Picasso.get().load(post!!.getpost_image()).into(avatar)
+                        postImage.visibility= View.GONE
+                        container.visibility=View.VISIBLE
+
+                    }
+                    else{
+                        Picasso.get().load(post!!.getpost_image()).into(postImage)
+                        container.visibility=View.GONE
+                        postImage.visibility= View.VISIBLE
+
+                    }
+                    uri=post!!.getpost_image()
+
                     publishInfo(avatar_shared, name_shared,  post!!.getpublisher())
                     //describe import
-                    if(post!!.getpostContent().equals("")){
+                    if(post!!.getpostContent()=="" ){
                         content_shared.visibility=View.GONE
+
                     }else{
                         content_shared.visibility=View.VISIBLE
                         content_shared.text=post!!.getpostContent()
@@ -534,6 +626,23 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                     var ss: Int = 0
                     for(s in snapshot.child("Comments").child(postId).children){
                         ss+=snapshot.child("CommentReplays").child(s.key.toString()).childrenCount.toString().toInt()
+                        for(s1 in snapshot.child("CommentReplays").child(s.key.toString()).children){
+                            ss+=snapshot.child("CommentReplays").child(s1.key.toString()).childrenCount.toString().toInt()
+                            for(s2 in snapshot.child("CommentReplays").child(s1.key.toString()).children){
+                                ss+=snapshot.child("CommentReplays").child(s2.key.toString()).childrenCount.toString().toInt()
+                                for(s3 in snapshot.child("CommentReplays").child(s2.key.toString()).children){
+                                    ss+=snapshot.child("CommentReplays").child(s3.key.toString()).childrenCount.toString().toInt()
+                                    for(s4 in snapshot.child("CommentReplays").child(s3.key.toString()).children){
+                                        ss+=snapshot.child("CommentReplays").child(s4.key.toString()).childrenCount.toString().toInt()
+                                        for(s5 in snapshot.child("CommentReplays").child(s4.key.toString()).children){
+                                            ss+=snapshot.child("CommentReplays").child(s5.key.toString()).childrenCount.toString().toInt()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+
                     }
                     ss+=snapshot.child("Comments").child(postId).childrenCount.toString().toInt()
                     if(ss>0){

@@ -1,14 +1,14 @@
 package com.lamhong.viesocial.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.NonNull
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.lamhong.viesocial.DetailPostFragment
+import com.lamhong.viesocial.FullScreenPictureActivity
 import com.lamhong.viesocial.Models.Post
 import com.lamhong.viesocial.R
 import com.squareup.picasso.Picasso
@@ -32,11 +32,16 @@ class ImageProfileAdapter (private val mContext:Context, private val mPost: List
         Picasso.get().load(post.getpost_image()).placeholder(R.drawable.cty).into(holder.image_bio)
         holder.image_bio.layoutParams.height=mWidth
         holder.image_bio.setOnClickListener{
-            val pref = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
+          /*  val pref = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
             pref.putString("postID",post.getpost_id())
             pref.apply()
             (mContext as FragmentActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.frameLayout, DetailPostFragment()).commit()
+
+           */
+            val intentFull= Intent(mContext, FullScreenPictureActivity::class.java)
+            intentFull.putExtra("imageuri", post.getpost_image())
+            mContext.startActivity(intentFull)
         }
     }
 

@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.lamhong.viesocial"
-        minSdkVersion 17
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -51,12 +51,15 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-messaging:22.0.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:23.0.1'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-messaging-ktx:22.0.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'br.com.simplepass:loading-button-android:2.2.0'
-
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.jgabrielfreitas:BlurImageView:1.0.1'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
@@ -65,7 +68,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
     implementation 'com.google.firebase:firebase-database-ktx'
-
     implementation 'com.android.support:multidex:1.0.3'
 
     implementation 'com.xwray:groupie:2.1.0'
@@ -76,13 +78,33 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-database:7.2.0'
     implementation 'net.alhazmy13.MediaPicker:libary:2.4.4'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+    implementation 'com.commit451:PhotoView:1.2.4'
 
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.vanniktech:emoji-google:0.7.0'
-//    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
-//    implementation 'com.github.bumptech.glide:glide:4.12.0'
-//    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    //implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
+    //implementation 'com.github.bumptech.glide:glide:4.12.0'
+    //annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'com.devlomi.record-view:record-view:2.0.1'
+
+
+    // loginauth
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+
+    //Scalable size unit (support for diffirendt screen size)(-devBlinkCat)
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+    //Retrofit(-devBlinkCat)
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+    //Swipe Refresh Layout(-devBlinkCat)
+    //implementation 'androidx.swiperefreshlayout:siperefreshlayout:1.1.0'
+    //Jitsi Meet (-devBlinkCat)
+    implementation ('org.jitsi.react:jitsi-meet-sdk:2.+') { transitive = true }
+    implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
+
+
+
 }

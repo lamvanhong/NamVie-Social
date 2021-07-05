@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -71,6 +72,9 @@ class ReplayCommentActivity : AppCompatActivity() {
         }
 
         // set function to btn in top bar
+        checkLike(btn_thich_repcmt, idComment)
+        setLike(idComment,numLike_repcmt, image_numlike_repcmt)
+        setCommentNumber(idComment,btn_cmt_repcmt )
         btn_thich_repcmt.setOnClickListener{
             if(btn_thich_repcmt.tag=="Like"){
                 FirebaseDatabase.getInstance().reference.child("LikeComment")
@@ -83,6 +87,46 @@ class ReplayCommentActivity : AppCompatActivity() {
         }
 
 
+    }
+    private fun setCommentNumber(idComment: String , numComment : TextView) {
+        val ref =FirebaseDatabase.getInstance().reference.child("AllComment").child("CommentReplays")
+            .child(idComment)
+        ref.addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    numComment.text="Trả lời (${snapshot.childrenCount.toString()})"
+
+                }
+                else{
+                    numComment.text="Trả lời"
+                }
+            }
+        })
+    }
+
+    private fun setLike(idComment: String , numLike : TextView , imageNumlike : ImageView) {
+        val ref =FirebaseDatabase.getInstance().reference.child("LikeComment")
+            .child(idComment)
+        ref.addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    numLike.text=snapshot.childrenCount.toString()
+                    imageNumlike.visibility= View.VISIBLE
+                    numLike.visibility=View.VISIBLE
+                }
+                else{
+                    numLike.text="0"
+                    imageNumlike.visibility= View.GONE
+                    numLike.visibility=View.GONE
+                }
+            }
+        })
     }
 
     private fun checkLike(btnThich: TextView, idComment: String) {

@@ -5,8 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_marginTop="12dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    app:cardCornerRadius="20dp"
     app:cardElevation="5dp">
 
     <LinearLayout
@@ -34,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="user name"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="14dp"
@@ -53,18 +54,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="đã cập ảnh đại diện"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="14dp"
                         />
                 </RelativeLayout>
                 <ImageView
                     android:layout_alignParentRight="true"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="15dp"
-                    android:src="@drawable/more_btn"
+                    android:src="@drawable/icf_option"
+                    android:id="@+id/btn_option"
                     />
             </RelativeLayout>
 
@@ -246,19 +248,7 @@
                         android:layout_marginTop="22dp"
                         android:layout_marginLeft="52dp"
                         android:translationZ="5dp"  />
-                    <TextView
 
-                        android:id="@+id/comments"
-                        android:layout_toRightOf="@id/tv_binhluan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="22dp"
-                        android:textSize="9dp"
-                        android:text="(2)"
-                        android:textColor="@color/colorPrimary"
-                        android:translationZ="4dp"
-                        />
                 </RelativeLayout>
 
 

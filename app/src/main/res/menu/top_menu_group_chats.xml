@@ -5,7 +5,7 @@
     <item
         android:id="@+id/search_group_chats"
         android:title="Search"
-        android:icon="@drawable/ic_search_message"
+        android:icon="@drawable/search_n"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView"/>
 

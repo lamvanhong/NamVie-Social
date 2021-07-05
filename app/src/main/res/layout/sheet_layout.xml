@@ -62,6 +62,7 @@
             android:orientation="vertical"
             >
             <TextView
+                android:id="@+id/savePost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lưu bài viết"
@@ -69,6 +70,7 @@
                 android:textStyle="bold"
                 />
             <TextView
+                android:id="@+id/desSavePost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lưu bài viết vào mục bài viết đã lưu"
@@ -80,6 +82,7 @@
 
 
     <LinearLayout
+        android:id="@+id/btn_remove"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:clickable="true"
@@ -104,9 +107,9 @@
                 />
             <ImageView
                 android:layout_marginTop="10dp"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:src="@drawable/givelove1"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:src="@drawable/bin"
                 android:layout_marginLeft="40dp"
                 android:translationZ="3dp"
                 />
@@ -121,14 +124,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thêm vào mục yêu thích"
+                android:text="Ẩn bài viết này"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ưu tiên bài viết của người dùng này"
+                android:text="Ẩn khỏi dòng thời gian của bạn"
                 android:textSize="15dp"
                 />
         </LinearLayout>
@@ -136,6 +139,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btn_unfollow"
         android:clickable="true"
         android:focusable="true"
         android:background="?attr/selectableItemBackground"

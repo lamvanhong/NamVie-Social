@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,11 +21,23 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
+import com.lamhong.viesocial.Models.NotificationData
+import com.lamhong.viesocial.Models.PushNotification
 import com.lamhong.viesocial.Models.ShortVideo
 import com.lamhong.viesocial.Models.User
 import com.lamhong.viesocial.MyShotVideoActivity
+import com.lamhong.viesocial.Network.MyFirebaseMessagingService
+import com.lamhong.viesocial.Network.RetrofitInstance
 import com.lamhong.viesocial.R
+import com.lamhong.viesocial.Utilities.Constants
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.lang.Exception
+
+const val TOPIC ="/topics/myTopic"
 
 class ShotVideoAdapter (private val mcontext : Context, private val listShot: ArrayList<ShortVideo?>)
     : RecyclerView.Adapter<ShotVideoAdapter.ViewHolder>(){
@@ -33,10 +46,55 @@ class ShotVideoAdapter (private val mcontext : Context, private val listShot: Ar
     private var video : MediaStore.Video?=null
     var xpos: Int =0
     var insView =0
+
+    var userInfor: User = User()
+    var objOwnInfor :User = User()
+
     inner class ViewHolder (itemview: View): RecyclerView.ViewHolder(itemview){
         fun setData(obj : ShortVideo){
+            //Notification
+            FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
+            FirebaseMessaging.getInstance().token.addOnCompleteListener {
+                if(it.isComplete){
+                    val fbToken = it.result.toString()
+                    MyFirebaseMessagingService.token =fbToken
+                }
+            }
+            val userRef = FirebaseDatabase.getInstance().reference
+                .child("UserInformation").child(FirebaseAuth.getInstance().uid!!)
+            userRef.addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        userInfor.setAvatar(snapshot.child("avatar").value.toString())
+                        userInfor.setName(snapshot.child("fullname").value.toString())
+                        userInfor.setEmail(snapshot.child("email").value.toString())
+                        userInfor.setUid(snapshot.child("uid").value.toString())
+                        userInfor.setToken(snapshot.child(Constants.KEY_FCM_TOKEN).value.toString())
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
+
+            val userRef2 = FirebaseDatabase.getInstance().reference
+                .child("UserInformation").child(obj.getPublisher())
+            userRef2.addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        objOwnInfor.setAvatar(snapshot.child("avatar").value.toString())
+                        objOwnInfor.setName(snapshot.child("fullname").value.toString())
+                        objOwnInfor.setEmail(snapshot.child("email").value.toString())
+                        objOwnInfor.setUid(snapshot.child("uid").value.toString())
+                        objOwnInfor.setToken(snapshot.child(Constants.KEY_FCM_TOKEN).value.toString())
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
+            //End notification
+
             videoView.tag="true"
-            firebaseUser= FirebaseAuth.getInstance().currentUser
+            firebaseUser= FirebaseAuth.getInstance().currentUser!!
 
 
             //content display
@@ -102,12 +160,13 @@ class ShotVideoAdapter (private val mcontext : Context, private val listShot: Ar
 
             btn_like.setOnClickListener{
                 if(btn_like.tag=="Like"){
-                    // addNotifyLike(post.getpublisher(), post.getpost_id() , "thichbaiviet")
+                    //addNotifyLike(post.getpublisher(), post.getpost_id() , "thichbaiviet")
                     FirebaseDatabase.getInstance().reference
                             .child("ShotVideoReact").child("Likes")
                             .child(obj.getID())
                             .child(firebaseUser!!.uid)
                             .setValue(true)
+                    setNotify(obj)
                 }else
                 {
                     FirebaseDatabase.getInstance().reference
@@ -118,7 +177,6 @@ class ShotVideoAdapter (private val mcontext : Context, private val listShot: Ar
 
                     //  val intent=Intent(mcontext,zHome::class.java)
                     // mcontext.startActivity(intent)
-
                 }
             }
             if(firebaseUser.uid==obj.getPublisher()){
@@ -153,11 +211,50 @@ class ShotVideoAdapter (private val mcontext : Context, private val listShot: Ar
                 (mcontext as Activity).finish()
             }
 
-
-
         }
 
+        //Send notification to Local
+        private var fireabaseUser: FirebaseUser?= FirebaseAuth.getInstance().currentUser
+        private fun setNotify(obj : ShortVideo){
+            val notiRef= FirebaseDatabase.getInstance().reference
+                .child("Notify").child(obj.getPublisher())
+            val notiMap= HashMap<String, String>()
+            val idpush : String = notiRef.push().key.toString()
+            notiMap["userID"]=fireabaseUser!!.uid
+            notiMap["notify"]="đã thích video của bạn"
+            notiMap["postID"]= obj.getID()
+            notiMap["type"]="thichvideo"
+            notiMap["notifyID"]=idpush
+            notiRef.child(idpush).setValue(notiMap)
+            doSendNotify(notiMap)
+        }
 
+        private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitInstance.api.postNotification(notification)
+                if(response.isSuccessful){
+                   // Log.d("TAG","Response: ${Gson().toJson(response)}")
+                }else{
+                   // Log.e("TAG",response.errorBody().toString())
+                }
+            }catch (e: Exception){
+                Log.e("TAG", e.toString())
+            }
+        }
+
+        private fun doSendNotify(notiInfor: HashMap<String,String>) {
+            val title:String = "Thông báo"
+            val message:String = userInfor.getName() +" "+notiInfor["notify"]!!
+            val recipientToken = objOwnInfor.getToken()
+            PushNotification(
+                NotificationData(title,message),
+                recipientToken
+            ).also {
+                sendNotification(it)
+            }
+        }
+
+        //End send notification
 
         fun setnextData(obj: ShortVideo){
             videoView.setVideoPath(obj.getVideo())
@@ -192,7 +289,6 @@ class ShotVideoAdapter (private val mcontext : Context, private val listShot: Ar
     }
 
     private fun countUptimeWatching(id: String , view: Int) {
-
 
     }
 

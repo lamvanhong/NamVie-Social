@@ -89,7 +89,7 @@ class GroupChatAdapter(private val groupChatsList: ArrayList<GroupChat>) : Recyc
                         }
 
                         if (messageType=="image") {
-                            holder.groupMessageTv.text = "[Photo]"
+                            holder.groupMessageTv.text = "[Hình ảnh]"
                         }
                         else {
                             holder.groupMessageTv.text = message

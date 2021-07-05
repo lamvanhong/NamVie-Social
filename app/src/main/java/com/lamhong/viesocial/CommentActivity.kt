@@ -1,13 +1,14 @@
 package com.lamhong.viesocial
 
 import android.app.Activity
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -25,6 +26,7 @@ import kotlinx.android.synthetic.main.activity_comment.*
 class  CommentActivity : AppCompatActivity() {
 
     private var postID : String= ""
+    private var type : String= ""
     private var publisher: String = ""
     private var firebaseUser: FirebaseUser ?=null
     private var commentAdapter : CommentAdapter?=null
@@ -42,10 +44,27 @@ class  CommentActivity : AppCompatActivity() {
         val intent = intent
         postID= intent.getStringExtra("postID").toString()
         publisher= intent.getStringExtra("publisher").toString()
+        type= intent.getStringExtra("type").toString()
         firebaseUser=FirebaseAuth.getInstance().currentUser
         userInfor()
         imageandOwnerInfor()
-        getImage()
+        // set image to separate post
+        if(type=="post"){
+            getImagePost()
+            container_post_avatar_comment.visibility= View.GONE
+
+        }
+        else if(type=="avatar"){
+            getImageAvatar()
+            image_post_incomment.visibility= View.GONE
+
+        }
+        else if (type=="cover"){
+            getCoverPost()
+            container_post_avatar_comment.visibility= View.GONE
+
+        }
+
         btn_dangBinhLuan.setOnClickListener {
             if (TextUtils.isEmpty(edit_add_comment.text)) {
                 Toast.makeText(this, "Nhập nội dung trước !!", Toast.LENGTH_LONG)
@@ -142,7 +161,20 @@ class  CommentActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     val fname= snapshot.child("fullname").value.toString()
-                    tv_comment_appbar.text= "Bài viết của "+ fname
+                    val fnamefix= getColoredSpanned(fname, "#00BCD4")
+                    val anhbiacua= getColoredSpanned("Ảnh bìa của ", "#A1B4B6")
+                    val baiviet= getColoredSpanned("Bài viết của ", "#A1B4B6")
+                    val anhdaidien= getColoredSpanned("Ảnh đại diện của ", "#A1B4B6")
+                    if(type=="cover"){
+                        tv_comment_appbar.setText(Html.fromHtml(anhbiacua + fname))
+                    }
+                    else if(type=="post")
+                    {
+                        tv_comment_appbar.setText(Html.fromHtml(baiviet + fname))
+                    }
+                    else if(type=="avatar"){
+                        tv_comment_appbar.setText(Html.fromHtml(anhdaidien + fname))
+                    }
                 }
             }
 
@@ -151,7 +183,12 @@ class  CommentActivity : AppCompatActivity() {
         })
 
     }
-    private fun getImage(){
+    private fun getColoredSpanned(text: String, color: String): String? {
+        return "<font color=$color>$text</font>"
+    }
+
+
+    private fun getImagePost(){
         val postRef= FirebaseDatabase.getInstance().reference.child("Contents").child("Posts")
             .child(postID).child("post_image")
 
@@ -160,6 +197,44 @@ class  CommentActivity : AppCompatActivity() {
                 if(snapshot.exists()){
                     val imageContent= snapshot.value.toString()
                     Picasso.get().load(imageContent).into(image_post_incomment)
+                }
+                else {
+                    Log.d("hong","nothing")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+    private fun getCoverPost(){
+        val postRef= FirebaseDatabase.getInstance().reference.child("Contents").child("CoverPost")
+            .child(postID).child("post_image")
+
+        postRef.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val imageContent= snapshot.value.toString()
+                    Picasso.get().load(imageContent).into(image_post_incomment)
+                }
+                else {
+                    Log.d("hong","nothing")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+    private fun getImageAvatar(){
+        val postRef= FirebaseDatabase.getInstance().reference.child("Contents").child("AvatarPost")
+            .child(postID).child("post_image")
+
+        postRef.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val imageContent= snapshot.value.toString()
+                    Picasso.get().load(imageContent).into(post_avatar_comment)
                 }
                 else {
                     Log.d("hong","nothing")

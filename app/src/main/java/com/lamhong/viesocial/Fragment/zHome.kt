@@ -20,6 +20,7 @@ import com.lamhong.viesocial.Models.Post
 import com.lamhong.viesocial.Models.SharePost
 import com.lamhong.viesocial.Models.TimelineContent
 import com.lamhong.viesocial.NewSearchActivity
+import com.lamhong.viesocial.Post_Activity
 import com.lamhong.viesocial.R
 import kotlinx.android.synthetic.main.fragment_z_home.view.*
 
@@ -74,7 +75,9 @@ class zHome : Fragment() {
         // Inflate the layout for this fragment
         val view= inflater.inflate(R.layout.fragment_z_home, container, false)
         currentUser=FirebaseAuth.getInstance().currentUser
-
+        view.btn_addPost.setOnClickListener{
+            startActivity(Intent(context, Post_Activity::class.java))
+        }
 
 
         checkFollowing()
@@ -185,16 +188,23 @@ class zHome : Fragment() {
                         tl!!.setPostType(s.child("post_type").value.toString())
                         if (tl!!.getPostType() == "sharepost") {
 
-                            var sharePost = snapshot.child("Share Posts").child(tl.getId()).getValue<SharePost>(SharePost::class.java)
-                                 shareList!!.add(sharePost!!)
-                            (shareListID as ArrayList).add(tl.getId())
-                            (lstTypeAdapter as ArrayList).add(1)
-                            (lstIndex as ArrayList).add(ind1)
-                            ind1 += 1
+                            if(snapshot.child("Share Posts").child(tl.getId()).child("type").exists()){
+                                var sharePost = snapshot.child("Share Posts").child(tl.getId()).getValue<SharePost>(SharePost::class.java)
+                                shareList!!.add(sharePost!!)
+                                sharePost.setType(snapshot.child("Share Posts").child(tl.getId()).child("type").value.toString())
+                                sharePost.setPostOwner(snapshot.child("Share Posts").child(tl.getId()).child("postOwner").value.toString())
+
+                                (shareListID as ArrayList).add(tl.getId())
+                                (lstTypeAdapter as ArrayList).add(1)
+                                (lstIndex as ArrayList).add(ind1)
+                                ind1 += 1
+                            }
+
                         } else if (tl!!.getPostType() == "post") {
 
 
                             val post = snapshot.child("Posts").child(tl.getId()).getValue(Post::class.java)
+                            post!!.setpostContent(snapshot.child("Posts").child(tl.getId()).child("post_content").value.toString())
                             postList!!.add(post!!)
                             (postListID as ArrayList).add(tl.getId())
                             (lstTypeAdapter as ArrayList).add(0)
@@ -203,6 +213,10 @@ class zHome : Fragment() {
                         }
                         else if (tl!!.getPostType()=="changeavatar"){
                             val avatarPost = snapshot.child("AvatarPost").child(tl.getId()).getValue(Post::class.java)
+                            avatarPost!!.setpostContent(snapshot.child("AvatarPost").child(tl.getId()).child("post_content")
+                                .value.toString())
+
+
                             avatarList!!.add(avatarPost!!)
                             (lstTypeAdapter as ArrayList).add(2)
                             (lstIndex as ArrayList).add(ind3)
@@ -210,6 +224,7 @@ class zHome : Fragment() {
                         }
                         else if(tl!!.getPostType()=="changecover"){
                             val coverImagePost = snapshot.child("CoverPost").child(tl.getId()).getValue(Post::class.java)
+                            coverImagePost!!.setpostContent(snapshot.child("CoverPost").child(tl.getId()).child("post_content").value.toString())
                             coverImageList!!.add(coverImagePost!!)
                             (lstTypeAdapter as ArrayList).add(3)
                             (lstIndex as ArrayList).add(ind4)

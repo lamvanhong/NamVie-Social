@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/message_new_user"
-                android:text="New Group"
+                android:text="Tạo nhóm mới"
                 android:layout_alignParentLeft="true"
                 android:textSize="25sp"
                 android:textStyle="bold"/>
@@ -50,7 +50,7 @@
         android:background="#eee"
         android:layout_marginTop="10dp"
         android:padding="10dp"
-        android:hint="Group Title"/>
+        android:hint="Tên nhóm"/>
 
     <EditText
         android:id="@+id/groupDescriptionEt"
@@ -63,7 +63,7 @@
         android:background="#eee"
         android:layout_marginTop="10dp"
         android:padding="10dp"
-        android:hint="Group Description"/>
+        android:hint="Mô tả"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"

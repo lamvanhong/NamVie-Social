@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/chat_call"
-        android:icon="@drawable/ic_call"
+        android:icon="@drawable/call_n"
         android:title="Call"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/chat_videocall"
-        android:icon="@drawable/ic_video_call"
+        android:icon="@drawable/video_call_n"
         android:title="Video Call"
         app:showAsAction="ifRoom" />
 
@@ -20,7 +20,7 @@
 
     <item
         android:id="@+id/chat_color"
-        android:title="Change Color"/>
+        android:title="Change Color" />
 
     <item
         android:id="@+id/chat_nickname"

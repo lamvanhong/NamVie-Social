@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="user name"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="14dp"
@@ -54,7 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="đã cập nhật ảnh bìa"
-                        android:textSize="15sp"
+                        android:textSize="13sp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="14dp"
                         />

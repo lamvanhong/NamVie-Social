@@ -55,8 +55,13 @@ class SettingFragment : Fragment() {
         view.btn_movetoFriendList.setOnClickListener{
             startActivity(Intent(context, FriendListActivity::class.java))
         }
-
-
+        view.btn_logout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            startActivity(Intent(context, LoginActivity::class.java))
+        }
+        view.btn_Private.setOnClickListener{
+            startActivity(Intent(context, PrivateActivity::class.java))
+        }
         view.btn_movetoUserActivity.setOnClickListener{
             startActivity(Intent(context, UserActiviesActivity::class.java))
         }
@@ -149,12 +154,13 @@ class SettingFragment : Fragment() {
     private fun setNumberProfile() {
         val ref= FirebaseDatabase.getInstance().reference
             .child("Friends").child(firebaseUser.uid).child("friendList")
-        ref.addValueEventListener(object : ValueEventListener {
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
+                    if(NumFriends!=null)
                     NumFriends.text=snapshot.childrenCount.toString()
                 }
                 else{
@@ -180,6 +186,7 @@ class SettingFragment : Fragment() {
 //                        }
                     }
                 }
+                if(numPost!=null)
                 numPost.text=ss.toString()
             }
         })

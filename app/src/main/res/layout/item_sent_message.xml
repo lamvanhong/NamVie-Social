@@ -45,7 +45,7 @@
             android:id="@+id/isSeen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delivered"
+            android:text="Đã nhận"
             android:textColor="@color/black"
             android:textSize="12sp"
             android:visibility="visible" />
@@ -65,20 +65,21 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/sent_message_drawable"
+        android:background="@drawable/sent_0e92eb"
         android:paddingLeft="15dp"
         android:paddingTop="8dp"
         android:paddingRight="15dp"
         android:paddingBottom="8dp"
         android:text="Hello World"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:visibility="visible"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/time_chat_sent"
@@ -114,7 +115,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
-        android:text="Delivered"
+        android:text="Đã nhận"
         android:textColor="@color/black"
         android:textSize="12sp"
         android:visibility="gone"

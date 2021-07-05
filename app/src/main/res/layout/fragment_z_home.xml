@@ -40,6 +40,15 @@
                     android:src="@drawable/search_icon"
                     android:layout_alignParentRight="true"
                     />
+                <ImageView
+                    android:id="@+id/btn_addPost"
+                    android:layout_toLeftOf="@id/searchbtn"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/btn_addpost"
+                    />
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>

@@ -60,14 +60,14 @@ class GroupInfoActivity : AppCompatActivity() {
             var dialogDescription = ""
             var positiveButtonTitle = ""
             if (myGroupRole == "creator") {
-                dialogTitle="Delete Group"
-                dialogDescription = "Are you sure to delete this group?"
-                positiveButtonTitle = "DELETE"
+                dialogTitle="Xóa nhóm"
+                dialogDescription = "Bạn có chắc muốn xóa nhóm này?"
+                positiveButtonTitle = "XÓA"
             }
             else {
-                dialogTitle="Leave group"
-                dialogDescription="Are you sure to leave this group?"
-                positiveButtonTitle="LEAVE"
+                dialogTitle="Rời nhóm"
+                dialogDescription="Bạn có chắc muốn rời nhóm này?"
+                positiveButtonTitle="RỜI"
             }
             val builder = AlertDialog.Builder(this)
             builder.setTitle(dialogTitle)
@@ -80,7 +80,7 @@ class GroupInfoActivity : AppCompatActivity() {
                         leaveGroup()
                     }
                 }
-                .setNegativeButton("CANCEL") {dialog, which ->
+                .setNegativeButton("HỦY") {dialog, which ->
                     dialog.dismiss()
                 }
             builder.show()
@@ -94,7 +94,7 @@ class GroupInfoActivity : AppCompatActivity() {
             .child(FirebaseAuth.getInstance().uid.toString())
             .removeValue()
             .addOnSuccessListener {
-                Toast.makeText(this,"Group left successfully",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Rời nhóm thành công",Toast.LENGTH_SHORT).show()
 
                 startActivity(Intent(this,GroupChatsActivity::class.java))
                 finish()
@@ -110,7 +110,7 @@ class GroupInfoActivity : AppCompatActivity() {
             .child(groupID.toString())
             .removeValue()
             .addOnSuccessListener {
-                Toast.makeText(this,"Group deleted successfully",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Xóa nhóm thành công",Toast.LENGTH_SHORT).show()
 
                 startActivity(Intent(this,GroupChatsActivity::class.java))
                 finish()
@@ -144,12 +144,12 @@ class GroupInfoActivity : AppCompatActivity() {
                         else if (myGroupRole == "creator") {
                             editGroupTv.visibility = View.VISIBLE
                             addMemberTv.visibility = View.VISIBLE
-                            leaveGroupTv.text = "Delete Group"
+                            leaveGroupTv.text = "Xóa nhóm"
                         }
                         else if (myGroupRole == "member") {
                             editGroupTv.visibility = View.GONE
                             addMemberTv.visibility = View.GONE
-                            leaveGroupTv.text = "Leave Group"
+                            leaveGroupTv.text = "Rời nhóm"
                         }
                         loadMembers()
                     }
@@ -193,7 +193,7 @@ class GroupInfoActivity : AppCompatActivity() {
                                     membersRv.adapter = adapter
                                     adapter.notifyDataSetChanged()
 
-                                    membersTv.text = "Members (${userList.size})"
+                                    membersTv.text = "Thành viên (${userList.size})"
                                 }
 
                             })
@@ -254,7 +254,7 @@ class GroupInfoActivity : AppCompatActivity() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for (ss in snapshot.children) {
                         val name = "" + ss.child("fullname").value
-                        createByTv.text = "Create by $name on $dateTime"
+                        createByTv.text = "Created by $name on $dateTime"
                     }
 
                 }

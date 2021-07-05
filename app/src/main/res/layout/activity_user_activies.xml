@@ -51,7 +51,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleView_friendList"
+            android:id="@+id/recycleview_activities"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp"

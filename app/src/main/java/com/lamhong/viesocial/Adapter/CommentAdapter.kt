@@ -32,7 +32,24 @@ class CommentAdapter (private val mContext: Context, private val mComment : Muta
         var view = LayoutInflater.from(mContext).inflate(R.layout.comment_layout , parent, false)
         return ViewHolder(view)
     }
-
+    inner class ViewHolder(@NonNull itemview: android.view.View): RecyclerView.ViewHolder(itemview){
+        val imageAvatar : CircleImageView
+        val username : TextView
+        val content: TextView
+        val btnThich : TextView
+        val numLike : TextView
+        val imageNumlike : ImageView
+        val btnComment: TextView
+        init {
+            imageAvatar=itemView.findViewById(R.id.image_avatar_eachComment)
+            username=itemView.findViewById(R.id.tv_username_item)
+            content=itemView.findViewById(R.id.tv_content_item)
+            btnThich = itemview.findViewById(R.id.btn_thich_cmt)
+            numLike= itemview.findViewById(R.id.numLike_cmt)
+            imageNumlike = itemview.findViewById(R.id.image_numlike_cmt)
+            btnComment= itemview.findViewById(R.id.btn_cmt_cmt)
+        }
+    }
     override fun onBindViewHolder(holder: CommentAdapter.ViewHolder, position: Int) {
 
         val comment = mComment[position]
@@ -42,6 +59,7 @@ class CommentAdapter (private val mContext: Context, private val mComment : Muta
         // function to btn
         checkLike(holder.btnThich, comment.getIdComment()  )
         setLike(comment.getIdComment() , holder.numLike, holder.imageNumlike)
+        setCommentNumber(comment.getIdComment(), holder.btnComment)
         holder.btnThich.setOnClickListener{
             if(holder.btnThich.tag=="Like"){
                 FirebaseDatabase.getInstance().reference.child("LikeComment")
@@ -78,6 +96,25 @@ class CommentAdapter (private val mContext: Context, private val mComment : Muta
                     numLike.text="0"
                     imageNumlike.visibility= View.GONE
                     numLike.visibility=View.GONE
+                }
+            }
+        })
+    }
+
+    private fun setCommentNumber(idComment: String , numComment : TextView) {
+        val ref =FirebaseDatabase.getInstance().reference.child("AllComment").child("CommentReplays")
+            .child(idComment)
+        ref.addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    numComment.text="Trả lời (${snapshot.childrenCount.toString()})"
+
+                }
+                else{
+                    numComment.text="Trả lời"
                 }
             }
         })
@@ -125,22 +162,5 @@ class CommentAdapter (private val mContext: Context, private val mComment : Muta
     override fun getItemCount(): Int {
         return mComment.size
     }
-    inner class ViewHolder(@NonNull itemview: android.view.View): RecyclerView.ViewHolder(itemview){
-        val imageAvatar : CircleImageView
-        val username : TextView
-        val content: TextView
-        val btnThich : TextView
-        val numLike : TextView
-        val imageNumlike : ImageView
-        val btnComment: TextView
-        init {
-            imageAvatar=itemView.findViewById(R.id.image_avatar_eachComment)
-            username=itemView.findViewById(R.id.tv_username_item)
-            content=itemView.findViewById(R.id.tv_content_item)
-            btnThich = itemview.findViewById(R.id.btn_thich_cmt)
-            numLike= itemview.findViewById(R.id.numLike_cmt)
-            imageNumlike = itemview.findViewById(R.id.image_numlike_cmt)
-            btnComment= itemview.findViewById(R.id.btn_cmt_cmt)
-        }
-    }
+
 }

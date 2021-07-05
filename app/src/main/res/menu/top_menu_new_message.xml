@@ -4,14 +4,14 @@
 
     <item
         android:id="@+id/new_message_search"
-        android:icon="@drawable/ic_search_message"
+        android:icon="@drawable/search_n"
         android:title="Search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
 
     <item
         android:id="@+id/new_message_group"
-        android:icon="@drawable/ic_group_add"
+        android:icon="@drawable/add_group_n"
         android:title="New Group"
         app:showAsAction="ifRoom"/>
 
