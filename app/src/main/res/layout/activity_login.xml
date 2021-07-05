@@ -80,17 +80,15 @@
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
                 <TextView
-                    android:id="@+id/tv_forgotpassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/password_field"
+                    android:text="Forgot password"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="152dp"
-                    android:text="Forgot password" />
-
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="-35dp"
+                    />
                 <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
                     android:id="@+id/btnLogin"
                     android:layout_width="350dp"
@@ -140,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_newuser_signup"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="60dp"
                     android:layout_centerHorizontal="true"
                 >
                     <LinearLayout
@@ -178,14 +176,38 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:gravity="center"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="20dp"
                     android:layout_below="@+id/container_orloginwith">
-                    <com.google.android.gms.common.SignInButton
-                        android:id="@+id/btnSignInGoogle"
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/btngg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"></com.google.android.gms.common.SignInButton>
 
+                        android:src="@drawable/icon_gg1"
+                        android:backgroundTint="@color/white"
+                        android:elevation="35dp"
+                        />
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                       android:id="@+id/btnfb"
+                        android:layout_toRightOf="@id/btngg"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_gg1"
+                        android:backgroundTint="@color/white"
+                        android:elevation="35dp"
+                        />
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/btn3"
+                        android:layout_toRightOf="@id/btnfb"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_gg1"
+                        android:backgroundTint="@color/white"
+                        android:elevation="35dp"
+                        />
                 </RelativeLayout>
 
 

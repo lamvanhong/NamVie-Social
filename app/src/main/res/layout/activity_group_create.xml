@@ -40,7 +40,7 @@
         android:layout_height="100dp"
         android:layout_below="@id/appbar_layout_create_group"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_group" />
+        android:src="@drawable/sontung" />
 
     <EditText
         android:id="@+id/groupTitleEt"

@@ -94,7 +94,7 @@
         app:layout_constraintTop_toTopOf="@+id/message" />
 
     <TextView
-        android:id="@+id/time_chat_sent2"
+        android:id="@+id/time_chat_sent2_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

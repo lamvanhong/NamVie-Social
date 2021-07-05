@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GroupInfoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/appbar_layout_group_info"
+            android:layout_marginBottom="5dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:id="@+id/toolbar_group_info"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_group_info"
+                    android:text=""
+                    android:layout_alignParentLeft="true"
+                    android:textSize="25sp"
+                    android:textStyle="bold"/>
+
+
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+            <ImageView
+                android:id="@+id/groupIconIv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:minHeight="300dp"
+                android:scaleType="fitXY"/>
+
+            <TextView
+                android:id="@+id/desciptionTv"
+                android:text="The Description of the group"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/createByTv"
+                android:background="#54000000"
+                android:textColor="@color/white"/>
+
+
+            <TextView
+                android:id="@+id/createByTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create by ABC, on dd/mm/yy"
+                android:layout_alignParentBottom="true"
+                android:padding="5dp"
+                android:background="#54000000"
+                android:textColor="@color/white"/>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/editGroupTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Group"
+            android:drawableStart="@drawable/ic_edit"
+            android:layout_gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:padding="5dp"
+            android:textColor="@color/black"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eee"/>
+
+        <TextView
+            android:drawableStart="@drawable/ic_group_add_mem"
+            android:layout_gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:id="@+id/addMemberTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Member"
+            android:padding="5dp"
+            android:textColor="@color/black"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eee"/>
+
+        <TextView
+            android:drawableStart="@drawable/ic_leavee"
+            android:layout_gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:id="@+id/leaveGroupTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Leave Group"
+            android:padding="5dp"
+            android:textColor="@color/black"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eee"/>
+
+        <TextView
+            android:drawableStart="@drawable/ic_groupp"
+            android:layout_gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:id="@+id/membersTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Members (N)"
+            android:padding="5dp"
+            android:textColor="@color/black"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eee"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/membersRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_member_add"/>
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
