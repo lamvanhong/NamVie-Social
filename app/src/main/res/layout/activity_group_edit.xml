@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".GroupEditActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appbar_layout_edit_group"
+        android:layout_marginBottom="5dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:id="@+id/toolbar_edit_group"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/message_new_user"
+                android:text="New Group"
+                android:layout_alignParentLeft="true"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/groupIconIv_edit"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/appbar_layout_edit_group"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/sontung" />
+
+    <EditText
+        android:id="@+id/groupTitleEt_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/groupIconIv_edit"
+        android:layout_marginTop="10dp"
+        android:background="#eee"
+        android:editable="true"
+        android:hint="Group Title"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/groupDescriptionEt_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/groupTitleEt_edit"
+        android:layout_marginTop="10dp"
+        android:background="#eee"
+        android:editable="true"
+        android:gravity="top"
+        android:hint="Group Description"
+        android:inputType="textImeMultiLine|textCapSentences"
+        android:minHeight="100dp"
+        android:padding="10dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/updateGroupBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_done_group"/>
+
+
+
+</RelativeLayout>

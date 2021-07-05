@@ -1,14 +1,11 @@
 package com.lamhong.viesocial
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.lamhong.viesocial.Fragment.HomeFragment
-import com.lamhong.viesocial.Fragment.NotifyFragment
-import com.lamhong.viesocial.Fragment.ProfileFragment
-import com.lamhong.viesocial.Fragment.zHome
+import com.lamhong.viesocial.Fragment.SettingFragment
+import com.lamhong.viesocial.Fragment.*
 
 class MainActivity : AppCompatActivity() {
 //    private lateinit var textview: TextView
@@ -16,17 +13,19 @@ class MainActivity : AppCompatActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.nav_home -> {
-                moveFragment(HomeFragment())
+                moveFragment(zHome())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_search -> {
 
-               moveFragment(zHome())
+               moveFragment(MessageFragment())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_add_post -> {
                 //item.isChecked=false
-                startActivity(Intent(this, Post_Activity::class.java))
+               // startActivity(Intent(this, Post_Activity::class.java))
+              //  moveFragment(ShortVideoFragment())
+                moveFragment(VideoFragment())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_notifications -> {
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_profile -> {
-                moveFragment(ProfileFragment())
+                moveFragment(SettingFragment())
                 return@OnNavigationItemSelectedListener true
             }
 
@@ -54,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        moveFragment(HomeFragment())
+        moveFragment(zHome())
     }
 
     private fun moveFragment(fragment :Fragment){

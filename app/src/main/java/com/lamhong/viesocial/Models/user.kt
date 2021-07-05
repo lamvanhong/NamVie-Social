@@ -1,4 +1,4 @@
-package com.lamhong.viesocial.Models
+    package com.lamhong.viesocial.Models
 
 class User {
     private var fullname : String=""
@@ -23,7 +23,7 @@ class User {
     fun getName(): String{
         return fullname
     }
-    fun setName(fullname:String){
+    fun setName(fullname: String){
         this.fullname=fullname
     }
     fun getEmail(): String{

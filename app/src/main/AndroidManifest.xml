@@ -1,19 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.lamhong.viesocial">
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
+        android:name="com.lamhong.viesocial.EmojiApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBook">
-        <activity android:name="com.lamhong.viesocial.CommentActivity"></activity>
+        <activity android:name="com.lamhong.viesocial.GroupEditActivity"></activity>
+        <activity android:name="com.lamhong.viesocial.GroupInfoActivity" />
+        <activity android:name="com.lamhong.viesocial.GroupAddMemberActivity" />
+        <activity android:name="com.lamhong.viesocial.SettingActivity"></activity>
+        <activity android:name="com.lamhong.viesocial.MyShotVideoActivity" />
+        <activity android:name="com.lamhong.viesocial.ShotVideoActivity" />
+        <activity android:name="com.lamhong.viesocial.AddShotVideoActivity" />
+        <activity android:name="com.lamhong.viesocial.ReplayCommentActivity" />
+        <activity android:name="com.lamhong.viesocial.UserPrivacyActivity" />
+        <activity android:name="com.lamhong.viesocial.UserSystemSettingActivity" />
+        <activity android:name="com.lamhong.viesocial.UserActiviesActivity" />
+        <activity android:name="com.lamhong.viesocial.UserSavePostActivity" />
+        <activity android:name="com.lamhong.viesocial.ReplayCommentActivity" />
+        <activity android:name="com.lamhong.viesocial.GroupChatsLogActivity" />
+        <activity android:name="com.lamhong.viesocial.GroupChatsActivity" />
+        <activity android:name="com.lamhong.viesocial.GroupCreateActivity" />
+        <activity android:name="com.lamhong.viesocial.ReplayCommentActivity" />
+        <activity android:name="com.lamhong.viesocial.FollowingListActivity" />
+        <activity android:name="com.lamhong.viesocial.ProfileActivity" />
+        <activity android:name="com.lamhong.viesocial.NewSearchActivity" />
+        <activity android:name="com.lamhong.viesocial.PictureActivity" />
+        <activity android:name="com.lamhong.viesocial.SchoolEditingActivity" />
+        <activity android:name="com.lamhong.viesocial.DetailEditGeneralActivity" />
+        <activity android:name="com.lamhong.viesocial.DetailUserInforChangeActivity" />
+        <activity android:name="com.lamhong.viesocial.ChangeCoverImageActivity" />
+        <activity android:name="com.lamhong.viesocial.ChangeAvatarActivity" />
+        <activity android:name="com.lamhong.viesocial.ProfileEditting" />
+        <activity android:name="com.lamhong.viesocial.FriendListActivity" />
+        <activity
+            android:name="com.lamhong.viesocial.ChatLogActivity"
+            tools:ignore="ExtraText">
+            android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.lamhong.viesocial.NewMessageActivity" />
+        <activity android:name="com.lamhong.viesocial.SharePostActivity" />
+        <activity android:name="com.lamhong.viesocial.UserReacted" />
+        <activity android:name="com.lamhong.viesocial.CommentActivity" />
         <activity android:name="com.lamhong.viesocial.Post_Activity" />
         <activity android:name="com.lamhong.viesocial.SignupActivity" />
         <activity android:name="com.lamhong.viesocial.LoginActivity">
@@ -39,6 +82,10 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

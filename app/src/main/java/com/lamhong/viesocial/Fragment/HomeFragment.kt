@@ -1,12 +1,17 @@
     package com.lamhong.viesocial.Fragment
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -18,7 +23,8 @@ import com.lamhong.viesocial.Models.User
 import com.lamhong.viesocial.R
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-// TODO: Rename parameter arguments, choose names that match
+
+    // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -28,7 +34,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment()  {
 
 //    private var postAdapter : PostAdapter?=null
 //    private var postList : MutableList<Post>?=null
@@ -44,16 +50,26 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                returnHome()
+            }
+        })
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+    }
+    fun returnHome(){
+        (context as FragmentActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.frameLayout, zHome()).commit()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         val view= inflater.inflate(R.layout.fragment_home, container, false)
         recyclerView= view.findViewById(R.id.recycleviewSearch)
@@ -64,19 +80,26 @@ class HomeFragment : Fragment() {
         userAdapter= context?.let { UserAdapter(it, _users as ArrayList<User> , true) }
         recyclerView?.adapter= userAdapter
 
+        view.edittext_search.requestFocusFromTouch()
+        val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
+        imm?.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
+
+        view.btn_returnHome.setOnClickListener{
+           returnHome()
+        }
+
         view.edittext_search.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
-
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if(view.edittext_search.text.toString() == ""){
+                    _users!!.clear()
+                    userAdapter!!.notifyDataSetChanged()
 
                 }else
                 {
                    recyclerView?.visibility= View.VISIBLE
-                   userMatch() // retrieve data
                    searchUser(s.toString().toLowerCase())
 
                 }
@@ -98,7 +121,10 @@ class HomeFragment : Fragment() {
         return view
 
     }
-
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
 
     fun searchUser(datainput : String){
             val getdata= FirebaseDatabase.getInstance().getReference().child("UserInformation").orderByChild("fullname")

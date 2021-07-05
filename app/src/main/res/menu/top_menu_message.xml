@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/search_message"
+        android:icon="@drawable/ic_search_message"
+        android:title="Search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+    <item
+        android:id="@+id/group_message"
+        android:icon="@drawable/ic_groupp"
+        android:title="Group"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/new_message"
+        android:icon="@drawable/ic_add_new_message"
+        android:title="New Message"
+        app:showAsAction="ifRoom" />
+
+</menu>

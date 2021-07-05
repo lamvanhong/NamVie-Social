@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/chat_call"
+        android:icon="@drawable/ic_call"
+        android:title="Call"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/chat_videocall"
+        android:icon="@drawable/ic_video_call"
+        android:title="Video Call"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/chat_see_profile"
+        android:title="See Profile"/>
+
+    <item
+        android:id="@+id/chat_color"
+        android:title="Change Color"/>
+
+    <item
+        android:id="@+id/chat_nickname"
+        android:title="Change Nickname"/>
+
+
+</menu>

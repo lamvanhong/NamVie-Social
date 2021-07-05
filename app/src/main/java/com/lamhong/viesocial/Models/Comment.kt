@@ -3,12 +3,14 @@ package com.lamhong.viesocial.Models
 class Comment {
     private var content : String = ""
     private var ownerComment : String = ""
+    private var idComment : String =""
     // private var imageContent ://update later
 
     constructor()
-    constructor(content: String, ownerComment: String) {
+    constructor(content: String, ownerComment: String, idComment: String) {
         this.content = content
         this.ownerComment = ownerComment
+        this.idComment= idComment
     }
     fun getContent() : String{
         return content
@@ -21,6 +23,12 @@ class Comment {
     }
     fun setOwner(ownerComment: String){
         this.ownerComment=ownerComment
+    }
+    fun getIdComment(): String{
+        return idComment
+    }
+    fun setIdComment(idComment: String){
+        this.idComment= idComment
     }
 
 }
