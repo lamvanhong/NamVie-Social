@@ -27,7 +27,7 @@ import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_account_setting.*
 
 class AccountSettingActivity : AppCompatActivity() {
-    final lateinit var firebaseUser :FirebaseUser
+    lateinit var firebaseUser :FirebaseUser
     private var myUrl=""
     private var imageUir : Uri?=null
     private var checker=""
@@ -43,8 +43,9 @@ class AccountSettingActivity : AppCompatActivity() {
 
             val intent= Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
+
             finish()
+            startActivity(intent)
         }
         firebaseUser=FirebaseAuth.getInstance().currentUser
         storageAvatarRef =FirebaseStorage.getInstance().reference.child("Avatar")
@@ -56,7 +57,6 @@ class AccountSettingActivity : AppCompatActivity() {
             }
             else{
                 updateUserInfor()
-
             }
         }
 
@@ -109,7 +109,7 @@ class AccountSettingActivity : AppCompatActivity() {
 
 //                        val userMap = HashMap<String, Any>()
 //                        userMap["fullname"]= edit_name.text.toString()
-//                        userMap["email"]= myUrl
+//                        userMap["email"]= my  Url
 //
 //                        ref.child(firebaseUser.uid).updateChildren(userMap)
                         val inMap = HashMap<String, Any>()
@@ -119,7 +119,7 @@ class AccountSettingActivity : AppCompatActivity() {
 
                         ref.child(firebaseUser.uid).updateChildren(inMap)
                         val intent = Intent(this@AccountSettingActivity, MainActivity::class.java)
-                        Toast.makeText(this, "Đã cập nhật thông tin !!", Toast.LENGTH_LONG)
+                        Toast.makeText(this, "Đã cập nhật thông tin !!", Toast.LENGTH_LONG).show()
                         startActivity(intent)
                         finish()
                         progressDialog.dismiss()

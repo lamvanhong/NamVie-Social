@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.MyBook" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">#00B0D1</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -13,7 +13,9 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
+
     </style>
+
     <style name="MyEditTextTheme">
         <item name="colorControlNormal">#6C4848</item>
         <item name="colorControlActivated">#FF0000</item>
@@ -48,4 +50,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    
+    <!-- anim -->
+    <style name="DialogAnim">
+        <item name="android:windowEnterAnimation">@anim/trans_in</item>
+        <item name="android:windowExitAnimation">@anim/trans_out</item>
+    </style>
+
 </resources>

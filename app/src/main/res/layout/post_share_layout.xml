@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardElevation="1dp"
+    app:cardCornerRadius="15dp"
+    android:layout_marginLeft="3dp"
+    android:layout_marginRight="3dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_avata_sharing"
+                android:layout_marginLeft="8dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/duongtu1"
+                android:padding="5dp"/>
+
+            <TextView
+                android:id="@+id/user_name_sharing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="user name"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="14dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_showtype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="đã chia sẻ bài viết"
+                android:textSize="14sp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="14dp"
+                />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/icf_option"
+                android:id="@+id/btn_option"
+
+                />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lamvanhong"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:textSize="17dp"
+            android:id="@+id/describeShare"/>
+
+      <androidx.cardview.widget.CardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="5dp"
+          android:layout_marginLeft="14dp"
+          app:cardElevation="1dp"
+          app:cardCornerRadius="10dp"
+
+          >
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              >
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  >
+
+                  <de.hdodenhof.circleimageview.CircleImageView
+                      android:id="@+id/user_avatar_shared"
+                      android:layout_marginTop="5dp"
+                      android:layout_marginLeft="1dp"
+                      android:layout_width="40dp"
+                      android:layout_height="40dp"
+                      android:src="@drawable/duongtu1"
+                      android:padding="5dp"/>
+
+                  <TextView
+                      android:id="@+id/user_name_shared"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="user name"
+                      android:textSize="15sp"
+                      android:textStyle="bold"
+                      android:layout_marginLeft="5dp"
+                      android:layout_marginTop="14dp"
+                      />
+                  <TextView
+                      android:id="@+id/tv_displaytype"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="đã cập nhật ảnh đại diện"
+                      android:textSize="13sp"
+                      android:layout_marginLeft="8dp"
+                      android:layout_marginTop="14dp"
+                      />
+              </LinearLayout>
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="content"
+                  android:textSize="17sp"
+                  android:layout_marginTop="8dp"
+                  android:layout_marginLeft="2dp"
+                  android:layout_marginBottom="5dp"
+                  android:id="@+id/content_inshared"
+                  />
+
+              <androidx.cardview.widget.CardView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp"
+                  app:cardCornerRadius="10dp">
+
+                  <ImageView
+                      android:id="@+id/image_content"
+                      android:layout_width="match_parent"
+                      android:layout_height="200dp"
+                      android:scaleType="centerCrop"
+                      android:src="@drawable/cty" />
+              </androidx.cardview.widget.CardView>
+              <RelativeLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/container_avatar_sharelayout"
+                  >
+                  <androidx.cardview.widget.CardView
+                      android:translationZ="1dp"
+                      app:cardCornerRadius="150dp"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="5dp"
+                      android:layout_marginLeft="10dp"
+                      android:layout_marginRight="10dp"
+                      android:layout_marginBottom="5dp"
+                      app:cardElevation="0dp"
+                      android:elevation="0dp"
+                      android:outlineAmbientShadowColor="@color/white"
+                      android:layout_centerHorizontal="true"
+                      android:id="@+id/container_post_avatar_comment"
+                      >
+
+                      <de.hdodenhof.circleimageview.CircleImageView
+                          android:id="@+id/avatar_sharelayout"
+                          android:layout_width="250dp"
+                          android:layout_height="250dp"
+                          android:src="@drawable/duongtu"
+                          android:translationZ="2dp" />
+                  </androidx.cardview.widget.CardView>
+
+              </RelativeLayout>
+
+
+          </LinearLayout>
+
+
+      </androidx.cardview.widget.CardView>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:theme="@style/likeButton"
+                        >
+                    </br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
+
+                </FrameLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_heart_hong"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="113"
+                        android:id="@+id/numlikes"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="8dp"
+                        android:translationZ="5dp"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 bình luận"
+                        android:id="@+id/numbinhluan"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="8dp"
+                        android:translationZ="5dp"
+
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 chia sẻ"
+                        android:id="@+id/numshare"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="8dp"
+                        android:translationZ="5dp"
+
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:translationZ="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="32dp">
+                <FrameLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/framlayout_yeuthich"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:translationZ="1dp"
+                        android:layout_width="110dp"
+                        android:layout_height="60dp"
+                        android:scaleType="centerCrop"
+                        android:background="@color/white"
+                        android:id="@+id/btn_yeuthich"
+                        android:src="@drawable/custombtn_like"
+                        >
+                    </ImageButton>
+                    <TextView
+                        android:id="@+id/tv_thich"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thích"
+                        android:textSize="9dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginLeft="50dp"
+                        android:translationZ="5dp"
+
+                        />
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/framlayout_binhluan"
+                    android:layout_toRightOf="@+id/framlayout_yeuthich"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="60dp"
+                        android:background="@color/white"
+                        android:id="@+id/btn_binhluan"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/custombtn_comment"
+                        >
+                    </ImageButton>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:translationZ="5dp"
+                        >
+                        <TextView
+                            android:id="@+id/tv_binhluan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bình luận"
+                            android:textSize="9dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginLeft="52dp"
+                            android:translationZ="5dp"  />
+
+                    </RelativeLayout>
+
+
+
+
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/framlayout_share"
+                    android:layout_toRightOf="@+id/framlayout_binhluan"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="60dp"
+                        android:background="@color/white"
+                        android:id="@+id/btn_share"
+                        android:src="@drawable/shadow_share2"
+                        android:scaleType="centerCrop"
+                        >
+                    </ImageButton>
+                    <TextView
+                        android:id="@+id/tv_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chia sẻ"
+                        android:textSize="9dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginLeft="60dp"
+                        android:translationZ="5dp"
+
+                        />
+                </FrameLayout>
+
+
+
+            </LinearLayout>
+        </FrameLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

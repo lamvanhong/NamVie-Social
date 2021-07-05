@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_remove_mess"
+    android:layout_margin="16dp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginLeft="16dp"
+        android:padding="10dp"
+        android:text="Chắc chắn hủy việc gửi lời mời"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/btn_delete1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            app:cardCornerRadius="25dp"
+            android:layout_marginLeft="35dp"
+            app:cardElevation="2dp"
+            android:background="@color/white"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/btn_yes"
+                android:text="Xác nhận"
+                android:background="@drawable/custom_btn_whi_blue"
+                android:textColor="#FFFFFF"
+                />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            app:cardCornerRadius="25dp"
+            android:layout_marginLeft="15dp"
+            app:cardElevation="2dp"
+            android:background="@color/white"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/btn_no"
+                android:text="Từ bỏ"
+                android:background="@drawable/custom_button_whi"
+                android:textColor="#00BCD4"
+                />
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+

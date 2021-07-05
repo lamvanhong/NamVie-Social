@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/group_add_mem"
+        android:title="Add Member"
+        android:icon="@drawable/add_person_n"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/group_info"
+        android:title="Information"
+        android:icon="@drawable/information_n"
+        app:showAsAction="ifRoom"/>
+
+
+</menu>

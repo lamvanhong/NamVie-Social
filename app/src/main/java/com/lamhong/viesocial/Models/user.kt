@@ -1,10 +1,14 @@
 package com.lamhong.viesocial.Models
 
-class User {
+import java.io.Serializable
+
+
+    class User : Serializable {
     private var fullname : String=""
     private var email: String=""
     private var uid: String=""
     private var avatar : String=""
+    private var token : String=""
   //  private var imageUrl : String=""
     constructor()
     constructor( fullname : String,email: String, uid: String , avatar : String){
@@ -23,7 +27,7 @@ class User {
     fun getName(): String{
         return fullname
     }
-    fun setName(fullname:String){
+    fun setName(fullname: String){
         this.fullname=fullname
     }
     fun getEmail(): String{
@@ -37,6 +41,12 @@ class User {
     }
     fun setUid(uid : String){
         this.uid=uid
+    }
+    fun getToken():String{
+        return token
+    }
+    fun setToken(token :String ){
+        this.token = token
     }
 //    fun setImageurl(imageUrl: String){
 //        this.imageUrl=imageUrl
