@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
@@ -74,6 +75,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="0dp"
@@ -86,15 +88,39 @@
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_send_message"
+        app:layout_constraintEnd_toStartOf="@id/btn_send_message"
         app:layout_constraintStart_toEndOf="@+id/btn_icon_chat">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/messagebox"
+            android:id="@+id/linearLayoutEmoji">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/messagelayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#ECECEC"
             android:gravity="center"
             android:orientation="horizontal">
+
+            <com.devlomi.record_view.RecordView
+                android:id="@+id/record_view"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1.8"
+                android:visibility="gone"
+                app:slide_to_cancel_text="Slide to Cancel"
+                app:slide_to_cancel_arrow="@drawable/recv_ic_arrow"
+                app:slide_to_cancel_arrow_color="@color/black"
+                app:counter_time_color="#ff0000"/>
 
             <EditText
                 android:id="@+id/messagebox"
@@ -108,7 +134,8 @@
                 android:hint="Type a message.."
                 android:inputType="textPersonName"
                 android:padding="8dp"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="visible"/>
 
             <ImageView
                 android:id="@+id/attachment"
@@ -116,7 +143,8 @@
                 android:layout_height="22dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginRight="12dp"
-                app:srcCompat="@drawable/ic_attachment" />
+                app:srcCompat="@drawable/ic_attachment"
+                android:visibility="visible"/>
 
             <ImageView
                 android:id="@+id/camera"
@@ -124,10 +152,27 @@
                 android:layout_height="22dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginRight="12dp"
-                app:srcCompat="@drawable/ic_camera" />
+                app:srcCompat="@drawable/ic_camera"
+                android:visibility="visible"/>
+
+            <com.devlomi.record_view.RecordButton
+                android:id="@+id/btn_record"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                app:mic_icon="@drawable/ic_mic"
+                android:visibility="gone"
+                />
 
         </LinearLayout>
+
+
     </androidx.cardview.widget.CardView>
+
+
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_chat_log"
@@ -150,7 +195,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/cardView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cardView2"
-        app:srcCompat="@drawable/ic_send" />
+        app:srcCompat="@drawable/ic_send"
+        android:visibility="gone"/>
 
     <ImageView
         android:id="@+id/btn_icon_chat"
@@ -158,11 +204,14 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:padding="10dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/cardView2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/cardView2"
-        app:srcCompat="@drawable/ic_icon"
-        tools:layout_editor_absoluteX="70dp"
-        tools:layout_editor_absoluteY="531dp" />
+        app:srcCompat="@drawable/ic_icon" />
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

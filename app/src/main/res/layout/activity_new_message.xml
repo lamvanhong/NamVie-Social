@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/message_new_user"
-                android:text="Tin nhắn mới"
+                android:text="New Message"
                 android:layout_alignParentLeft="true"
                 android:textSize="25sp"
                 android:textStyle="bold"/>

@@ -190,6 +190,8 @@
                 android:layout_marginTop="15dp"
                 >
                 <androidx.cardview.widget.CardView
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_width="340dp"
                     android:layout_height="50dp"
                     app:cardCornerRadius="25dp"
@@ -202,8 +204,8 @@
                         android:layout_height="match_parent"
                         android:id="@+id/btn_movetoProfile"
                         android:text="Trang cá nhân của tôi"
-                        android:background="@drawable/custom_gradient_button1"
-                        android:textColor="@color/white"
+                        android:background="@drawable/custom_grandient_button2"
+                        android:textColor="#00BCD4"
                         />
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
@@ -249,7 +251,7 @@
                     android:textSize="14dp"
                     />
                 <RelativeLayout
-                    android:layout_marginTop="10dp "
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
@@ -276,6 +278,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/btn_Private"
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
@@ -314,7 +317,7 @@
                     android:textSize="14dp"
                     />
                 <RelativeLayout
-                    android:layout_marginTop="10dp "
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
@@ -341,6 +344,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/btn_movetoUserActivity"
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
@@ -379,7 +383,7 @@
                     android:textSize="14dp"
                     />
                 <RelativeLayout
-                    android:layout_marginTop="10dp "
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
@@ -406,6 +410,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/btn_movetoSavePost"
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
@@ -444,7 +449,7 @@
                     android:textSize="14dp"
                     />
                 <RelativeLayout
-                    android:layout_marginTop="10dp "
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
@@ -461,6 +466,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+
                 >
                 <View
                     android:layout_width="300dp"
@@ -475,6 +481,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:id="@+id/btn_movetoSetting"
                 >
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -504,12 +511,65 @@
                     android:layout_marginLeft="30dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cài đặt hệ thống"
+                    android:text="Tài khoản và hỗ trợ"
                     android:textStyle="bold"
                     android:textSize="14dp"
                     />
                 <RelativeLayout
-                    android:layout_marginTop="10dp "
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_next"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="35dp"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/btn_logout"
+                >
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="#F6F6F6"
+                        android:layout_marginLeft="40dp"
+                        android:translationZ="1dp"
+
+                        />
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/logout"
+                        android:layout_marginLeft="50dp"
+                        android:translationZ="3dp"
+                        />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đăng xuất"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    />
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >

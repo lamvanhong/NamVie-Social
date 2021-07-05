@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "654490419994",
-    "project_id": "viesocial-19c6f",
-    "storage_bucket": "viesocial-19c6f.appspot.com"
+    "project_number": "925062547128",
+    "project_id": "my-book-f1ef6",
+    "storage_bucket": "my-book-f1ef6.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:654490419994:android:24034e8a42f714965162a3",
+        "mobilesdk_app_id": "1:925062547128:android:f114a04b8f9c801c8ed64d",
         "android_client_info": {
-          "package_name": "com.lamhong.viesocial"
+          "package_name": "com.lamhong.mybook"
         }
       },
       "oauth_client": [
         {
-          "client_id": "654490419994-f64si6vv91bv79vc4kb05b9p40s6vism.apps.googleusercontent.com",
+          "client_id": "925062547128-out2sk8d28sul95q31hb9b4tr7sqim2r.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAA765bo8OzmEasjnhlf6pdZ6Ijq2lY6h8"
+          "current_key": "AIzaSyBrYxABrwQ_7hW3t89xtyt2SzRsKk4Sxss"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "654490419994-f64si6vv91bv79vc4kb05b9p40s6vism.apps.googleusercontent.com",
+              "client_id": "925062547128-out2sk8d28sul95q31hb9b4tr7sqim2r.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

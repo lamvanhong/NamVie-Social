@@ -46,11 +46,12 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/more_btn"
+                android:src="@drawable/icf_option"
+                android:id="@+id/btn_option"
 
                 />
 

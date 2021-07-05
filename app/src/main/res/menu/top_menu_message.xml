@@ -8,6 +8,11 @@
         android:title="Search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
+    <item
+        android:id="@+id/group_message"
+        android:icon="@drawable/ic_groupp"
+        android:title="Group"
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/new_message"
