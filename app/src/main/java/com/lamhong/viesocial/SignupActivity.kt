@@ -73,8 +73,17 @@ class SignupActivity : AppCompatActivity() {
         userMap["uid"]= currentUserID
         userMap["fullname"]= name.toLowerCase()
         userMap["email"]= email.toLowerCase()
-        userMap["avatar"]="https://firebasestorage.googleapis.com/v0/b/my-book-f1ef6.appspot.com/o/Images%2Fimages.jfif?alt=media&token=a3ad7508-6a86-4082-ab17-614f5bf9118b"
+        userMap["avatar"]="https://firebasestorage.googleapis.com/v0/b/my-book-f1ef6.appspot.com/o/Avatar%2F147144.png?alt=media&token=ec6823c2-98f7-491c-9c61-1ec85937e306"
 
+        FirebaseDatabase.getInstance().reference.child("Contents")
+            .child("User").child(currentUserID)
+            .child("follow").setValue("private")
+        FirebaseDatabase.getInstance().reference.child("Contents")
+            .child("User").child(currentUserID)
+            .child("friend").setValue("private")
+        FirebaseDatabase.getInstance().reference.child("Contents")
+            .child("User").child(currentUserID)
+            .child("post").setValue("private")
 
 
         userRef.child(currentUserID).setValue(userMap).addOnCompleteListener{

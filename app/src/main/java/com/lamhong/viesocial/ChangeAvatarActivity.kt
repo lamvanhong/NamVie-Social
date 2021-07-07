@@ -153,9 +153,10 @@ class ChangeAvatarActivity : AppCompatActivity() {
         }
     }
     private fun getFollowinglist(){
+        // note : it -> follower , but i not changing name :<< understand by yourself
         val ref = FirebaseDatabase.getInstance().reference.child("Friends")
             .child(firebaseUser.uid!!)
-            .child("friendList")
+            .child("followerList")
         ref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){

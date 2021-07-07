@@ -137,6 +137,62 @@
         </LinearLayout>
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/btn_delete"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="#F6F6F6"
+                android:layout_marginLeft="30dp"
+                android:translationZ="1dp"
+
+                />
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:src="@drawable/bin"
+                android:layout_marginLeft="40dp"
+                android:translationZ="3dp"
+                />
+
+        </FrameLayout>
+        <LinearLayout
+            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xóa bài viết này"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ẩn khỏi dòng thời gian của mọi người"
+                android:textSize="15dp"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/btn_unfollow"

@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener
 import com.lamhong.viesocial.Adapter.CommentAdapter
 import com.lamhong.viesocial.Models.Comment
 import com.lamhong.viesocial.Models.User
+import com.lamhong.viesocial.Utilities.Constants
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_replay_comment.*
 import kotlinx.android.synthetic.main.activity_replay_comment.btn_close
@@ -31,6 +32,7 @@ class ReplayCommentActivity : AppCompatActivity() {
     private var idUser : String =""
     private var content : String =""
     private var idComment : String =""
+    private var timecmt :String ?= null
 
     private var commentAdapter : CommentAdapter?=null
     private var commentList : MutableList<Comment>?=null
@@ -46,6 +48,7 @@ class ReplayCommentActivity : AppCompatActivity() {
         idUser= intent.getStringExtra("idUser").toString()
         content= intent.getStringExtra("content").toString()
         idComment= intent.getStringExtra("idComment").toString()
+        timecmt = intent.getStringExtra("timecmt").toString()
 
         showUserInfor()
         //show cmt
@@ -158,6 +161,7 @@ class ReplayCommentActivity : AppCompatActivity() {
                     for(snap in snapshot.children){
                         val comment : Comment= snap.getValue(Comment::class.java)!!
                         comment.setOwner(snap.child("ownerComment").value.toString())
+                        comment.setTimeStamp(snap.child("timestamp").value.toString())
                         commentList!!.add(comment)
                     }
                     // (commentList as ArrayList).reverse()
@@ -171,6 +175,7 @@ class ReplayCommentActivity : AppCompatActivity() {
     }
 
     private fun addComment() {
+        val timestamp= System.currentTimeMillis().toString()
         val commentRef= FirebaseDatabase.getInstance().reference.child("AllComment")
             .child("CommentReplays").child(idComment)
         val commentMap =HashMap<String, Any>()
@@ -178,6 +183,7 @@ class ReplayCommentActivity : AppCompatActivity() {
         commentMap["content"]=edit_add_comment.text.toString()
         commentMap["ownerComment"]=firebaseUser!!.uid
         commentMap["idComment"]=key
+        commentMap["timestamp"] = timestamp
         commentRef.child(key).setValue(commentMap)
 
          edit_add_comment.text.clear()
@@ -201,6 +207,7 @@ class ReplayCommentActivity : AppCompatActivity() {
                     Picasso.get().load(user.getAvatar()).into(image_avatar_repcmt)
                     tv_username_repcmt.text=user.getName()
                     tv_content_repcmt.text=content
+                    time_repcmt.text=Constants.getTimeCmt(timecmt)
                 }
             }
 

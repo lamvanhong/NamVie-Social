@@ -152,6 +152,7 @@ class CommentShareActivity : AppCompatActivity() {
                     for(snap in snapshot.children){
                         val comment : Comment= snap.getValue(Comment::class.java)!!
                         comment.setOwner(snap.child("ownerComment").value.toString())
+                        comment.setTimeStamp(snap.child("timestamp").value.toString())
                         commentList!!.add(comment)
                     }
                     // (commentList as ArrayList).reverse()
@@ -163,7 +164,10 @@ class CommentShareActivity : AppCompatActivity() {
             }
         })
     }
+
     private fun addComment(nameuser : String, token: String){
+       val timestamp= System.currentTimeMillis().toString()
+
         val commentRef= FirebaseDatabase.getInstance().reference.child("AllComment")
             .child("Comments").child(shareID)
         val commentMap =HashMap<String, Any>()
@@ -171,6 +175,7 @@ class CommentShareActivity : AppCompatActivity() {
         commentMap["content"]=edit_add_comment.text.toString()
         commentMap["ownerComment"]=firebaseUser!!.uid
         commentMap["idComment"]=key
+        commentMap["timestamp"] = timestamp
         commentRef.child(key).setValue(commentMap)
 
         edit_add_comment.text.clear()

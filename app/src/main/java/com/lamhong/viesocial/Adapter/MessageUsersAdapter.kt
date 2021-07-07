@@ -189,6 +189,20 @@ class MessageUsersAdapter(private val messageUsersList: ArrayList<User>) : Recyc
             v.context.startActivity(intent)
         }
 
+        FirebaseDatabase.getInstance().reference.child("chats")
+            .child(senderRoom)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.child("receiver_nickname").value != null)
+                        holder.textView.text = snapshot.child("receiver_nickname").value.toString()
+                }
+
+            })
+
     }
 
     class MessageUsersViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -198,4 +212,6 @@ class MessageUsersAdapter(private val messageUsersList: ArrayList<User>) : Recyc
         var timeMess = itemView.time_message
         var tick = itemView.tick
     }
+
+
 }

@@ -233,7 +233,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                 publishInfo(holder1.profileImage, holder1.userName,  post.getpublisher())
                 //describe import
-                if(post.getpostContent().equals("")){
+                if(post.getpostContent()=="" || post.getpostContent()=="null" || post.getpostContent()==null){
                     holder1.describe.visibility=View.GONE
                 }else{
                     holder1.describe.visibility=View.VISIBLE

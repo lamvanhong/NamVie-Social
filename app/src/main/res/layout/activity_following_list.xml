@@ -94,7 +94,7 @@
                     android:background="@color/white"
                     >
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_banbe_friendlist"
+                        android:id="@+id/btn_dangtheodoi"
                         android:textColor="#FFFFFF"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
@@ -116,7 +116,7 @@
                     android:background="@color/white"
                     >
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_dangcho_friendlist"
+                        android:id="@+id/btn_nguoitheodoi"
                         android:textColor="#989898"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
@@ -139,7 +139,8 @@
 
                     >
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_dagui_friendlist"
+                        android:id="@+id/btn_dachan"
+
                         android:textColor="#989898"
                         android:layout_width="match_parent"
                         android:textSize="11dp"

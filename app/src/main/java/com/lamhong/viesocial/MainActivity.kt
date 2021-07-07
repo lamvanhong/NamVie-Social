@@ -2,6 +2,12 @@ package com.lamhong.viesocial
 
 import android.content.Context
 import android.os.Bundle
+
+import android.os.Handler
+import android.os.Looper
+
+import androidx.appcompat.app.AlertDialog
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -81,6 +87,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
         MyFirebaseMessagingService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            moveFragment(zHome())
+        }, 3500)
+        Handler(Looper.getMainLooper()).postDelayed({
+            moveFragment(zHome())
+        }, 2000)
+        //moveFragment(zHome())
+
     }
 
 
@@ -89,6 +104,16 @@ class MainActivity : AppCompatActivity() {
         fragmentselect.replace(R.id.frameLayout, fragment)
         fragmentselect.commit()
     }
-
+    override fun onBackPressed() {
+        val alert = AlertDialog.Builder(this)
+        alert.setTitle("Xác nhận")
+        alert.setIcon(R.drawable.ic_exit)
+        alert.setMessage("Bạn muốn thoát khỏi ứng dụng ?")
+        alert.setCancelable(false)
+        alert.setNegativeButton("Thoát") { dialog, which -> finish() }
+        alert.setPositiveButton("Không") { dialog, which -> }
+        val alertDialog = alert.create()
+        alertDialog.show()
+    }
 
 }

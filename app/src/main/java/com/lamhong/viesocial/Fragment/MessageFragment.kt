@@ -280,11 +280,28 @@ class MessageFragment : Fragment() {
 
         val adapter = MessageUsersAdapter(users)
 
+        val usersmess = ArrayList<String>()
+
         var senderUid: String? = FirebaseAuth.getInstance().uid
 
         view?.rv_message_users?.layoutManager = LinearLayoutManager(activity)
 
         view?.rv_message_users?.adapter = adapter
+
+        FirebaseDatabase.getInstance().reference.child("chats").addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                usersmess.clear()
+                for (ss in snapshot.children) {
+                    val usermess = ss.key.toString()
+                    usersmess.add(usermess)
+                }
+            }
+        })
+
+
 
         FirebaseDatabase.getInstance().reference.child("UserInformation").addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -296,11 +313,14 @@ class MessageFragment : Fragment() {
                 for (ss in snapshot.children) {
                     val user = ss.getValue(User::class.java)
                     user!!.setName(ss.child("fullname").value.toString())
-                    if (user != null && user.getUid()!=senderUid) {
-
-                        if (user.getName().toLowerCase().contains(s.toLowerCase())) {
-                            users.add(user)
+                    user!!.setUid(ss.child("uid").value.toString())
+                    for (i in usersmess) {
+                        if (user != null && (senderUid+user.getUid())==i) {
+                            if (user.getName().toLowerCase().contains(s.toLowerCase())) {
+                                users.add(user)
+                            }
                         }
+                        //Toast.makeText(activity,i, Toast.LENGTH_SHORT).show()
                     }
                 }
                 adapter.notifyDataSetChanged()

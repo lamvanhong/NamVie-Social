@@ -114,7 +114,7 @@
                 android:id="@+id/btn_selectPicture"
                 android:layout_width="110dp"
                 android:layout_height="35dp"
-                android:text="thêm video"
+                android:text="thêm ảnh"
                 android:textColor="#03A9F4"
                 android:textSize="10dp"
                 android:textStyle="bold"

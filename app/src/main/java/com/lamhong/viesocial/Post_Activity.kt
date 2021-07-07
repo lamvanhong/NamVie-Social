@@ -19,7 +19,6 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
-import com.lamhong.viesocial.Fragment.zHome
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_account_setting.*
 import kotlinx.android.synthetic.main.activity_post_.*
@@ -84,7 +83,7 @@ class   Post_Activity : AppCompatActivity() {
     private fun getFollowinglist(){
         val ref = FirebaseDatabase.getInstance().reference.child("Friends")
             .child(FirebaseAuth.getInstance().currentUser.uid)
-            .child("friendList")
+            .child("followerList")
         ref.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
@@ -150,7 +149,7 @@ class   Post_Activity : AppCompatActivity() {
                 pMap["post_type"]="post"
                 pMap["id"]=nunu
                 pMap["active"]=true
-                timelineUser.push().setValue(pMap)
+                timelineUser.child(nunu).setValue(pMap)
 
                 // getFollowinglist()
 
@@ -163,13 +162,13 @@ class   Post_Activity : AppCompatActivity() {
                     postMap["id"]=nunu
                     postMap["active"]=true
 
-                    timelineRef.push().setValue(postMap)
+                    timelineRef.child(nunu).setValue(postMap)
 
                 }
 
-                val intent = Intent(this@Post_Activity, zHome::class.java)
-                Toast.makeText(this, "Đã cập nhật thông tin !!", Toast.LENGTH_LONG).show()
-                startActivity(intent)
+                //val intent = Intent(this@Post_Activity, zHome::class.java)
+                Toast.makeText(this, "Đã đăng bài thành công !!", Toast.LENGTH_LONG).show()
+              //  startActivity(intent)
                 finish()
                 progressDialog.dismiss()
 

@@ -116,7 +116,7 @@ class SharePostActivity : AppCompatActivity() {
     private fun getFollowinglist(){
         val ref = FirebaseDatabase.getInstance().reference.child("Friends")
             .child(FirebaseAuth.getInstance().currentUser.uid)
-            .child("friendList")
+            .child("followerList")
         ref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
@@ -165,7 +165,7 @@ class SharePostActivity : AppCompatActivity() {
             postMap["id"]=idref
             postMap["active"]=true
 
-            timelineRef.push().setValue(postMap)
+            timelineRef.child(idref).setValue(postMap)
         }
         finish()
         Toast.makeText(this, "Chia sẻ thành công",Toast.LENGTH_SHORT).show()

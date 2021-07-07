@@ -529,6 +529,19 @@
                         />
                 </RelativeLayout>
             </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                >
+                <View
+                    android:layout_width="300dp"
+                    android:layout_height="1dp"
+                    android:background="#45A1A1A1"
+                    android:layout_centerHorizontal="true"
+                    />
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"

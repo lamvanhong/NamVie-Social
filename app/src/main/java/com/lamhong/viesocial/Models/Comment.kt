@@ -4,6 +4,7 @@ class Comment {
     private var content : String = ""
     private var ownerComment : String = ""
     private var idComment : String =""
+    private var timestamp: String ?= null
     // private var imageContent ://update later
 
     constructor()
@@ -29,6 +30,12 @@ class Comment {
     }
     fun setIdComment(idComment: String){
         this.idComment= idComment
+    }
+    fun getTimeStamp():String?{
+        return timestamp
+    }
+    fun setTimeStamp(timeStamp:String){
+        this.timestamp = timeStamp
     }
 
 }

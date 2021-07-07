@@ -48,7 +48,9 @@
                 android:text="đã thích bài viết này"
                 android:layout_gravity="center_vertical"
                 android:textStyle="bold"
-                android:textSize="14dp"
+
+                android:textSize="13dp"
+
 
                 />
         </LinearLayout>
@@ -62,5 +64,21 @@
         android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="20dp"
         />
+
+    <TextView
+
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="12dp"
+        android:id="@+id/timeStamp"
+        android:textColor="#9A9A9A"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="vừa xong"
+        android:layout_gravity="right|center_vertical"
+        android:textStyle="bold"
+        android:textSize="11dp"
+
+        />
+
 
 </androidx.cardview.widget.CardView>

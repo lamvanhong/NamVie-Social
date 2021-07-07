@@ -11,6 +11,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,6 +37,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private lateinit var profileId : String
     private lateinit var firebaseUser : FirebaseUser
+    private var followingList : MutableList<String>?=null
 
     private var checkOwner : Boolean =true
     private var statusFriend: String =""
@@ -59,6 +61,12 @@ class ProfileActivity : AppCompatActivity() {
     private var uri: String=""
     private var uriCover: String=""
 
+    // set to private show post
+    private var friendcheck=false
+    //check to nav to list
+    private var friendChecked =false
+    private var followChecked =false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -72,6 +80,7 @@ class ProfileActivity : AppCompatActivity() {
         //get prifile ID
         this.profileId = intent.getStringExtra("profileID").toString()
 
+
         //
         if(profileId==firebaseUser.uid){
             //view.txtSetting.text="Edit profile"
@@ -83,6 +92,25 @@ class ProfileActivity : AppCompatActivity() {
             profileEdit_container.visibility=View.GONE
             checkFriends()   //check if my wall || friend or not
         }
+        getFollowList()
+        checkStatus() // check to nav
+
+        // get cover image
+        val userInforRef= FirebaseDatabase.getInstance().reference
+            .child("UserDetails")
+            .child(profileId)
+        userInforRef.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    if(roundedImageView!=null)
+                        Picasso.get().load(snapshot.child("coverImage").value.toString()).placeholder(R.color.white)
+                            .into(roundedImageView)
+
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
 
 
 
@@ -170,21 +198,42 @@ class ProfileActivity : AppCompatActivity() {
             bottomSheetFragment.show((this as AppCompatActivity).supportFragmentManager, "")
         }
         btn_banbe.setOnClickListener{
-            val friendListIntent= Intent(this, FriendListActivity::class.java)
-            friendListIntent.putExtra("userID", profileId)
-            this?.startActivity(friendListIntent)
+           // checkStatus() // check to nav
+            if(checkOwner || (!checkOwner && friendChecked) ) {
+                val friendListIntent = Intent(this, FriendListActivity::class.java)
+                friendListIntent.putExtra("userID", profileId)
+                this?.startActivity(friendListIntent)
+            }
+            else{
+                Toast.makeText(this, "Bạn không được phép truy cập", Toast.LENGTH_LONG).show()
+            }
+
         }
         btn_follower.setOnClickListener{
-            val followIntent = Intent(this, FollowingListActivity::class.java)
-            followIntent.putExtra("userID", profileId)
-            followIntent.putExtra("type", "follower")
-            this?.startActivity(followIntent)
+           // checkStatus() // check to nav
+            if(checkOwner || (!checkOwner && followChecked) ){
+                val followIntent = Intent(this, FollowingListActivity::class.java)
+                followIntent.putExtra("userID", profileId)
+                followIntent.putExtra("type", "follower")
+                this?.startActivity(followIntent)
+            }
+            else{
+                Toast.makeText(this, "Bạn không được phép truy cập", Toast.LENGTH_LONG).show()
+            }
+
         }
         btn_following.setOnClickListener{
-            val followIntent = Intent(this, FollowingListActivity::class.java)
-            followIntent.putExtra("userID", profileId)
-            followIntent.putExtra("type", "following")
-            this?.startActivity(followIntent)
+          //  checkStatus() // check to nav
+            if(checkOwner || (!checkOwner && followChecked) ){
+                val followIntent = Intent(this, FollowingListActivity::class.java)
+                followIntent.putExtra("userID", profileId)
+                followIntent.putExtra("type", "following")
+                this?.startActivity(followIntent)
+            }
+            else {
+                Toast.makeText(this, "Bạn không được phép truy cập", Toast.LENGTH_LONG).show()
+            }
+
         }
 
         btnxemthem.setOnClickListener{
@@ -193,6 +242,7 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(moreIntent)
 
         }
+
 
         ShowImagePost1()
         getUserDetailInfor()
@@ -235,7 +285,75 @@ class ProfileActivity : AppCompatActivity() {
         getPicture()
         getInfor()
 
+
     }
+    private fun checkStatus() {
+        val ref= FirebaseDatabase.getInstance().reference.child("Contents")
+            .child("User").child(profileId)
+        ref.addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.child("follow").exists()){
+                    if(snapshot.child("follow").value=="public"){
+                        followChecked=true
+                    }
+                    else if(snapshot.child("follow").value=="friend"){
+                        if(friendcheck)
+                        followChecked=true
+
+
+                    }
+                    else if(snapshot.child("follow").value=="private"){
+                        followChecked=false
+
+                    }
+
+                    if(snapshot.child("friend").value=="public"){
+                            friendChecked=true
+                    }
+                    else if(snapshot.child("friend").value=="friend"){
+                        if(friendcheck){
+                            friendChecked=true
+                        }
+                    }
+                    else if(snapshot.child("friend").value=="private"){
+                        friendChecked=false
+                    }
+
+
+                }
+            }
+        })
+    }
+
+    private fun getFollowList() {
+        followingList=ArrayList()
+
+        val followRef = FirebaseDatabase.getInstance().reference
+            .child("Friends").child(FirebaseAuth.getInstance().currentUser!!.uid)
+            .child("friendList")
+        followRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    (followingList as ArrayList<String>).clear()
+                    for (s in snapshot.children){
+                        if(profileId==s.key && s.value=="friend" ){
+                            friendcheck=true
+                        }
+                        if(s.value=="friend")
+                        s.key?.let { (followingList as ArrayList<String>).add(it) }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+
     fun loadCoverImage(){
         val userInforRef= FirebaseDatabase.getInstance().reference
             .child("UserDetails")
@@ -658,39 +776,83 @@ class ProfileActivity : AppCompatActivity() {
                         if (tl!!.getPostType() == "sharepost") {
                             if(snapshot.child("Share Posts").child(tl.getId()).exists()){
                                 var sharePost = snapshot.child("Share Posts").child(tl.getId()).getValue<SharePost>(SharePost::class.java)
-                                shareList!!.add(sharePost!!)
-                                (lstTypeAdapter as ArrayList).add(1)
-                                (lstIndex as ArrayList).add(ind1)
-                                ind1 += 1
+
+
+                                // set private to post
+
+                                if(checkOwner || ( friendcheck && snapshot.child("User")
+                                        .child(snapshot.child("Share Posts").child(tl.getId()).child("publisher").value.toString())
+                                        .child("post").value =="friend") || (snapshot.child("User")
+                                        .child(snapshot.child("Share Posts").child(tl.getId()).child("publisher").value.toString())
+                                        .child("post").value =="public")  ){
+                                            if( !snapshot.child("Delete").child(tl.getId()).exists()){
+                                                shareList!!.add(sharePost!!)
+                                                (lstTypeAdapter as ArrayList).add(1)
+                                                (lstIndex as ArrayList).add(ind1)
+                                                ind1 += 1
+                                    }
+
+
+                                }
                             }
 
                         } else if (tl!!.getPostType() == "post") {
 
 
                             val post = snapshot.child("Posts").child(tl.getId()).getValue(Post::class.java)
-                            (imagePostList as ArrayList<Post>).add(post!!)
-                            (lstTypeAdapter as ArrayList).add(0)
-                            (lstIndex as ArrayList).add(ind2)
-                            ind2 += 1
+
+                            if(checkOwner || ( friendcheck && snapshot.child("User")
+                                    .child(snapshot.child("Posts").child(tl.getId()).child("publisher").value.toString())
+                                    .child("post").value =="friend") || (snapshot.child("User")
+                                    .child(snapshot.child("Posts").child(tl.getId()).child("publisher").value.toString())
+                                    .child("post").value =="public")){
+                                if( !snapshot.child("Delete").child(tl.getId()).exists()){
+                                    (imagePostList as ArrayList<Post>).add(post!!)
+                                    (lstTypeAdapter as ArrayList).add(0)
+                                    (lstIndex as ArrayList).add(ind2)
+                                    ind2 += 1
+                                }
+
+                            }
+
                         }
                         else if (tl!!.getPostType()=="changeavatar"){
                             val avatarPost = snapshot.child("AvatarPost").child(tl.getId()).getValue(Post::class.java)
                             avatarPost!!.setpostContent(snapshot.child("AvatarPost").child(tl.getId()).child("post_content")
                                 .value.toString())
 
+                            if(checkOwner || ( friendcheck && snapshot.child("User")
+                                    .child(snapshot.child("AvatarPost").child(tl.getId()).child("publisher").value.toString())
+                                    .child("post").value =="friend") || (snapshot.child("User")
+                                    .child(snapshot.child("AvatarPost").child(tl.getId()).child("publisher").value.toString())
+                                    .child("post").value =="public")){
+                                if( !snapshot.child("Delete").child(tl.getId()).exists()){
+                                    avatarList!!.add(avatarPost!!)
+                                    (lstTypeAdapter as ArrayList).add(2)
+                                    (lstIndex as ArrayList).add(ind3)
+                                    ind3+=1
+                                }
+                            }
 
-                            avatarList!!.add(avatarPost!!)
-                            (lstTypeAdapter as ArrayList).add(2)
-                            (lstIndex as ArrayList).add(ind3)
-                            ind3+=1
                         }
                         else if(tl!!.getPostType()=="changecover"){
                             val coverImagePost = snapshot.child("CoverPost").child(tl.getId()).getValue(Post::class.java)
                             coverImagePost!!.setpostContent(snapshot.child("CoverPost").child(tl.getId()).child("post_content").value.toString())
-                            coverImageList!!.add(coverImagePost!!)
-                            (lstTypeAdapter as ArrayList).add(3)
-                            (lstIndex as ArrayList).add(ind4)
-                            ind4+=1
+
+                            if(checkOwner || ( friendcheck && snapshot.child("User")
+                                    .child(snapshot.child("CoverPost").child(tl.getId()).child("publisher").value.toString())
+                                    .child("post").value =="friend") || (snapshot.child("User")
+                                    .child(snapshot.child("CoverPost").child(tl.getId()).child("publisher").value.toString())
+                                    .child("post").value =="public")){
+                                if( !snapshot.child("Delete").child(tl.getId()).exists()){
+                                    coverImageList!!.add(coverImagePost!!)
+                                    (lstTypeAdapter as ArrayList).add(3)
+                                    (lstIndex as ArrayList).add(ind4)
+                                    ind4+=1
+                                }
+
+                            }
+
                         }
                         //  getPostAndShare()
                         postAdapter!!.notifyDataSetChanged()

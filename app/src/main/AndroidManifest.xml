@@ -23,10 +23,21 @@
         android:theme="@style/Theme.MyBook"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name="com.lamhong.viesocial.DestinationPostActivity"></activity>
+
+        <activity android:name="com.lamhong.viesocial.ChangeNickNameActivity"></activity>
+        <activity android:name="com.lamhong.viesocial.DoiTenActivity"></activity>
+        <activity android:name="com.lamhong.viesocial.ThaydoimatkhauActivity" />
+        <activity android:name="com.lamhong.viesocial.TKMKActivity" />
+        <activity android:name="com.lamhong.viesocial.TTCNActivity" />
+        <activity android:name="com.lamhong.viesocial.TTTGActivity" />
+        <activity android:name="com.lamhong.viesocial.RulesActivity" />
+        <activity android:name="com.lamhong.viesocial.HelpActivity" />
+        <activity android:name="com.lamhong.viesocial.BMActivity" />
+        <activity android:name="com.lamhong.viesocial.DestinationPostActivity" />
         <activity android:name="com.lamhong.viesocial.FullScreenPictureActivity" />
         <activity android:name="com.lamhong.viesocial.CommentShareActivity" />
-        <activity android:name="com.lamhong.viesocial.PrivateActivity"></activity>
+        <activity android:name="com.lamhong.viesocial.PrivateActivity" />
+
         <activity android:name="com.lamhong.viesocial.ForgotPasswordActivity" />
         <activity
             android:name="com.lamhong.viesocial.OutgoingInvitationActivity"

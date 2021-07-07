@@ -133,10 +133,16 @@ class ActivitiesPostAdapter (private val mcontext: Context, private val mPost : 
        var activityName: TextView
        var username: TextView
        var avatar: CircleImageView
+
+       var timeStamp: TextView
+
         init {
             activityName=itemView.findViewById(R.id.name)
             username=itemView.findViewById(R.id.username)
             avatar=itemView.findViewById(R.id.avatar)
+
+            timeStamp=itemView.findViewById(R.id.timeStamp)
+
         }
     }
 
@@ -219,8 +225,12 @@ class ActivitiesPostAdapter (private val mcontext: Context, private val mPost : 
                         holder1.activityName.text=activities.getType()
                     }
                 }
+
+                if(userAvatar!=null)
                 Picasso.get().load(userAvatar).into(holder1.avatar)
                 holder1.username.text=userName
+                holder1.timeStamp.text=Constants.getTimeCmt(mActivityList[position/2].getTimeStamp())
+
             }
             0->{
 

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -61,8 +62,17 @@ class SettingFragment : Fragment() {
             this?.startActivity(friendListIntent)
         }
         view.btn_logout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(context, LoginActivity::class.java))
+                val alert = AlertDialog.Builder(requireContext())
+                alert.setTitle("Xác nhận")
+                alert.setIcon(R.drawable.ic_exit)
+                alert.setMessage("Bạn muốn đăng xuất khỏi ứng dụng ?")
+                alert.setCancelable(false)
+                alert.setNegativeButton("Đăng xuất") { dialog, which ->
+                    FirebaseAuth.getInstance().signOut()
+                    startActivity(Intent(context, LoginActivity::class.java)) }
+                alert.setPositiveButton("Không") { dialog, which -> }
+                val alertDialog = alert.create()
+                alertDialog.show()
         }
         view.btn_Private.setOnClickListener{
             startActivity(Intent(context, PrivateActivity::class.java))
@@ -108,7 +118,7 @@ class SettingFragment : Fragment() {
 
                     val userInfor: UserInfor = UserInfor()
                     userInfor!!.setBio(snapshot.child("bio").value.toString())
-                    describe.text=userInfor!!.getBio()
+                   // describe.text=userInfor!!.getBio()
                 }
             }
 
