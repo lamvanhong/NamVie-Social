@@ -48,7 +48,9 @@
                 android:text="đã thích bài viết này"
                 android:layout_gravity="center_vertical"
                 android:textStyle="bold"
+
                 android:textSize="13dp"
+
 
                 />
         </LinearLayout>
@@ -62,6 +64,7 @@
         android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="20dp"
         />
+
     <TextView
 
         android:layout_marginTop="0dp"
@@ -76,5 +79,6 @@
         android:textSize="11dp"
 
         />
+
 
 </androidx.cardview.widget.CardView>

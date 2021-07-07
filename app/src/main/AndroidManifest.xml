@@ -23,6 +23,7 @@
         android:theme="@style/Theme.MyBook"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+
         <activity android:name="com.lamhong.viesocial.ChangeNickNameActivity"></activity>
         <activity android:name="com.lamhong.viesocial.DoiTenActivity"></activity>
         <activity android:name="com.lamhong.viesocial.ThaydoimatkhauActivity" />
@@ -36,6 +37,7 @@
         <activity android:name="com.lamhong.viesocial.FullScreenPictureActivity" />
         <activity android:name="com.lamhong.viesocial.CommentShareActivity" />
         <activity android:name="com.lamhong.viesocial.PrivateActivity" />
+
         <activity android:name="com.lamhong.viesocial.ForgotPasswordActivity" />
         <activity
             android:name="com.lamhong.viesocial.OutgoingInvitationActivity"

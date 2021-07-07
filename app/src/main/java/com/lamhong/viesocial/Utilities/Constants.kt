@@ -1,7 +1,9 @@
 package com.lamhong.viesocial.Utilities
 
 
+
 import java.util.concurrent.TimeUnit
+
 
 import android.util.Log
 import com.lamhong.viesocial.Models.NotificationData
@@ -55,6 +57,7 @@ public class Constants {
             return headers
         }
 
+
         public fun getTimeCmt(time: String?): String {
             if(time == null){
                 return "Lỗi hệ thống"
@@ -88,6 +91,7 @@ public class Constants {
             val year = month/12
             return "$year năm"
         }
+
 
         private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
             try {

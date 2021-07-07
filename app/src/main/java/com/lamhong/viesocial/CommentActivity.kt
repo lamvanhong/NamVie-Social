@@ -152,8 +152,10 @@ class  CommentActivity : AppCompatActivity() {
         })
     }
 
+
     private fun addComment(nameuser : String, token: String){
         val timestamp= System.currentTimeMillis().toString()
+
         val commentRef= FirebaseDatabase.getInstance().reference.child("AllComment")
             .child("Comments").child(postID)
         val commentMap =HashMap<String, Any>()
