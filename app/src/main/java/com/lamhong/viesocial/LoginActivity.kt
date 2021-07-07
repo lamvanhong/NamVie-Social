@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -180,5 +181,16 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+    override fun onBackPressed() {
+        val alert = AlertDialog.Builder(this)
+        alert.setTitle("Xác nhận")
+        alert.setIcon(R.drawable.ic_exit)
+        alert.setMessage("Bạn muốn thoát khỏi ứng dụng ?")
+        alert.setCancelable(false)
+        alert.setNegativeButton("Thoát") { dialog, which -> finish() }
+        alert.setPositiveButton("Không") { dialog, which -> }
+        val alertDialog = alert.create()
+        alertDialog.show()
     }
 }

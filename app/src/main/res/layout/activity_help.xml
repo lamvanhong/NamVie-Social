@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <RelativeLayout tools:context=".HelpActivity" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    -<com.google.android.material.appbar.AppBarLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/appbar_layout_friendList">
+
+
+    -<androidx.appcompat.widget.Toolbar android:layout_height="wrap_content" android:layout_width="match_parent" android:background="@color/white">
+
+    <ImageView android:layout_height="20dp" android:layout_width="20dp" android:id="@+id/btn_return_fromsetting" android:src="@drawable/icon_return_blue"/>
+
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/userName" android:textSize="20sp" android:text="Hộp thư phản hồi" android:textColor="#00BCD4" android:textStyle="bold" android:layout_marginLeft="40dp"/>
+
+    <RelativeLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:layout_marginRight="20dp"/>
+
+</androidx.appcompat.widget.Toolbar>
+
+</com.google.android.material.appbar.AppBarLayout>
+
+
+    -<RelativeLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:layout_marginTop="20dp" android:layout_below="@+id/appbar_layout_friendList">
+
+
+    -<com.google.android.material.textfield.TextInputLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/phanhoi">
+
+    <EditText android:layout_height="100dp" android:layout_width="350dp" android:id="@+id/txtphanhoi" android:background="@color/white" android:layout_marginLeft="10dp" android:theme="@style/MyEditTextTheme" android:singleLine="true" android:maxLines="1" android:inputType="textEmailAddress" android:hint="Phản hồi của bạn" android:layout_gravity="center"/>
+
+</com.google.android.material.textfield.TextInputLayout>
+
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton android:layout_height="50dp" android:layout_width="350dp" android:id="@+id/btnSubmit" android:textSize="17sp" android:text="Gửi phản hồi" android:textColor="@color/white" android:layout_marginLeft="15dp" android:layout_marginTop="30dp" android:layout_below="@+id/phanhoi" android:theme="@style/loginButton" android:elevation="35dp" app:initialCornerAngle="30dp" android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
+
+</RelativeLayout>

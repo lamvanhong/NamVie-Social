@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <RelativeLayout tools:context=".TTCNActivity" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <com.google.android.material.appbar.AppBarLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/appbar_layout_friendList">
+
+
+    <androidx.appcompat.widget.Toolbar android:layout_height="wrap_content" android:layout_width="match_parent" android:background="@color/white">
+
+    <ImageView android:layout_height="20dp" android:layout_width="20dp" android:id="@+id/btn_return_fromsetting" android:src="@drawable/icon_return_blue"/>
+
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/userName" android:textSize="20sp" android:text="Trang cá nhân và cài đặt của bạn" android:textColor="#00BCD4" android:textStyle="bold" android:layout_marginLeft="40dp"/>
+
+    <RelativeLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:layout_marginRight="20dp"/>
+
+</androidx.appcompat.widget.Toolbar>
+
+</com.google.android.material.appbar.AppBarLayout>
+
+
+    <GridLayout android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/appbar_layout_friendList">
+
+
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="wrap_content" android:orientation="vertical">
+
+    <ImageView android:layout_height="150dp" android:layout_width="match_parent" android:src="@drawable/canhan2"/>
+
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="18dp" android:text="Trang cá nhân kể câu chuyện về bạn. Bạn có thể chọn nội dung sẽ chia sẻ, chẳng hạn như sở thích, ảnh và thông tin cá nhân như quê quán và người sẽ chia sẻ. Trang cá nhân cũng bao gồm Dòng thời gian, nơi bạn có thể nhìn thấy bài viết của chính mình và những bài viết bạn được gắn thẻ. Cài đặt Dòng thời gian và gắn thẻ sẽ giúp bạn quản lý thẻ cũng như xem xét người có thể thêm và nhìn thấy nội dung trên Dòng thời gian của bạn." android:textColor="@color/black" android:layout_marginLeft="20dp" android:layout_marginRight="10dp" android:layout_marginTop="20dp"/>
+
+</LinearLayout>
+
+</GridLayout>
+
+</RelativeLayout>

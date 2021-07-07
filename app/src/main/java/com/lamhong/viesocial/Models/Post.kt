@@ -39,6 +39,8 @@ class Post {
 
 
 
+
+
 //    private var post_content : String=""
 //    private var post_id: String =""
 //    private var post_image:String =""

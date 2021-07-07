@@ -16,13 +16,16 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.lamhong.viesocial.*
-import com.lamhong.viesocial.Models.Post
-import com.lamhong.viesocial.Models.SharePost
-import com.lamhong.viesocial.Models.User
+import com.lamhong.viesocial.Models.*
+import com.lamhong.viesocial.Network.MyFirebaseMessagingService
+import com.lamhong.viesocial.Utilities.Constants
+import com.lamhong.viesocial.Utilities.Constants.Companion.doSendNotify
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
+val TOPICC ="/topics/myTopic"
 class PostAdapter (private val mcontext: Context, private val mPost : List<Post> ,
                    private val mLstIndex: List<Int> , private val mLstType: List<Int>,
                    private val mShare: List<SharePost>, private val mAvatarList : List<Post>,
@@ -163,14 +166,53 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
         //getPostAndShare()
         when(holderc.getItemViewType()){
             0->{
+
+
                 val holder1 : ViewHolder0 = holderc as ViewHolder0
-
-
 
                 holder1.tv_typePost.visibility= View.GONE
                 val post= mPost[mLstIndex[position]]
+
+
+
+                //Notification
+                FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
+                FirebaseMessaging.getInstance().token.addOnCompleteListener {
+                    if(it.isComplete){
+                        val fbToken = it.result.toString()
+                        MyFirebaseMessagingService.token =fbToken
+                    }
+                }
+                var nameuser =""
+                val userRef = FirebaseDatabase.getInstance().reference
+                    .child("UserInformation").child(FirebaseAuth.getInstance().uid!!)
+                userRef.addListenerForSingleValueEvent(object: ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+
+                            nameuser= snapshot.child("fullname").value.toString()
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                })
+                var token =""
+                val userRef2 = FirebaseDatabase.getInstance().reference
+                    .child("UserInformation").child(post.getpublisher())
+                userRef2.addListenerForSingleValueEvent(object: ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+
+                            token = (snapshot.child(Constants.KEY_FCM_TOKEN).value.toString())
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                })
+                //End notification
                 //navigator to user
 
+                //nav to profile
                 holder1.profileImage.setOnClickListener{
                     val userIntent = Intent(mcontext, ProfileActivity::class.java)
                     userIntent.putExtra("profileID", post.getpublisher())
@@ -181,6 +223,8 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                     userIntent.putExtra("profileID", post.getpublisher())
                     mcontext.startActivity(userIntent)
                 }
+                // end nav to profile
+
                 holder1.btn_option.setOnClickListener{
                     val bottomSheetFragment = BottomSheetFragment(mcontext,"post", post.getpost_id(), post.getpublisher())
                     bottomSheetFragment.show((mcontext as AppCompatActivity).supportFragmentManager, "")
@@ -189,7 +233,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                 publishInfo(holder1.profileImage, holder1.userName,  post.getpublisher())
                 //describe import
-                if(post.getpostContent().equals("")){
+                if(post.getpostContent()=="" || post.getpostContent()=="null" || post.getpostContent()==null){
                     holder1.describe.visibility=View.GONE
                 }else{
                     holder1.describe.visibility=View.VISIBLE
@@ -206,16 +250,29 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                     mcontext.startActivity(intent)
                 }
                 holder1.btnLike.setOnClickListener{
-                    Toast.makeText(mcontext, "honghong", Toast.LENGTH_LONG).show()
-                    Toast.makeText(mcontext.applicationContext, "Đã lưu bài viết" , Toast.LENGTH_LONG).show()
+                    //Toast.makeText(mcontext, "honghong", Toast.LENGTH_LONG).show()
+                   // Toast.makeText(mcontext.applicationContext, "Đã lưu bài viết" , Toast.LENGTH_LONG).show()
 
                     if(holder1.btnLike.tag=="Like"){
+                        doSendNotify(nameuser, token, "đã thích bài viết của bạn")
                         addNotifyLike(post.getpublisher(), post.getpost_id() , "thichbaiviet")
                         FirebaseDatabase.getInstance().reference
                             .child("Likes")
                             .child(post.getpost_id())
                             .child(firebaseUser!!.uid)
                             .setValue(true)
+
+                        // set to activities
+                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
+                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
+                        val pMap = HashMap<String, Any>()
+                        pMap["post_type"]="post"
+                        pMap["id"]=post.getpost_id()
+                        pMap["active"]=true
+                        pMap["type"]="like"
+                        pMap["timestamp"]=System.currentTimeMillis()
+                        activityRef.push().setValue(pMap)
+
                     }else
                     {
                         FirebaseDatabase.getInstance().reference
@@ -226,6 +283,17 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                         //  val intent=Intent(mcontext,zHome::class.java)
                         // mcontext.startActivity(intent)
+
+                        // set to activity
+                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
+                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
+                        val pMap = HashMap<String, Any>()
+                        pMap["post_type"]="post"
+                        pMap["id"]=post.getpost_id()
+                        pMap["active"]=true
+                        pMap["type"]="unlike"
+                        pMap["timestamp"]=System.currentTimeMillis().toString()
+                        activityRef.push().setValue(pMap)
 
                     }
                 }
@@ -256,9 +324,68 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                 }
             }
             1->{
+
                 // share option
                 val holder1= holderc as ViewHolder1
                 val sharePost = mShare[mLstIndex[position]]
+
+                //Notification
+                FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
+                FirebaseMessaging.getInstance().token.addOnCompleteListener {
+                    if(it.isComplete){
+                        val fbToken = it.result.toString()
+                        MyFirebaseMessagingService.token =fbToken
+                    }
+                }
+                var nameuser =""
+                val userRef = FirebaseDatabase.getInstance().reference
+                    .child("UserInformation").child(FirebaseAuth.getInstance().uid!!)
+                userRef.addListenerForSingleValueEvent(object: ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+
+                            nameuser= snapshot.child("fullname").value.toString()
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                })
+                var token =""
+                val userRef2 = FirebaseDatabase.getInstance().reference
+                    .child("UserInformation").child(sharePost.getPublisher())
+                userRef2.addListenerForSingleValueEvent(object: ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+
+                            token = (snapshot.child(Constants.KEY_FCM_TOKEN).value.toString())
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                })
+                //End notification
+                //nav to profile
+                holder1.avatar_sharing.setOnClickListener{
+                    val userIntent = Intent(mcontext, ProfileActivity::class.java)
+                    userIntent.putExtra("profileID", sharePost.getPublisher())
+                    mcontext.startActivity(userIntent)
+                }
+                holder1.name_sharing.setOnClickListener{
+                    val userIntent = Intent(mcontext, ProfileActivity::class.java)
+                    userIntent.putExtra("profileID", sharePost.getPublisher())
+                    mcontext.startActivity(userIntent)
+                }
+                holder1.avatar_shared.setOnClickListener{
+                    val userIntent = Intent(mcontext, ProfileActivity::class.java)
+                    userIntent.putExtra("profileID", sharePost.getPostOwner())
+                    mcontext.startActivity(userIntent)
+                }
+                holder1.name_shared.setOnClickListener{
+                    val userIntent = Intent(mcontext, ProfileActivity::class.java)
+                    userIntent.putExtra("profileID", sharePost.getPostOwner())
+                    mcontext.startActivity(userIntent)
+                }
+                // end nav to profile
 
                 //navigator to
                 holder1.avatar_sharing.setOnClickListener{
@@ -299,12 +426,35 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                 holder1.btnLike.setOnClickListener{
                     if(holder1.btnLike.tag=="Like"){
-                        addNotifyLike(sharePost.getPublisher(), sharePost.getShareID() , "thichbaishare")
+                        doSendNotify(nameuser, token, "đã thích bài chia sẻ của bạn")
+                        when(sharePost.getType()){
+                            "cover" ->{
+                                addNotifyLike(sharePost.getPublisher(), sharePost.getShareID() , "thichbaishare_cover")
+                            }
+                            "avatar"->{
+                                addNotifyLike(sharePost.getPublisher(), sharePost.getShareID() , "thichbaishare_avatar")
+                            }
+                            else->{
+                                addNotifyLike(sharePost.getPublisher(), sharePost.getShareID() , "thichbaishare")
+                            }
+                        }
                         FirebaseDatabase.getInstance().reference
                             .child("Likes")
                             .child(sharePost.getShareID())
                             .child(firebaseUser!!.uid)
                             .setValue(true)
+
+                        // set to activity
+                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
+                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
+                        val pMap = HashMap<String, Any>()
+                        pMap["post_type"]="sharepost"
+                        pMap["id"]=sharePost.getShareID()
+                        pMap["active"]=true
+                        pMap["type"]="likeshare"
+                        pMap["timestamp"]=System.currentTimeMillis().toString()
+                        activityRef.push().setValue(pMap)
+
                     }else
                     {
                         FirebaseDatabase.getInstance().reference
@@ -315,6 +465,17 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                         //  val intent=Intent(mcontext,zHome::class.java)
                         // mcontext.startActivity(intent)
+
+                        // set to activity
+                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
+                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
+                        val pMap = HashMap<String, Any>()
+                        pMap["post_type"]="sharepost"
+                        pMap["id"]=sharePost.getShareID()
+                        pMap["active"]=true
+                        pMap["type"]="unlikeshare"
+                        pMap["timestamp"]=System.currentTimeMillis().toString()
+                        activityRef.push().setValue(pMap)
 
                     }
                 }
@@ -345,6 +506,56 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                 val post= mAvatarList[mLstIndex[position]]
 
+                //Notification
+                FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
+                FirebaseMessaging.getInstance().token.addOnCompleteListener {
+                    if(it.isComplete){
+                        val fbToken = it.result.toString()
+                        MyFirebaseMessagingService.token =fbToken
+                    }
+                }
+                var nameuser =""
+                val userRef = FirebaseDatabase.getInstance().reference
+                    .child("UserInformation").child(FirebaseAuth.getInstance().uid!!)
+                userRef.addListenerForSingleValueEvent(object: ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+
+                            nameuser= snapshot.child("fullname").value.toString()
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                })
+                var token =""
+                val userRef2 = FirebaseDatabase.getInstance().reference
+                    .child("UserInformation").child(post.getpublisher())
+                userRef2.addListenerForSingleValueEvent(object: ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+
+                            token = (snapshot.child(Constants.KEY_FCM_TOKEN).value.toString())
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                })
+                //End notification
+
+                //nav to profile
+                holder1.profileImage.setOnClickListener{
+                    val userIntent = Intent(mcontext, ProfileActivity::class.java)
+                    userIntent.putExtra("profileID", post.getpublisher())
+                    mcontext.startActivity(userIntent)
+                }
+                holder1.userName.setOnClickListener{
+                    val userIntent = Intent(mcontext, ProfileActivity::class.java)
+                    userIntent.putExtra("profileID", post.getpublisher())
+                    mcontext.startActivity(userIntent)
+                }
+                // end nav to profile
+
+
                 holder1.btn_option.setOnClickListener{
                     val bottomSheetFragment = BottomSheetFragment(mcontext,"changeavatar", post.getpost_id(), post.getpublisher())
                     bottomSheetFragment.show((mcontext as AppCompatActivity).supportFragmentManager, "")
@@ -371,12 +582,24 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                 }
                 holder1.btnLike.setOnClickListener{
                     if(holder1.btnLike.tag=="Like"){
-                        addNotifyLike(post.getpublisher(), post.getpost_id() , "thichbaiviet")
+                        doSendNotify(nameuser, token, "đã thích ảnh đại diện của bạn")
+                        addNotifyLike(post.getpublisher(), post.getpost_id() , "changeavatar")
                         FirebaseDatabase.getInstance().reference
                             .child("Likes")
                             .child(post.getpost_id())
                             .child(firebaseUser!!.uid)
                             .setValue(true)
+
+                        // set to activity
+                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
+                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
+                        val pMap = HashMap<String, Any>()
+                        pMap["post_type"]="changeavatar"
+                        pMap["id"]=post.getpost_id()
+                        pMap["active"]=true
+                        pMap["type"]="likeavatar"
+                        pMap["timestamp"]=System.currentTimeMillis().toString()
+                        activityRef.push().setValue(pMap)
                     }else
                     {
                         FirebaseDatabase.getInstance().reference
@@ -387,6 +610,17 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                         //  val intent=Intent(mcontext,zHome::class.java)
                         // mcontext.startActivity(intent)
+
+                        // set to activity
+                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
+                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
+                        val pMap = HashMap<String, Any>()
+                        pMap["post_type"]="changeavatar"
+                        pMap["id"]=post.getpost_id()
+                        pMap["active"]=true
+                        pMap["type"]="unlikeavatar"
+                        pMap["timestamp"]=System.currentTimeMillis().toString()
+                        activityRef.push().setValue(pMap)
 
                     }
                 }
@@ -416,6 +650,55 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                 holder1.tv_typePost.visibility= View.VISIBLE
                 val post= mCoverImageList[mLstIndex[position]]
 
+                //Notification
+                FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
+                FirebaseMessaging.getInstance().token.addOnCompleteListener {
+                    if(it.isComplete){
+                        val fbToken = it.result.toString()
+                        MyFirebaseMessagingService.token =fbToken
+                    }
+                }
+                var nameuser =""
+                val userRef = FirebaseDatabase.getInstance().reference
+                    .child("UserInformation").child(FirebaseAuth.getInstance().uid!!)
+                userRef.addListenerForSingleValueEvent(object: ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+
+                            nameuser= snapshot.child("fullname").value.toString()
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                })
+                var token =""
+                val userRef2 = FirebaseDatabase.getInstance().reference
+                    .child("UserInformation").child(post.getpublisher())
+                userRef2.addListenerForSingleValueEvent(object: ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+
+                            token = (snapshot.child(Constants.KEY_FCM_TOKEN).value.toString())
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                })
+                //End notification
+
+                //nav to profile
+                holder1.profileImage.setOnClickListener{
+                    val userIntent = Intent(mcontext, ProfileActivity::class.java)
+                    userIntent.putExtra("profileID", post.getpublisher())
+                    mcontext.startActivity(userIntent)
+                }
+                holder1.userName.setOnClickListener{
+                    val userIntent = Intent(mcontext, ProfileActivity::class.java)
+                    userIntent.putExtra("profileID", post.getpublisher())
+                    mcontext.startActivity(userIntent)
+                }
+                // end nav to profile
+
                 Picasso.get().load(post.getpost_image()).into(holder1.postImage)
 
                 publishInfo(holder1.profileImage, holder1.userName,  post.getpublisher())
@@ -437,12 +720,24 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                 }
                 holder1.btnLike.setOnClickListener{
                     if(holder1.btnLike.tag=="Like"){
-                        addNotifyLike(post.getpublisher(), post.getpost_id() , "thichbaiviet")
+                        doSendNotify(nameuser, token, "đã thích ảnh bìa của bạn")
+                        addNotifyLike(post.getpublisher(), post.getpost_id() , "changecover")
                         FirebaseDatabase.getInstance().reference
                             .child("Likes")
                             .child(post.getpost_id())
                             .child(firebaseUser!!.uid)
                             .setValue(true)
+
+                        // set to activity
+                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
+                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
+                        val pMap = HashMap<String, Any>()
+                        pMap["post_type"]="changecover"
+                        pMap["id"]=post.getpost_id()
+                        pMap["active"]=true
+                        pMap["type"]="likecover"
+                        pMap["timestamp"]=System.currentTimeMillis().toString()
+                        activityRef.push().setValue(pMap)
                     }else
                     {
                         FirebaseDatabase.getInstance().reference
@@ -453,6 +748,17 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                         //  val intent=Intent(mcontext,zHome::class.java)
                         // mcontext.startActivity(intent)
+
+                        // set to activity
+                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
+                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
+                        val pMap = HashMap<String, Any>()
+                        pMap["post_type"]="changecover"
+                        pMap["id"]=post.getpost_id()
+                        pMap["active"]=true
+                        pMap["type"]="unlikecover"
+                        pMap["timestamp"]=System.currentTimeMillis().toString()
+                        activityRef.push().setValue(pMap)
 
                     }
                 }
@@ -722,6 +1028,9 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                         notiMap["notify"]="đã thích bài viết của bạn"
                     } else if (type=="thichbaishare"){
                         notiMap["notify"] ="đã thích bài chia sẻ của bạn"
+                    } else if(type=="changeavatar"){
+                        notiMap["notify"] ="đã thích hình đại diện của bạn"
+
                     }
                     notiMap["postID"]=postId
                     notiMap["type"]=type
@@ -733,6 +1042,8 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
 
     }
+
+
     private fun publishInfo(profileImage: CircleImageView, userName: TextView,   publiser: String) {
         val userRef= FirebaseDatabase.getInstance().reference.child("UserInformation").child(publiser)
 

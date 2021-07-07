@@ -1,6 +1,7 @@
 package com.lamhong.viesocial.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -17,6 +19,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.lamhong.viesocial.Models.User
+import com.lamhong.viesocial.ProfileActivity
 import com.lamhong.viesocial.R
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
@@ -98,6 +101,13 @@ class FriendAdapter (private val mContext: Context, private val mLstFriend : Lis
                val holder0 : ViewHolder0= holder as ViewHolder0
                val user = mLstFriend[position]
                setInfor(user, holder0.imageAvatar, holder0.tv_username)
+               holder0.itemView.setOnClickListener{
+                   // new abstract
+                   val userIntent = Intent(mContext, ProfileActivity::class.java)
+                   userIntent.putExtra("profileID", user)
+                   mContext.startActivity(userIntent)
+                   Toast.makeText(mContext,"profile",Toast.LENGTH_LONG).show()
+               }
                when(status){
                    "pendingconfirm"->{
                        holder0.btnKetBan.text="Chấp nhận"
@@ -108,12 +118,25 @@ class FriendAdapter (private val mContext: Context, private val mLstFriend : Lis
                    }
                    else ->{
                    }
+
                }
+
            }
             1->{
                 val holder1 : ViewHolder1 = holder as ViewHolder1
                 val user = mLstFriend[position]
+                holder1.imageAvatar.setOnClickListener{
+                    Toast.makeText(mContext,"profile",Toast.LENGTH_LONG).show()
+
+                    // new abstract
+//                    val userIntent = Intent(mContext, ProfileActivity::class.java)
+//                    userIntent.putExtra("profileID", user)
+//                    mContext.startActivity(userIntent)
+//                    Toast.makeText(mContext,"profile",Toast.LENGTH_LONG).show()
+
+                }
                 setInfor(user, holder1.imageAvatar, holder1.tv_username)
+
 
             }
 

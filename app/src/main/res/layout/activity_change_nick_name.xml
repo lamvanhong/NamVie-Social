@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChangeNickNameActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appbar_layout_message"
+        android:layout_marginBottom="5dp"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_message"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Biệt danh"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="8dp"
+        android:layout_below="@id/appbar_layout_message"
+        android:id="@+id/user1">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar_group_add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/sontung" />
+
+        <TextView
+            android:id="@+id/name_group_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_toEndOf="@+id/avatar_group_add"
+            android:layout_toRightOf="@+id/avatar_group_add"
+            android:text="Đặt biệt danh"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/statusTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name_group_add"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/avatar_group_add"
+            android:layout_toRightOf="@id/avatar_group_add"
+            android:text="Nick name"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="8dp"
+        android:layout_below="@id/user1"
+        android:id="@+id/user2">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar_group_add2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/sontung" />
+
+        <TextView
+            android:id="@+id/name_group_add2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_toEndOf="@+id/avatar_group_add2"
+            android:layout_toRightOf="@+id/avatar_group_add2"
+            android:text="Đặt biệt danh"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/statusTV2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name_group_add2"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/avatar_group_add2"
+            android:layout_toRightOf="@id/avatar_group_add2"
+            android:text="Nick name"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+
+    </RelativeLayout>

@@ -35,6 +35,7 @@ import com.lamhong.viesocial.Utilities.Constants
 import com.squareup.picasso.Picasso
 import com.vanniktech.emoji.EmojiPopup
 import com.vanniktech.emoji.EmojiTextView
+import kotlinx.android.synthetic.main.activity_change_nick_name.*
 import kotlinx.android.synthetic.main.activity_chat_log.*
 import petrov.kristiyan.colorpicker.ColorPicker
 import java.io.ByteArrayOutputStream
@@ -86,6 +87,7 @@ class ChatLogActivity : AppCompatActivity() {
         var name:String? = intent.getStringExtra("name")
         var image:String? = intent.getStringExtra("image")
         receiverUid= intent.getStringExtra("uid")
+
 
         setSupportActionBar(toolbar_chatlog)
 
@@ -144,6 +146,20 @@ class ChatLogActivity : AppCompatActivity() {
 
 
         //rv_chat_log.adapter = adater
+
+        FirebaseDatabase.getInstance().reference.child("chats")
+            .child(senderRoom.toString())
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.child("receiver_nickname").value != null)
+                        user_name_chat.text = snapshot.child("receiver_nickname").value.toString()
+                }
+
+            })
 
 
         FirebaseDatabase.getInstance().reference
@@ -357,6 +373,24 @@ class ChatLogActivity : AppCompatActivity() {
         loadColor(senderRoom.toString())
 
 
+    }
+
+    private fun loadNickName() {
+        FirebaseDatabase.getInstance().reference.child("chats")
+            .child(senderRoom.toString())
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.child("sender_nickname").value != null)
+                        name_group_add.text = snapshot.child("sender_nickname").value.toString()
+                    if (snapshot.child("receiver_nickname").value != null)
+                        name_group_add2.text = snapshot.child("receiver_nickname").value.toString()
+                }
+
+            })
     }
 
     private fun loadColor(senderRoom:String) {
@@ -946,10 +980,17 @@ class ChatLogActivity : AppCompatActivity() {
             R.id.chat_color -> {
                 openColorPicker()
             }
-            R.id.chat_call -> {}
+            R.id.chat_call -> {makeAudioCall()}
             R.id.chat_videocall -> {makeVideoCall()}
             R.id.chat_see_profile -> {}
-            R.id.chat_nickname -> {}
+            R.id.chat_nickname -> {
+                val intent = Intent(this,ChangeNickNameActivity::class.java)
+                intent.putExtra("senderUid",senderUid)
+                intent.putExtra("receiverUid",receiverUid)
+                intent.putExtra("senderRoom",senderRoom)
+                intent.putExtra("receiverRoom",receiveRoom)
+                startActivity(intent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -1027,6 +1068,12 @@ class ChatLogActivity : AppCompatActivity() {
 
     private val usersListener : UsersListener?= null
 
-
+    private fun makeAudioCall(){
+        var intent  = Intent(applicationContext, OutgoingInvitationActivity::class.java)
+        intent.putExtra("senderInfor", senderInfor)
+        intent.putExtra("receiInfor",receiInfor)
+        intent.putExtra("type", "audio")
+        startActivity(intent)
+    }
 
 }

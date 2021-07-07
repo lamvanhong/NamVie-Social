@@ -174,7 +174,7 @@
                         <androidx.cardview.widget.CardView
                             android:layout_marginTop="2dp"
                             android:layout_marginBottom="2dp"
-                            android:layout_width="300dp"
+                            android:layout_width="350dp"
                             android:layout_height="50dp"
                             app:cardCornerRadius="25dp"
                             android:layout_marginLeft="15dp"
@@ -190,14 +190,7 @@
                                 android:textColor="#00BCD4"
                                 />
                         </androidx.cardview.widget.CardView>
-                        <ImageView
-                            android:id="@+id/btn_setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/more_btn"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="20dp"
-                            />
+
 
 
 
@@ -252,6 +245,7 @@
                         </androidx.cardview.widget.CardView>
 
                         <ImageView
+                            android:id="@+id/btn_more"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/more_btn"

@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.lamhong.viesocial.Adapter.FriendAdapter
 import kotlinx.android.synthetic.main.activity_friend_list.*
+import kotlinx.android.synthetic.main.activity_friend_list.userName
 
 class FriendListActivity : AppCompatActivity() {
     val firebaseUser : FirebaseUser = FirebaseAuth.getInstance().currentUser
@@ -33,6 +34,8 @@ class FriendListActivity : AppCompatActivity() {
     private var lst_trueFriendAdapter : FriendAdapter  ?=null
     private var lst_waittingFriendAdapter:FriendAdapter  ?=null
     private var lst_confirmFriendAdapter: FriendAdapter  ?=null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,6 +125,8 @@ class FriendListActivity : AppCompatActivity() {
 
 
     }
+
+
     fun setBtnAppearanceNonSelected(btn : AppCompatButton){
         btn.setTextColor(Color.parseColor("#989898"))
         btn.setBackgroundColor(Color.parseColor("#FFFFFF"))

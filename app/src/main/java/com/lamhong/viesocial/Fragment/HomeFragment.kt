@@ -77,7 +77,7 @@ class HomeFragment : Fragment()  {
         recyclerView?.layoutManager= LinearLayoutManager(context)
 
         _users= ArrayList()
-        userAdapter= context?.let { UserAdapter(it, _users as ArrayList<User> , true) }
+        userAdapter= context?.let { UserAdapter(it, _users as ArrayList<User> , true ,"") }
         recyclerView?.adapter= userAdapter
 
         view.edittext_search.requestFocusFromTouch()

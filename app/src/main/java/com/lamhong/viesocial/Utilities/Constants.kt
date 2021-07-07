@@ -1,5 +1,18 @@
 package com.lamhong.viesocial.Utilities
 
+
+import java.util.concurrent.TimeUnit
+
+import android.util.Log
+import com.lamhong.viesocial.Models.NotificationData
+import com.lamhong.viesocial.Models.PushNotification
+import com.lamhong.viesocial.Network.RetrofitInstance
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.lang.Exception
+
+
 public class Constants {
 
     companion object {
@@ -41,6 +54,69 @@ public class Constants {
             headers.put(Constants.REMOTE_MSG_CONTENT_TYPE, "application/json")
             return headers
         }
+
+        public fun getTimeCmt(time: String?): String {
+            if(time == null){
+                return "Lỗi hệ thống"
+            }
+            if(time == "null"){
+                return "Rất lâu rồi"
+            }
+            val now = System.currentTimeMillis()
+            if(time!!.toLongOrNull()==null) {
+                return "Lỗi thời gian"
+            }
+            val minutes: Long = TimeUnit.MILLISECONDS.toMinutes(now - time.toLong())
+            if(minutes == 0.toLong()){
+                return "Vừa xong"
+            }
+            if(minutes < 60) {
+                return "$minutes phút"
+            }
+            val hour = (minutes/60).toInt()
+            if(hour<24){
+                return "$hour giờ"
+            }
+            val day = (hour/24).toInt()
+            if(day<30){
+                return "$day ngày"
+            }
+            val month = (day/30).toInt()
+            if(month<12){
+                return "$month tháng"
+            }
+            val year = month/12
+            return "$year năm"
+        }
+
+        private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitInstance.api.postNotification(notification)
+                if(response.isSuccessful){
+                    // Log.d("TAG","Response: ${Gson().toJson(response)}")
+                }else{
+                    // Log.e("TAG",response.errorBody().toString())
+                }
+            }catch (e: Exception){
+                Log.e("TAG", e.toString())
+            }
+        }
+
+        public fun doSendNotify(name : String, token: String, notiContent: String ){
+            val title:String = "Thông báo"
+            val message:String = name +" "+notiContent
+            val recipientToken = token
+
+            PushNotification(
+                NotificationData(title,message),
+                recipientToken
+            ).also {
+                sendNotification(it)
+            }
+        }
+
+
+
     }
 
 }

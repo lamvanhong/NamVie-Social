@@ -140,7 +140,7 @@ class ChangeCoverImageActivity : AppCompatActivity() {
 
     private fun getFollowList() {
         val friendRef= FirebaseDatabase.getInstance().reference.child("Friends")
-            .child(firebaseUser.uid!!).child("friendList")
+            .child(firebaseUser.uid!!).child("followerList")
         friendRef.addValueEventListener(object  : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){

@@ -131,6 +131,8 @@ class GroupCreateActivity : AppCompatActivity() {
                     .addOnSuccessListener {
                         progressDialog.dismiss()
                         Toast.makeText(this,"Group created successfully",Toast.LENGTH_LONG).show()
+
+                        finish()
 //                        val intent = Intent(this,GroupChatsLogActivity::class.java)
 //                        intent.putExtra("groupID",g_timestamp)
 //                        startActivity(intent)

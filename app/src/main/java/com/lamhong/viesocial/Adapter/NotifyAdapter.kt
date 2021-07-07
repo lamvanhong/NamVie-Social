@@ -5,10 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.NonNull
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -18,13 +15,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.lamhong.viesocial.CommentActivity
-import com.lamhong.viesocial.DetailPostFragment
-import com.lamhong.viesocial.Fragment.ProfileFragment
+import com.lamhong.viesocial.*
 import com.lamhong.viesocial.Models.Notify
-import com.lamhong.viesocial.Models.Post
 import com.lamhong.viesocial.Models.User
-import com.lamhong.viesocial.R
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.notification_add_friend_item.view.*
@@ -109,14 +102,42 @@ class NotifyAdapter (private val mContext : Context, private val mLstNotify: Lis
                 val notify  = mLstNotify[position]
                 if(notify.getType()=="thichbaiviet" || notify.getType()==""){
                     holder.postImage.visibility=View.VISIBLE
-                    showImagePost(holder.postImage,notify.gePostID())
+                    showImagePost(holder.postImage,notify.gePostID(), "Posts")
                     // navigate to post detail
 
                     holder.contentNotify.text="Đã thích bài viết của bạn"
                 }
+                else if(notify.getType()=="thichbaishare" || notify.getType()==""){
+                    holder.postImage.visibility=View.VISIBLE
+                    showSharePost(holder.postImage,notify.gePostID() , "post")
+                    // navigate to post detail
+
+                    holder.contentNotify.text="Đã thích bài share của bạn"
+                }
+                else if(notify.getType()=="changecover" || notify.getType()==""){
+                    holder.postImage.visibility=View.VISIBLE
+                    showCover(holder.postImage,notify.gePostID() )
+                    // navigate to post detail
+
+                    holder.contentNotify.text="Đã thích ảnh bìa của bạn"
+                }
+                else if(notify.getType()=="thichbaishare_avatar" || notify.getType()==""){
+                    holder.postImage.visibility=View.VISIBLE
+                    showSharePost(holder.postImage,notify.gePostID() , "avatar")
+                    // navigate to post detail
+
+                    holder.contentNotify.text="Đã thích bài share của bạn"
+                }
+                else if(notify.getType()=="thichbaishare_cover" || notify.getType()==""){
+                    holder.postImage.visibility=View.VISIBLE
+                    showSharePost(holder.postImage,notify.gePostID() ,"cover" )
+                    // navigate to post detail
+
+                    holder.contentNotify.text="Đã thích bài share của bạn"
+                }
                 else if (notify.getType()=="binhluan"){
                     holder.postImage.visibility=View.VISIBLE
-                    showImagePost(holder.postImage,notify.gePostID())
+                    showImagePost(holder.postImage,notify.gePostID(), "Posts")
                     holder.contentNotify.text="Đã bình luận trên bài viết của bạn"
                 }
                 else if(notify.getType()=="loimoiketban"){
@@ -125,15 +146,45 @@ class NotifyAdapter (private val mContext : Context, private val mLstNotify: Lis
                 }
                 showUserInfor(holder.avatar_image, holder.uname, notify.getUserID())
                 holder.itemView.setOnClickListener{
-                    if(notify.getType()=="loimoiketban"){
-                        val pref= mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
-                        pref.putString("profileId", notify.getUserID())
-                        pref.apply()
-                        (mContext as FragmentActivity).supportFragmentManager.beginTransaction()
-                            .replace(R.id.frameLayout, ProfileFragment()).commit()
+                    if(notify.getType()=="thichbaiviet" || notify.getType()==""){
+                        navDes(notify.gePostID(), "post")
+                    }
+                    else if(notify.getType()=="thichbaishare" || notify.getType()==""){
+                        navDes(notify.gePostID(), "sharepost")
+                    }
+                    else if(notify.getType()=="changecover" || notify.getType()==""){
+                        navDes(notify.gePostID(), "changecover")
 
                     }
-                    else if(notify.getType()=="thichbaiviet") {
+                    else if(notify.getType()=="thichbaishare_avatar" || notify.getType()==""){
+                        navDes(notify.gePostID(), "sharepost")
+
+                    }
+                    else if(notify.getType()=="thichbaishare_cover" || notify.getType()==""){
+                        navDes(notify.gePostID(), "sharepost")
+
+                    }
+                    else if (notify.getType()=="binhluan"){
+                        val commentIntent= Intent(mContext, CommentActivity::class.java)
+                        commentIntent.putExtra("postID", notify.gePostID())
+                        commentIntent.putExtra("publisher", notify.getUserID())
+                        commentIntent.putExtra("type", notify.getNotify() )
+                        mContext.startActivity(commentIntent)
+
+
+                    }
+                    else if (notify.getType()=="binhluan_share"){
+                        val commentIntent= Intent(mContext, CommentActivity::class.java)
+//                        commentIntent.putExtra("shareID", sharePost.getShareID())
+//                        commentIntent.putExtra("postID", sharePost.getPostID())
+//                        commentIntent.putExtra("publisher", sharePost.getPublisher())
+//                        commentIntent.putExtra("postowner", sharePost.getPostOwner())// fix
+//                        commentIntent.putExtra("content", sharePost.getContent())
+//                        commentIntent.putExtra("type", sharePost.getType())
+                        mContext.startActivity(commentIntent)
+                    }
+
+                    else if(notify.getType()=="thichbaivietx") {
                         val pref = mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit()
                         pref.putString("postID",notify.gePostID())
                         pref.apply()
@@ -142,14 +193,7 @@ class NotifyAdapter (private val mContext : Context, private val mLstNotify: Lis
 
 
                     }
-                    else if(notify.getType()=="binhluan"){
-                        val commentIntent= Intent(mContext, CommentActivity::class.java)
-                        commentIntent.putExtra("postID", notify.gePostID())
-                        commentIntent.putExtra("publisher", notify.getUserID())
-                        mContext.startActivity(commentIntent)
 
-
-                    }
                 }
             }
             1->{
@@ -159,17 +203,26 @@ class NotifyAdapter (private val mContext : Context, private val mLstNotify: Lis
                 showUserInfor(holder.avatar_image, holder.uname, notify.getUserID())
                 holder.itemView.setOnClickListener{
                     if(notify.getType()=="loimoiketban"){
+                        /*
                         val pref= mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
                         pref.putString("profileId", notify.getUserID())
                         pref.apply()
                         (mContext as FragmentActivity).supportFragmentManager.beginTransaction()
                             .replace(R.id.frameLayout, ProfileFragment()).commit()
 
+                         */
+
+                        val userIntent = Intent(mContext, ProfileActivity::class.java)
+                        userIntent.putExtra("profileID", notify.getUserID())
+                        mContext.startActivity(userIntent)
+
                     }
                 }
                 holder.statusConfirm.visibility=View.GONE
                 holder.itemView.btn_chapNhan.setOnClickListener{
-                    setConfirmToNotify(notify.getnotifyID(), "daxacnhan")
+                    deleteNotifyMyself(notify.getnotifyID())
+                    Toast.makeText(mContext, "Đã xác nhận kết bạn thành công", Toast.LENGTH_SHORT).show()
+                   //setConfirmToNotify(notify.getnotifyID(), "daxacnhan")
                     holder.confirmContainer.visibility=View.GONE
                     holder.statusConfirm.text="Đã xác nhận"
                     holder.statusConfirm.visibility=View.VISIBLE
@@ -194,9 +247,22 @@ class NotifyAdapter (private val mContext : Context, private val mLstNotify: Lis
                                 }
                             }
                     }
+                    fireabaseUser?.uid.let { it ->
+                        FirebaseDatabase.getInstance().reference
+                            .child("Friends").child(it.toString())
+                            .child("followingList").child(notify.getUserID())
+                            .setValue(true)
+                    }
+                    FirebaseDatabase.getInstance().reference
+                        .child("Friends").child(notify.getUserID())
+                        .child("followerList").child(fireabaseUser!!.uid)
+                        .setValue(true)
                 }
                 holder.itemView.btn_tuChoi.setOnClickListener{
-                    setConfirmToNotify(notify.getnotifyID(), "daxoa")
+                    Toast.makeText(mContext, "Đã từ chối lời mời thành công", Toast.LENGTH_SHORT).show()
+
+                    deleteNotifyMyself(notify.getnotifyID())
+                    //setConfirmToNotify(notify.getnotifyID(), "daxoa")
                     holder.confirmContainer.visibility=View.GONE
                     holder.statusConfirm.text="Đã xóa lời mời"
                     holder.statusConfirm.visibility=View.VISIBLE
@@ -241,21 +307,30 @@ class NotifyAdapter (private val mContext : Context, private val mLstNotify: Lis
             2->{
                 val holder: ViewHolder2= holderx as ViewHolder2
                 val notify  = mLstNotify[position]
-                showAvatar(holder.avatar_image,notify.gePostID())
+                showAvatar(holder.avatarNotify,notify.gePostID())
 
                 showUserInfor(holder.avatar_image, holder.uname, notify.getUserID())
                 holder.itemView.setOnClickListener{
-                    val pref = mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit()
-                    pref.putString("postID",notify.gePostID())
-                    pref.apply()
-                    (mContext as FragmentActivity).supportFragmentManager.beginTransaction()
-                        .replace(R.id.frameLayout, DetailPostFragment()).commit()
+                    navDes(notify.gePostID(), "changeavatar")
+
 
                 }
+                holder.contentNotify.text="đã thích ảnh đai diện của bạn"
             }
         }
 
 
+    }
+
+    private fun navDes(id: String, type: String){
+        val desIntent = Intent(mContext, DestinationPostActivity::class.java)
+        desIntent.putExtra("id", id)
+        desIntent.putExtra("type", type)
+        mContext.startActivity(desIntent)
+    }
+    private fun deleteNotifyMyself(profileId : String){
+        FirebaseDatabase.getInstance().reference
+            .child("Notify").child(fireabaseUser!!.uid).child(profileId).removeValue()
     }
     private fun setConfirmToNotify(notifyID : String, confirmValue : String){
         FirebaseDatabase.getInstance().reference
@@ -325,18 +400,51 @@ class NotifyAdapter (private val mContext : Context, private val mLstNotify: Lis
             }
         })
     }
-    private fun showImagePost(postImage: ImageView, postID: String  ){
+    private fun showImagePost(postImage: ImageView, postID: String , type: String ){
         val postRef= FirebaseDatabase.getInstance().reference.child("Contents")
-            .child("Posts").child(postID)
+            .child(type).child(postID)
         postRef.addValueEventListener(object: ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
-                    val post = snapshot.getValue(Post::class.java)
-                    post!!.setpost_image(snapshot.child("post_image").value.toString())
-                    Picasso.get().load(post!!.getpost_image()).placeholder(R.drawable.duongtu).into(postImage)
+                    val uri= (snapshot.child("post_image").value.toString())
+                    Picasso.get().load(uri).into(postImage)
+
+                }
+            }
+        })
+    }
+
+    private fun showSharePost(postImage: ImageView, postID: String, type: String ){
+        var path=""
+        if(type=="post"){
+            path="Posts"
+        }
+        else if(type=="cover"){
+            path="AvatarPost"
+
+        }
+        else if(type=="avatar"){
+            path="AvatarPost"
+
+        }
+        val postRef= FirebaseDatabase.getInstance().reference
+
+        postRef.addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    if(snapshot.child("Contents").child("Share Posts").child(postID).exists()){
+                        val uri= snapshot.child("Contents").child(path).child(
+                            snapshot.child("Contents").child("Share Posts").child(postID)
+                                .child("postID").value.toString()
+                        ).child("post_image").value.toString()
+                        Picasso.get().load(uri).into(postImage)
+                    }
 
                 }
             }
@@ -349,8 +457,24 @@ class NotifyAdapter (private val mContext : Context, private val mLstNotify: Lis
         avatarRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
-                    val imageUri = snapshot.child("post_image").getValue().toString()
+                    val imageUri = snapshot.child("post_image").value.toString()
                     Picasso.get().load(imageUri).into(avatar)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+    private fun showCover(cover : ImageView, postID: String){
+        val avatarRef = FirebaseDatabase.getInstance().reference
+            .child("Contents").child("CoverPost")
+            .child(postID)
+        avatarRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val imageUri = snapshot.child("post_image").value.toString()
+                    Picasso.get().load(imageUri).into(cover)
                 }
             }
 

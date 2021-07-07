@@ -12,7 +12,7 @@
             android:layout_margin="15dp"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/duongtu1"
+            android:src="@color/white"
             android:id="@+id/image_avatar"
             />
         <RelativeLayout
@@ -28,9 +28,9 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dương tử"
+                android:text="."
                 android:textStyle="bold"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 />
             <TextView
 
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_shortInfor_user"
                 android:layout_below="@+id/tv_name"
-                android:text="Sống tại Bắc Kinh, Trung Quốc"
+                android:text=""
                 android:textSize="13sp"
 
                 />
@@ -73,7 +73,7 @@
                     android:paddingRight="11dp"
                     android:textSize="11dp"
                     android:text="Kết bạn"
-                    android:background="#42C648"
+                    android:background="#FFFFFF"
                     />
             </androidx.cardview.widget.CardView>
         </RelativeLayout>

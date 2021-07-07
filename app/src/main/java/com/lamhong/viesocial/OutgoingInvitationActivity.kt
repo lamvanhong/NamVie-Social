@@ -150,13 +150,16 @@ class OutgoingInvitationActivity : AppCompatActivity(){
                     try{
 
                         val server = URL("https://meet.jit.si")
-                        val conferenceOptions : JitsiMeetConferenceOptions = JitsiMeetConferenceOptions
-                            .Builder()
-                            .setServerURL(server)
-                            .setWelcomePageEnabled(false)
-                            .setRoom(meetingRoom)
-                            .build()
-                        JitsiMeetActivity.launch(this@OutgoingInvitationActivity,conferenceOptions)
+
+                        val builder = JitsiMeetConferenceOptions.Builder()
+                        builder.setServerURL(server)
+                        builder.setWelcomePageEnabled(false)
+                        builder.setRoom(meetingRoom)
+                        if(meetingType.equals("audio")){
+                            builder.setVideoMuted(true)
+                        }
+
+                        JitsiMeetActivity.launch(this@OutgoingInvitationActivity,builder.build())
                         finish()
 
                     }catch (e :Exception){

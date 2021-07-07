@@ -3,18 +3,16 @@ package com.lamhong.viesocial
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.lamhong.viesocial.Adapter.FriendAdapter
 import kotlinx.android.synthetic.main.activity_following_list.*
-import kotlinx.android.synthetic.main.activity_following_list.btn_banbe_friendlist
-import kotlinx.android.synthetic.main.activity_following_list.btn_dagui_friendlist
-import kotlinx.android.synthetic.main.activity_following_list.btn_dangcho_friendlist
-import kotlinx.android.synthetic.main.activity_following_list.btn_tatca_friendlist
 import kotlinx.android.synthetic.main.activity_following_list.recycleView_friendList
 
 class FollowingListActivity : AppCompatActivity() {
@@ -39,6 +37,10 @@ class FollowingListActivity : AppCompatActivity() {
         userID= intent.getStringExtra("userID").toString()
         type= intent.getStringExtra("type").toString()
 
+        if(FirebaseAuth.getInstance().currentUser.uid != userID){
+            if(btn_dachan!=null)
+                btn_dachan.visibility= View.GONE
+        }
 
         // list
         getList()
@@ -52,20 +54,18 @@ class FollowingListActivity : AppCompatActivity() {
 
         // set if user choosen
         if(type=="follower"){
-            setBtnAppearanceSelected(btn_dangcho_friendlist)
-            setBtnAppearanceNonSelected(btn_dagui_friendlist)
-            setBtnAppearanceNonSelected(btn_tatca_friendlist)
-            setBtnAppearanceNonSelected(btn_banbe_friendlist)
+            setBtnAppearanceSelected(btn_nguoitheodoi)
+            setBtnAppearanceNonSelected(btn_dangtheodoi)
+            setBtnAppearanceNonSelected(btn_dachan)
             //recyclerView.layoutManager= linearLayoutManager
             //recyclerView.adapter= lst_confirmFriendAdapter
             // recyclerView1.visibility= View.GONE
             recyclerView.adapter= lstFollowmeListAdapter
         }
         else {
-            setBtnAppearanceNonSelected(btn_dangcho_friendlist)
-            setBtnAppearanceNonSelected(btn_dagui_friendlist)
-            setBtnAppearanceNonSelected(btn_tatca_friendlist)
-            setBtnAppearanceSelected(btn_banbe_friendlist)
+            setBtnAppearanceNonSelected(btn_dachan)
+            setBtnAppearanceNonSelected(btn_nguoitheodoi)
+            setBtnAppearanceSelected(btn_dangtheodoi)
             //recyclerView.layoutManager= gridLayoutManager
             //recyclerView.adapter= lst_trueFriendAdapter
             //recyclerView1.visibility= View.GONE
@@ -74,22 +74,20 @@ class FollowingListActivity : AppCompatActivity() {
 
 
         //set button selected click
-        btn_banbe_friendlist.setOnClickListener{
-            setBtnAppearanceNonSelected(btn_dangcho_friendlist)
-            setBtnAppearanceNonSelected(btn_dagui_friendlist)
-            setBtnAppearanceNonSelected(btn_tatca_friendlist)
-            setBtnAppearanceSelected(btn_banbe_friendlist)
+        btn_dangtheodoi.setOnClickListener{
+            setBtnAppearanceSelected(btn_dangtheodoi)
+            setBtnAppearanceNonSelected(btn_nguoitheodoi)
+            setBtnAppearanceNonSelected(btn_dachan)
             //recyclerView.layoutManager= gridLayoutManager
             //recyclerView.adapter= lst_trueFriendAdapter
             //recyclerView1.visibility= View.GONE
             recyclerView.adapter= lstFollowListAdapter
 
         }
-        btn_dagui_friendlist.setOnClickListener{
-            setBtnAppearanceNonSelected(btn_dangcho_friendlist)
-            setBtnAppearanceSelected(btn_dagui_friendlist)
-            setBtnAppearanceNonSelected(btn_tatca_friendlist)
-            setBtnAppearanceNonSelected(btn_banbe_friendlist)
+        btn_nguoitheodoi.setOnClickListener{
+            setBtnAppearanceSelected(btn_nguoitheodoi)
+            setBtnAppearanceNonSelected(btn_dangtheodoi)
+            setBtnAppearanceNonSelected(btn_dachan)
             //recyclerView.layoutManager= linearLayoutManager
             //recyclerView.adapter= lst_waittingFriendAdapter
             // recyclerView1.visibility= View.GONE
@@ -97,11 +95,10 @@ class FollowingListActivity : AppCompatActivity() {
 
         }
 
-        btn_dangcho_friendlist.setOnClickListener{
-            setBtnAppearanceSelected(btn_dangcho_friendlist)
-            setBtnAppearanceNonSelected(btn_dagui_friendlist)
-            setBtnAppearanceNonSelected(btn_tatca_friendlist)
-            setBtnAppearanceNonSelected(btn_banbe_friendlist)
+        btn_dachan.setOnClickListener{
+            setBtnAppearanceSelected(btn_dachan)
+            setBtnAppearanceNonSelected(btn_dangtheodoi)
+            setBtnAppearanceNonSelected(btn_nguoitheodoi)
             //recyclerView.layoutManager= linearLayoutManager
             //recyclerView.adapter= lst_confirmFriendAdapter
             // recyclerView1.visibility= View.GONE

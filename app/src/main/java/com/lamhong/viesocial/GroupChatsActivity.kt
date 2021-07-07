@@ -1,5 +1,6 @@
 package com.lamhong.viesocial
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.Menu
@@ -136,6 +137,12 @@ class GroupChatsActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item?.itemId) {
+            R.id.new_message_group -> {
+                startActivity(Intent(this,GroupCreateActivity::class.java))
+            }
+
+        }
         return super.onOptionsItemSelected(item)
     }
 

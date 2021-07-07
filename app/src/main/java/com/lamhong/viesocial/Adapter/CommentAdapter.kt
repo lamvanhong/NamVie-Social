@@ -20,6 +20,7 @@ import com.lamhong.viesocial.Models.Comment
 import com.lamhong.viesocial.Models.User
 import com.lamhong.viesocial.R
 import com.lamhong.viesocial.ReplayCommentActivity
+import com.lamhong.viesocial.Utilities.Constants
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -40,6 +41,7 @@ class CommentAdapter (private val mContext: Context, private val mComment : Muta
         val numLike : TextView
         val imageNumlike : ImageView
         val btnComment: TextView
+        val timeCmtTV : TextView
         init {
             imageAvatar=itemView.findViewById(R.id.image_avatar_eachComment)
             username=itemView.findViewById(R.id.tv_username_item)
@@ -48,12 +50,14 @@ class CommentAdapter (private val mContext: Context, private val mComment : Muta
             numLike= itemview.findViewById(R.id.numLike_cmt)
             imageNumlike = itemview.findViewById(R.id.image_numlike_cmt)
             btnComment= itemview.findViewById(R.id.btn_cmt_cmt)
+            timeCmtTV = itemview.findViewById(R.id.time_cmt)
         }
     }
     override fun onBindViewHolder(holder: CommentAdapter.ViewHolder, position: Int) {
 
         val comment = mComment[position]
         holder.content.text=comment.getContent()
+        holder.timeCmtTV.text = Constants.getTimeCmt(comment.getTimeStamp())
         getUserInfor(holder.imageAvatar, holder.username, comment.getOwner())
             //test
         // function to btn
@@ -75,6 +79,7 @@ class CommentAdapter (private val mContext: Context, private val mComment : Muta
             cmtIntent.putExtra("idUser" , comment.getOwner())
             cmtIntent.putExtra("content", comment.getContent())
             cmtIntent.putExtra("idComment", comment.getIdComment())
+            cmtIntent.putExtra("timecmt",comment.getTimeStamp())
             mContext.startActivity(cmtIntent)
         }
     }

@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.dialog_confirm_deletefriend.*
 import kotlinx.android.synthetic.main.sheet_layout.*
 import kotlinx.android.synthetic.main.sheet_layout.view.*
 
-class BottomSheetFragment(private var mcontext : Context, private var type: String, private var id: String
+class BottomSheetFragment(private var mcontext : Context, private var type2: String, private var id: String
                     , private var publisher: String): BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +25,21 @@ class BottomSheetFragment(private var mcontext : Context, private var type: Stri
         savedInstanceState: Bundle?
     ): View? {
         val view =  inflater.inflate(R.layout.sheet_layout, container, false)
+        if(publisher==FirebaseAuth.getInstance().currentUser.uid){
+            if(view.btn_remove!=null && view.btn_unfollow!=null)
+            {
+                view.btn_remove.visibility=View.GONE
+                view.btn_unfollow.visibility=View.GONE
+            }
+        }
+        else{
+            if(view.btn_delete!=null)
+                view.btn_delete.visibility=View.GONE
+        }
+        view.btn_delete.setOnClickListener{
+            openDialog(Gravity.BOTTOM, mcontext, "deletepost_owner")
+            this.dismiss()
+        }
         view.btn_savePost.setOnClickListener{
             if(!check){
                 check=true
@@ -86,6 +101,9 @@ class BottomSheetFragment(private var mcontext : Context, private var type: Stri
             dialog.name.text="Bạn chắc chắn xóa bài viết"
 
         }
+        else if(type=="deletepost_owner"){
+            dialog.name.text="Bạn chắc chắn xóa bài viết của mình"
+        }
         val yes = dialog.btn_yes
         val no = dialog.btn_no
 
@@ -99,8 +117,13 @@ class BottomSheetFragment(private var mcontext : Context, private var type: Stri
             else if(type=="deletepost"){
                 FirebaseDatabase.getInstance().reference.child("Contents").child("UserTimeLine")
                     .child(FirebaseAuth.getInstance().currentUser.uid).child(id).removeValue()
-                Toast.makeText(mcontext.applicationContext, "Đã xóa thành công thành công" , Toast.LENGTH_LONG).show()
+                Toast.makeText(mcontext.applicationContext, "Đã ẩn bài viết thành công" , Toast.LENGTH_LONG).show()
 
+            }
+            else if(type=="deletepost_owner"){
+                FirebaseDatabase.getInstance().reference.child("Contents").child("Delete")
+                    .child(id).setValue(true)
+                Toast.makeText(mcontext.applicationContext, "Đã xóa bài viết thành công" , Toast.LENGTH_LONG).show()
             }
 
             dialog.dismiss()
@@ -144,7 +167,7 @@ class BottomSheetFragment(private var mcontext : Context, private var type: Stri
         val timelineUser= FirebaseDatabase.getInstance().reference.child("Contents").child("SavePost")
             .child(FirebaseAuth.getInstance().currentUser.uid)
         val pMap = HashMap<String, Any>()
-        pMap["post_type"]=type
+        pMap["post_type"]=type2
         pMap["id"]=id
         pMap["active"]=true
         timelineUser.child(id).setValue(pMap)
