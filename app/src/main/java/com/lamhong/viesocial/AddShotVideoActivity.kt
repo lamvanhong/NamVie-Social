@@ -126,6 +126,9 @@ class AddShotVideoActivity : AppCompatActivity() {
 
 
         }
+        btn_return_picture.setOnClickListener{
+            onBackPressed()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

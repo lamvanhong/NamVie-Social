@@ -85,9 +85,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
 
-        btn_setting.setOnClickListener {
-            startActivity(Intent(this, AccountSettingActivity::class.java))
-        }
+
         btn_chinhsua.setOnClickListener{
             startActivity(Intent(this, ProfileEditting::class.java))
         }
@@ -117,6 +115,7 @@ class ProfileActivity : AppCompatActivity() {
 
                 }
                 "nofriend" -> {
+                    setNotify(profileId)
                     firebaseUser?.uid.let { it1 ->
                         FirebaseDatabase.getInstance().reference
                                 .child("Friends").child(it1.toString())
@@ -140,6 +139,7 @@ class ProfileActivity : AppCompatActivity() {
                         .setValue(true)
                 }
                 "xacnhan" -> {
+                    deleteNotifyMyself()
                     firebaseUser?.uid.let { it1 ->
                         FirebaseDatabase.getInstance().reference
                             .child("Friends").child(it1.toString())
@@ -150,11 +150,25 @@ class ProfileActivity : AppCompatActivity() {
                         .child("Friends").child(profileId)
                         .child("friendList").child(firebaseUser.uid)
                         .setValue("friend")
+                    firebaseUser?.uid.let { it ->
+                        FirebaseDatabase.getInstance().reference
+                            .child("Friends").child(it.toString())
+                            .child("followingList").child(profileId)
+                            .setValue(true)
+                    }
+                    FirebaseDatabase.getInstance().reference
+                        .child("Friends").child(profileId)
+                        .child("followerList").child(firebaseUser.uid)
+                        .setValue(true)
 
                 }
             }
         }
-
+        // more
+        btn_more.setOnClickListener{
+            val bottomSheetFragment = BottomSheetFragmentProfile(this, profileId)
+            bottomSheetFragment.show((this as AppCompatActivity).supportFragmentManager, "")
+        }
         btn_banbe.setOnClickListener{
             val friendListIntent= Intent(this, FriendListActivity::class.java)
             friendListIntent.putExtra("userID", profileId)
@@ -240,7 +254,27 @@ class ProfileActivity : AppCompatActivity() {
         })
 
     }
+    private fun deleteNotify(user: String){
+       FirebaseDatabase.getInstance().reference
+            .child("Notify").child(user).child(firebaseUser.uid).removeValue()
+    }
+    private fun deleteNotifyMyself(){
+        FirebaseDatabase.getInstance().reference
+            .child("Notify").child(firebaseUser.uid).child(profileId).removeValue()
+    }
+    private fun setNotify(userNotifyID : String){
+        val notiRef= FirebaseDatabase.getInstance().reference
+            .child("Notify").child(userNotifyID)
+        val notiMap= HashMap<String, String>()
+        //val idpush : String = notiRef.push().key.toString()
+        notiMap["userID"]=firebaseUser!!.uid
+        notiMap["notify"]="Đã gửi lời mời kết bạn"
+        notiMap["postID"]="active"
+        notiMap["type"]="loimoiketban"
+        notiMap["notifyID"]=firebaseUser!!.uid
 
+        notiRef.child(firebaseUser!!.uid).setValue(notiMap)
+    }
 
     private fun openDialog(gravity: Int, v:Context, type: String) {
 
@@ -279,6 +313,7 @@ class ProfileActivity : AppCompatActivity() {
         yes.setOnClickListener {
             if(type=="deletedangcho"){
                 removeDangCho()
+                deleteNotify(profileId)
             }
             else if(type=="deletefriend"){
                 removeFriend()

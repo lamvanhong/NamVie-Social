@@ -190,7 +190,7 @@ class MessageAdapter(private val messageList: ArrayList<Message>, private val se
 
 
 
-            if (date.day!=date2.day) {
+            if (date.date!=date2.date) {
                 if (date.date==(date2.date-1)) {
                     timestamp.text = "Hôm qua"
                     timestampimage.text = "Hôm qua"
@@ -588,7 +588,7 @@ class MessageAdapter(private val messageList: ArrayList<Message>, private val se
 //                message.setTypeface(null,Typeface.ITALIC)
 //            }
 
-            if (date.day!=date2.day) {
+            if (date.date!=date2.date) {
                 if (date.date==(date2.date-1)) {
                     timestamp.text = "Hôm qua"
                     timestamp2.text = "Hôm qua"

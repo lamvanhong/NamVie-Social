@@ -1,6 +1,8 @@
 package com.lamhong.viesocial.Adapter
 
 import android.content.Intent
+import android.graphics.Typeface
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,8 +37,9 @@ class MessageUsersAdapter(private val messageUsersList: ArrayList<User>) : Recyc
 
         val senderId = FirebaseAuth.getInstance().uid
         val senderRoom = senderId + currentItem.getUid()
+        val receiveRoon = currentItem.getUid() + senderId
 
-        FirebaseDatabase.getInstance().reference
+                FirebaseDatabase.getInstance().reference
                 .child("chats")
                 .child(senderRoom)
                 .addValueEventListener(object : ValueEventListener {
@@ -67,6 +70,109 @@ class MessageUsersAdapter(private val messageUsersList: ArrayList<User>) : Recyc
                     }
                 })
 
+
+
+
+
+        FirebaseDatabase.getInstance().reference
+            .child("chats")
+            .child(senderRoom)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    //Log.d("Tag",snapshot.value.toString())
+                    if (snapshot.exists()) {
+                        val time = snapshot.child("lastTime").value
+                        FirebaseDatabase.getInstance().reference.child("chats")
+                            .child(senderRoom)
+                            .child("message")
+                            .orderByChild("timestamp")
+                            .equalTo(time.toString())
+                            .addValueEventListener(object : ValueEventListener {
+                                override fun onCancelled(error: DatabaseError) {
+                                    TODO("Not yet implemented")
+                                }
+
+                                override fun onDataChange(snapshot: DataSnapshot) {
+
+                                    for (ss in snapshot.children)
+                                    {
+                                        if (ss.exists()) {
+                                            if (ss.child("seen").value==true) {
+                                                holder.tick.visibility = View.VISIBLE
+                                                Log.d("Tag",senderRoom)
+                                            }
+                                            else {
+                                                holder.tick.visibility = View.INVISIBLE
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+                            })
+                    }
+                }
+
+            })
+
+
+        FirebaseDatabase.getInstance().reference
+            .child("chats")
+            .child(receiveRoon)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    //Log.d("Tag",snapshot.value.toString())
+                    if (snapshot.exists()) {
+                        val time = snapshot.child("lastTime").value
+                        FirebaseDatabase.getInstance().reference.child("chats")
+                            .child(receiveRoon)
+                            .child("message")
+                            .orderByChild("timestamp")
+                            .equalTo(time.toString())
+                            .addValueEventListener(object : ValueEventListener {
+                                override fun onCancelled(error: DatabaseError) {
+                                    TODO("Not yet implemented")
+                                }
+
+                                override fun onDataChange(snapshot: DataSnapshot) {
+
+                                    for (ss in snapshot.children)
+                                    {
+                                        if (ss.exists()) {
+                                            Log.d("Tag",ss.value.toString())
+
+                                            if (ss.child("seen").value==false) {
+                                                holder.textMess.setTypeface(null,Typeface.BOLD)
+                                                holder.textView.setTypeface(null,Typeface.BOLD)
+                                                holder.timeMess.setTypeface(null,Typeface.BOLD)
+                                            }
+                                            else {
+                                                holder.textMess.setTypeface(null,Typeface.NORMAL)
+                                                holder.textView.setTypeface(null,Typeface.NORMAL)
+                                                holder.timeMess.setTypeface(null,Typeface.NORMAL)
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+                            })
+                    }
+                }
+
+            })
+
+
         holder.textView.text = currentItem.getName()
         Picasso.get().load(currentItem.getAvatar()).into(holder.imageView)
 
@@ -90,5 +196,6 @@ class MessageUsersAdapter(private val messageUsersList: ArrayList<User>) : Recyc
         var textView = itemView.user_name_message
         var textMess = itemView.text_message
         var timeMess = itemView.time_message
+        var tick = itemView.tick
     }
 }

@@ -17,6 +17,7 @@ import com.lamhong.viesocial.Models.User
 import com.lamhong.viesocial.Models.UserInfor
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_setting.*
+import kotlinx.android.synthetic.main.fragment_setting.avatar
 import kotlinx.android.synthetic.main.fragment_setting.view.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -43,7 +44,9 @@ class SettingFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
+    // intent transfer
+    var userAvatar1 =""
+    var userName1=""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,7 +56,9 @@ class SettingFragment : Fragment() {
 
         firebaseUser = FirebaseAuth.getInstance().currentUser
         view.btn_movetoFriendList.setOnClickListener{
-            startActivity(Intent(context, FriendListActivity::class.java))
+            val friendListIntent= Intent(context, FriendListActivity::class.java)
+            friendListIntent.putExtra("userID", firebaseUser.uid)
+            this?.startActivity(friendListIntent)
         }
         view.btn_logout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
@@ -63,7 +68,10 @@ class SettingFragment : Fragment() {
             startActivity(Intent(context, PrivateActivity::class.java))
         }
         view.btn_movetoUserActivity.setOnClickListener{
-            startActivity(Intent(context, UserActiviesActivity::class.java))
+            val acIntent = Intent(context, UserActiviesActivity::class.java)
+            acIntent.putExtra("userAvatar", userAvatar1  )
+            acIntent.putExtra("userName", userName1)
+            startActivity(acIntent)
         }
         view.btn_movetoSavePost.setOnClickListener{
             startActivity(Intent(context, UserSavePostActivity::class.java))
@@ -117,8 +125,15 @@ class SettingFragment : Fragment() {
                 if(snapshot.exists()){
                     val curUser = snapshot.getValue(User::class.java)
                     curUser!!.setName(snapshot.child("fullname").value.toString())
+                    if(userName!=null)
                     userName.text=curUser!!.getName()
+
+                    if(avatar!=null)
                     Picasso.get().load(curUser!!.getAvatar()).into(avatar)
+
+                    //prepare value for intent
+                    userName1= curUser!!.getName()
+                    userAvatar1=curUser!!.getAvatar()
 
 
                 }
@@ -138,9 +153,9 @@ class SettingFragment : Fragment() {
                     val user : UserInfor= UserInfor()
                     user!!.setBio(snapshot.child("bio").value.toString())
 
-                    Picasso.get().load(snapshot.child("coverImage").value.toString()).placeholder(R.drawable.cty)
+                    if(coverBlur!=null)
+                    Picasso.get().load(snapshot.child("coverImage").value.toString()).placeholder(R.color.white)
                         .into(coverBlur)
-                    coverBlur.setBlur(2)
 
                 }
             }
@@ -152,6 +167,27 @@ class SettingFragment : Fragment() {
     }
 
     private fun setNumberProfile() {
+        val followList= FirebaseDatabase.getInstance().reference
+            .child("Friends").child(firebaseUser.uid)
+            .child("followerList")
+
+        followList.addValueEventListener(object: ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+
+
+                    numFollow?.text=snapshot.childrenCount.toString()
+
+                }
+                else {
+                    numFollow?.text="0"
+                }
+            }
+        })
         val ref= FirebaseDatabase.getInstance().reference
             .child("Friends").child(firebaseUser.uid).child("friendList")
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -161,7 +197,16 @@ class SettingFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     if(NumFriends!=null)
-                    NumFriends.text=snapshot.childrenCount.toString()
+                    {
+                        var sum=0
+                        for (s in snapshot.children){
+                            if(s.value.toString()=="friend"){
+                                sum+=1
+                            }
+                        }
+                        NumFriends?.text=sum.toString()
+                    }
+
                 }
                 else{
                     NumFriends.text="0"

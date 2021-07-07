@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".UserActiviesActivity">
+        tools:context=".DestinationPostActivity">
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                     android:layout_marginLeft="40dp"
                     android:textStyle="bold"
                     android:textColor="#00BCD4"
-                    android:text="Hoạt động"
+                    android:text="Chi tiết bài viết"
                     android:textSize="20sp" />
 
                 <RelativeLayout
@@ -39,8 +39,8 @@
                     android:layout_marginRight="20dp">
 
                     <ImageView
-                        android:layout_width="23dp"
-                        android:layout_height="23dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/icon_filter" />
                 </RelativeLayout>
@@ -51,11 +51,11 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleview_activities"
+            android:id="@+id/recycleview_des"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="70dp"
             />
 
 
