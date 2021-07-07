@@ -17,9 +17,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.lamhong.viesocial.Adapter.CommentAdapter
+import com.lamhong.viesocial.Adapter.TOPIC
 import com.lamhong.viesocial.Models.Comment
 import com.lamhong.viesocial.Models.User
+import com.lamhong.viesocial.Network.MyFirebaseMessagingService
+import com.lamhong.viesocial.Utilities.Constants
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_comment_share.*
 import kotlinx.android.synthetic.main.activity_comment_share.btn_close
@@ -62,6 +66,42 @@ class CommentShareActivity : AppCompatActivity() {
         firebaseUser= FirebaseAuth.getInstance().currentUser
         userInfor()
         imageandOwnerInfor()
+
+        //Notification
+        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            if(it.isComplete){
+                val fbToken = it.result.toString()
+                MyFirebaseMessagingService.token =fbToken
+            }
+        }
+        var nameuser =""
+        val userRef = FirebaseDatabase.getInstance().reference
+            .child("UserInformation").child(FirebaseAuth.getInstance().uid!!)
+        userRef.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+
+                    nameuser= snapshot.child("fullname").value.toString()
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+        var token =""
+        val userRef2 = FirebaseDatabase.getInstance().reference
+            .child("UserInformation").child(publisher)
+        userRef2.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+
+                    token = (snapshot.child(Constants.KEY_FCM_TOKEN).value.toString())
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+        //End notification
         // set image to separate post
         if(type=="post"){
             getImagePost()
@@ -84,7 +124,7 @@ class CommentShareActivity : AppCompatActivity() {
             if (TextUtils.isEmpty(edit_add_comment.text)) {
                 Toast.makeText(this, "Nhập nội dung trước !!", Toast.LENGTH_LONG)
             } else {
-                addComment()
+                addComment(nameuser, token)
             }
         }
         // add recycleview
@@ -123,7 +163,7 @@ class CommentShareActivity : AppCompatActivity() {
             }
         })
     }
-    private fun addComment(){
+    private fun addComment(nameuser : String, token: String){
         val commentRef= FirebaseDatabase.getInstance().reference.child("AllComment")
             .child("Comments").child(shareID)
         val commentMap =HashMap<String, Any>()
@@ -135,6 +175,7 @@ class CommentShareActivity : AppCompatActivity() {
 
         edit_add_comment.text.clear()
         addNotify()
+        Constants.doSendNotify(nameuser, token, "đã bình luận trên bài chia sẻ của bạn")
         val imm = this?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
         imm?.toggleSoftInput(InputMethodManager.RESULT_HIDDEN, 0)
     }
@@ -144,7 +185,7 @@ class CommentShareActivity : AppCompatActivity() {
         val notiMap = HashMap<String,Any>()
         val idpush : String = notiRef.push().key.toString()
         notiMap["userID"]=firebaseUser!!.uid
-        notiMap["notify"]=edit_add_comment.text.toString()
+        notiMap["notify"]=type
         notiMap["postID"]=shareID
         notiMap["type"]="binhluan"
         notiMap["notifyID"]=idpush

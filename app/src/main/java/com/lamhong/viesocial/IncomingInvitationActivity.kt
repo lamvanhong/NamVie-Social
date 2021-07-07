@@ -40,6 +40,8 @@ class IncomingInvitationActivity : AppCompatActivity() {
         if(meetingType!=null){
             if(meetingType.equals("video")){
                 MeetingTypeInComingimg.setImageResource(R.drawable.ic_baseline_videocam_24)
+            }else{
+                MeetingTypeInComingimg.setImageResource(R.drawable.ic_baseline_call_24)
             }
         }
 
@@ -99,13 +101,15 @@ class IncomingInvitationActivity : AppCompatActivity() {
                         try {
 
                             val serverURL: URL = URL("https://meet.jit.si")
-                            val conferenceOptions : JitsiMeetConferenceOptions = JitsiMeetConferenceOptions
-                                .Builder()
-                                .setServerURL(serverURL)
-                                .setWelcomePageEnabled(false)
-                                .setRoom(intent.getStringExtra(Constants.REMOTE_MSG_MEETING_ROOM))
-                                .build()
-                            JitsiMeetActivity.launch(this@IncomingInvitationActivity,conferenceOptions)
+
+                            val builder = JitsiMeetConferenceOptions.Builder()
+                            builder.setServerURL(serverURL)
+                            builder.setWelcomePageEnabled(false)
+                            builder.setRoom(intent.getStringExtra(Constants.REMOTE_MSG_MEETING_ROOM))
+                            if(meetingType.equals("audio")){
+                                builder.setVideoMuted(true)
+                            }
+                            JitsiMeetActivity.launch(this@IncomingInvitationActivity, builder.build())
                             finish()
 
                         }catch (e : Exception){

@@ -25,11 +25,12 @@ import com.lamhong.viesocial.Utilities.Constants.Companion.doSendNotify
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
-val TOPICC ="/topics/myTopic"
-class PostAdapter (private val mcontext: Context, private val mPost : List<Post> ,
+class ActivitiesPostAdapter (private val mcontext: Context, private val mPost : List<Post> ,
                    private val mLstIndex: List<Int> , private val mLstType: List<Int>,
                    private val mShare: List<SharePost>, private val mAvatarList : List<Post>,
-                    private val mCoverImageList : List<Post>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+                   private val mCoverImageList : List<Post>,
+                    private val mActivityList: List<ActivityManager>
+                    ,private val userAvatar : String, private val userName: String): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     private var firebaseUser : FirebaseUser?=null
     var uri: String=""
     inner class ViewHolder0(@NonNull itemVIew: View): RecyclerView.ViewHolder(itemVIew){
@@ -128,10 +129,26 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
             userName = itemView.findViewById(R.id.user_name_search)
         }
     }
+    inner class ViewHolder4(@NonNull itemVIew: View): RecyclerView.ViewHolder(itemVIew){
+       var activityName: TextView
+       var username: TextView
+       var avatar: CircleImageView
+        init {
+            activityName=itemView.findViewById(R.id.name)
+            username=itemView.findViewById(R.id.username)
+            avatar=itemView.findViewById(R.id.avatar)
+        }
+    }
+
 
     override fun getItemViewType(position: Int): Int {
-       // return super.getItemViewType(position)
-        return mLstType[position]
+        // return super.getItemViewType(position)
+        if(position%2==0){
+            return mLstType[position/2]
+        }
+        else {
+            return 4
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -153,6 +170,10 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                 val view = LayoutInflater.from(mcontext).inflate(R.layout.posts_layout, parent, false)
                 return ViewHolder0(view)
             }
+            4->{
+                val view = LayoutInflater.from(mcontext).inflate(R.layout.activities_layout, parent, false)
+                return ViewHolder4(view)
+            }
         }
         val view = LayoutInflater.from(mcontext).inflate(R.layout.posts_layout, parent, false)
         return ViewHolder0(view)
@@ -165,13 +186,49 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
         //getPostAndShare()
         when(holderc.getItemViewType()){
+            4->{
+                val holder1 : ViewHolder4 = holderc as ViewHolder4
+                val activities  = mActivityList[position/2]
+                when(activities.getType()){
+                    "unlikecover"->{
+                        holder1.activityName.text="đã hủy thích ảnh bìa"
+
+                    }
+                    "likecover"->{
+                        holder1.activityName.text="đã thích ảnh bìa"
+                    }
+                    "unlikeavatar"->{
+                        holder1.activityName.text="hủy thích ảnh đại diện"
+                    }
+                    "likeavatar"->{
+                        holder1.activityName.text="đã thích ảnh đại diện"
+                    }
+                    "unlikeshare"->{
+                        holder1.activityName.text="hủy thích bài chia sẻ"
+                    }
+                    "likeshare"->{
+                        holder1.activityName.text="đã thích bài chia sẻ"
+                    }
+                    "unlike"->{
+                        holder1.activityName.text="đã hủy thích bài viết"
+                    }
+                    "like"->{
+                        holder1.activityName.text="đã thích bài viết"
+                    }
+                    else ->{
+                        holder1.activityName.text=activities.getType()
+                    }
+                }
+                Picasso.get().load(userAvatar).into(holder1.avatar)
+                holder1.username.text=userName
+            }
             0->{
 
 
                 val holder1 : ViewHolder0 = holderc as ViewHolder0
 
                 holder1.tv_typePost.visibility= View.GONE
-                val post= mPost[mLstIndex[position]]
+                val post= mPost[mLstIndex[position/2]]
 
 
 
@@ -251,7 +308,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                 }
                 holder1.btnLike.setOnClickListener{
                     //Toast.makeText(mcontext, "honghong", Toast.LENGTH_LONG).show()
-                   // Toast.makeText(mcontext.applicationContext, "Đã lưu bài viết" , Toast.LENGTH_LONG).show()
+                    // Toast.makeText(mcontext.applicationContext, "Đã lưu bài viết" , Toast.LENGTH_LONG).show()
 
                     if(holder1.btnLike.tag=="Like"){
                         doSendNotify(nameuser, token, "đã thích bài viết của bạn")
@@ -261,18 +318,6 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                             .child(post.getpost_id())
                             .child(firebaseUser!!.uid)
                             .setValue(true)
-
-                        // set to activities
-                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
-                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
-                        val pMap = HashMap<String, Any>()
-                        pMap["post_type"]="post"
-                        pMap["id"]=post.getpost_id()
-                        pMap["active"]=true
-                        pMap["type"]="like"
-                        pMap["timestamp"]=System.currentTimeMillis()
-                        activityRef.push().setValue(pMap)
-
                     }else
                     {
                         FirebaseDatabase.getInstance().reference
@@ -283,17 +328,6 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                         //  val intent=Intent(mcontext,zHome::class.java)
                         // mcontext.startActivity(intent)
-
-                        // set to activity
-                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
-                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
-                        val pMap = HashMap<String, Any>()
-                        pMap["post_type"]="post"
-                        pMap["id"]=post.getpost_id()
-                        pMap["active"]=true
-                        pMap["type"]="unlike"
-                        pMap["timestamp"]=System.currentTimeMillis().toString()
-                        activityRef.push().setValue(pMap)
 
                     }
                 }
@@ -327,7 +361,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                 // share option
                 val holder1= holderc as ViewHolder1
-                val sharePost = mShare[mLstIndex[position]]
+                val sharePost = mShare[mLstIndex[position/2]]
 
                 //Notification
                 FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
@@ -391,7 +425,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                 holder1.avatar_sharing.setOnClickListener{
                     val userIntent = Intent(mcontext, ProfileActivity::class.java)
                     userIntent.putExtra("profileID", sharePost.getPublisher())
-                     mcontext.startActivity(userIntent)
+                    mcontext.startActivity(userIntent)
                 }
                 holder1.name_sharing.setOnClickListener {
                     val userIntent = Intent(mcontext, ProfileActivity::class.java)
@@ -410,7 +444,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                 getPost(sharePost.getPostID(), holder1.postImage, holder1.avatar_shared,
                     holder1.content_shared, holder1.name_shared , sharePost.getType()
-                , holder1.container_avatar_sharelayout, holder1.avatar_sharelayout, holder1.tv_displaytype)
+                    , holder1.container_avatar_sharelayout, holder1.avatar_sharelayout, holder1.tv_displaytype)
 
 
 
@@ -443,18 +477,6 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                             .child(sharePost.getShareID())
                             .child(firebaseUser!!.uid)
                             .setValue(true)
-
-                        // set to activity
-                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
-                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
-                        val pMap = HashMap<String, Any>()
-                        pMap["post_type"]="sharepost"
-                        pMap["id"]=sharePost.getShareID()
-                        pMap["active"]=true
-                        pMap["type"]="likeshare"
-                        pMap["timestamp"]=System.currentTimeMillis().toString()
-                        activityRef.push().setValue(pMap)
-
                     }else
                     {
                         FirebaseDatabase.getInstance().reference
@@ -465,17 +487,6 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                         //  val intent=Intent(mcontext,zHome::class.java)
                         // mcontext.startActivity(intent)
-
-                        // set to activity
-                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
-                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
-                        val pMap = HashMap<String, Any>()
-                        pMap["post_type"]="sharepost"
-                        pMap["id"]=sharePost.getShareID()
-                        pMap["active"]=true
-                        pMap["type"]="unlikeshare"
-                        pMap["timestamp"]=System.currentTimeMillis().toString()
-                        activityRef.push().setValue(pMap)
 
                     }
                 }
@@ -504,7 +515,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                 val holder1 : ViewHolder2 = holderc as ViewHolder2
 
 
-                val post= mAvatarList[mLstIndex[position]]
+                val post= mAvatarList[mLstIndex[position/2]]
 
                 //Notification
                 FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
@@ -589,17 +600,6 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                             .child(post.getpost_id())
                             .child(firebaseUser!!.uid)
                             .setValue(true)
-
-                        // set to activity
-                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
-                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
-                        val pMap = HashMap<String, Any>()
-                        pMap["post_type"]="changeavatar"
-                        pMap["id"]=post.getpost_id()
-                        pMap["active"]=true
-                        pMap["type"]="likeavatar"
-                        pMap["timestamp"]=System.currentTimeMillis().toString()
-                        activityRef.push().setValue(pMap)
                     }else
                     {
                         FirebaseDatabase.getInstance().reference
@@ -610,17 +610,6 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                         //  val intent=Intent(mcontext,zHome::class.java)
                         // mcontext.startActivity(intent)
-
-                        // set to activity
-                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
-                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
-                        val pMap = HashMap<String, Any>()
-                        pMap["post_type"]="changeavatar"
-                        pMap["id"]=post.getpost_id()
-                        pMap["active"]=true
-                        pMap["type"]="unlikeavatar"
-                        pMap["timestamp"]=System.currentTimeMillis().toString()
-                        activityRef.push().setValue(pMap)
 
                     }
                 }
@@ -648,7 +637,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                 val holder1 : ViewHolder0 = holderc as ViewHolder0
 
                 holder1.tv_typePost.visibility= View.VISIBLE
-                val post= mCoverImageList[mLstIndex[position]]
+                val post= mCoverImageList[mLstIndex[position/2]]
 
                 //Notification
                 FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
@@ -727,17 +716,6 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
                             .child(post.getpost_id())
                             .child(firebaseUser!!.uid)
                             .setValue(true)
-
-                        // set to activity
-                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
-                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
-                        val pMap = HashMap<String, Any>()
-                        pMap["post_type"]="changecover"
-                        pMap["id"]=post.getpost_id()
-                        pMap["active"]=true
-                        pMap["type"]="likecover"
-                        pMap["timestamp"]=System.currentTimeMillis().toString()
-                        activityRef.push().setValue(pMap)
                     }else
                     {
                         FirebaseDatabase.getInstance().reference
@@ -748,17 +726,6 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                         //  val intent=Intent(mcontext,zHome::class.java)
                         // mcontext.startActivity(intent)
-
-                        // set to activity
-                        val activityRef= FirebaseDatabase.getInstance().reference.child("Contents")
-                            .child("Activities").child(FirebaseAuth.getInstance().currentUser.uid)
-                        val pMap = HashMap<String, Any>()
-                        pMap["post_type"]="changecover"
-                        pMap["id"]=post.getpost_id()
-                        pMap["active"]=true
-                        pMap["type"]="unlikecover"
-                        pMap["timestamp"]=System.currentTimeMillis().toString()
-                        activityRef.push().setValue(pMap)
 
                     }
                 }
@@ -791,7 +758,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
     }
 
     private fun setShareNumber(numshare: TextView, getpostId: String) {
-         val ref= FirebaseDatabase.getInstance().reference.child("Contents").child("Share Posts")
+        val ref= FirebaseDatabase.getInstance().reference.child("Contents").child("Share Posts")
         ref.addValueEventListener(object  : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
@@ -820,8 +787,8 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
     }
 
     private fun getPost(id: String, postImage: ImageView, avatar_shared: CircleImageView,
-            content_shared: TextView , name_shared : TextView , type: String,
-            container : RelativeLayout, avatar: CircleImageView, tv_displaytype: TextView){
+                        content_shared: TextView , name_shared : TextView , type: String,
+                        container : RelativeLayout, avatar: CircleImageView, tv_displaytype: TextView){
         var path=""
         if(type=="avatar"){
             path="AvatarPost"
@@ -924,7 +891,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
     private fun setComment(numcomment: TextView, postId: String){
         val commentRef= FirebaseDatabase.getInstance().reference.child("AllComment")
-           // .child("Comments").child(postId)
+        // .child("Comments").child(postId)
         commentRef.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -984,9 +951,9 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
                 }
                 else{
-                   likeButton.tag="Like"
-                 //  likeButton.setTextAppearance(mcontext, R.style.likeButton) //image not like
-                   likeButton.setImageResource(R.drawable.custombtn_like)
+                    likeButton.tag="Like"
+                    //  likeButton.setTextAppearance(mcontext, R.style.likeButton) //image not like
+                    likeButton.setImageResource(R.drawable.custombtn_like)
                     tvThich.setTextColor(Color.parseColor("#2FBBF0"))
                 }
 
@@ -1001,7 +968,7 @@ class PostAdapter (private val mcontext: Context, private val mPost : List<Post>
 
 
     override fun getItemCount(): Int {
-        return mLstType.size
+        return mLstType.size *2
     }
 
     private fun addNotifyLike(publisherID: String, postId: String, type : String){

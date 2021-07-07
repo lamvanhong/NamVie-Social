@@ -9,6 +9,7 @@ import java.io.Serializable
     private var uid: String=""
     private var avatar : String=""
     private var token : String=""
+        private var timeChat : String  = ""
   //  private var imageUrl : String=""
     constructor()
     constructor( fullname : String,email: String, uid: String , avatar : String){
@@ -48,6 +49,12 @@ import java.io.Serializable
     fun setToken(token :String ){
         this.token = token
     }
+        fun getTimeChat():String{
+            return timeChat
+        }
+        fun setTimeChat(timeChat :String ){
+            this.timeChat =timeChat
+        }
 //    fun setImageurl(imageUrl: String){
 //        this.imageUrl=imageUrl
 //    }

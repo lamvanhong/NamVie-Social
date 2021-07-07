@@ -140,12 +140,6 @@ class NewMessageActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item?.itemId) {
-            R.id.new_message_group -> {
-                startActivity(Intent(this,GroupCreateActivity::class.java))
-            }
-
-        }
         return super.onOptionsItemSelected(item)
     }
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:layout_marginTop="30dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    app:cardCornerRadius="10dp"
+    android:backgroundTint="#FFFFFF"
+    app:cardElevation="5dp">
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="#52A8B3"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="80dp"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            >
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bạn"
+                android:textStyle="bold"
+                android:textSize="17dp"
+                android:textColor="#2196F3"
+                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_marginTop="1dp"
+                android:layout_marginLeft="6dp"
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="đã thích bài viết này"
+                android:layout_gravity="center_vertical"
+                android:textStyle="bold"
+                android:textSize="14dp"
+
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avatar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/cty"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginLeft="20dp"
+        />
+
+</androidx.cardview.widget.CardView>

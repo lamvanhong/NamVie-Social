@@ -39,7 +39,7 @@ import com.google.firebase.database.ValueEventListener
         recyclerView.layoutManager=linearLayoutManager
 
         listUser= ArrayList()
-        userAdapter= UserAdapter(this, listUser as ArrayList<User>,false)
+        userAdapter= UserAdapter(this, listUser as ArrayList<User>,false, "home")
         recyclerView.adapter=userAdapter
 
         listID= ArrayList()
